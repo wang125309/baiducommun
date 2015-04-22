@@ -1,0 +1,186 @@
+@import "../css/tip.css";
+@import "../../../bower_components/normalize.css/normalize.css";
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-font-smoothing:antialiased;
+  outline:none;
+}
+
+$fontBlack:#333;
+$fontGrey:#777;
+$divBorder:#dcdcdc;
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix   {
+  display:inline-table;
+  height:1%;
+  display:block;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+.sm-tip {
+    font-size: 4.3vw;
+    color: $fontGrey;
+    font-weight: 400;
+    letter-spacing: 0.21vw;
+    line-height: 6vw;
+}
+
+.lg-tip {
+    height: inherit;
+    font-size: 4.7vw;
+    color: $fontGrey;
+    font-weight: 400;
+    letter-spacing: 0.23vw;
+}
+
+.card-number {
+    height: 14vw;
+    line-height: 16vw;
+    span {
+        margin-left: 5vw;
+        float: left;
+        color: #f44e56;
+        font-size: x-large;
+        height: inherit;
+    }
+}
+
+.number-input {
+    border-left: 0;
+    border-right: 0;
+    border-top: 1px solid $divBorder;
+    border-bottom: 1px solid $divBorder;
+    height: 16vw;
+    width: 100%;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    text-align: left;
+    font-size: 4.7vw;
+    line-height: 16vw;
+    box-sizing: border-box;
+    -webkit-user-select: initial;
+    user-select: initial;
+}
+
+.upload-image {
+    height: 16vw;
+    line-height: 20vw;
+    span {
+        margin-left: 5vw;
+        float: left;
+        color: #f44e56;
+        font-size: x-large;
+        height: inherit;
+    }
+}
+
+.desc {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 3vw;
+    word-wrap: break-word;
+}
+
+.demo-image {
+    width: 100%;
+    height: 64vw;
+    .demo-one {
+        float: left;
+        width: 49vw;
+        height: 64vw;
+        background: url(../image/example_1.png) center center no-repeat transparent;
+        background-size: contain;
+    }
+    .demo-two {
+        float: right;
+        width: 49vw;
+        height: 64vw;
+        background: url(../image/example_2.png) center center no-repeat transparent;
+        background-size: contain;
+    }
+}
+
+.instance-image {
+    width: 100%;
+    height: 64vw;
+    margin-top: 4vw;
+    margin-bottom: 4vw;
+    .instance-one, .instance-two {
+        background-color: #fff;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        float: left;
+        margin-left: 3vw;
+        width: 45.5vw;
+        height: 64vw;
+    }
+    .add-image {
+        width: 12vw;
+        height: 12vw;
+        margin: 0 auto;
+        margin-top: 14vw;
+        background: url(../image/upload.png) center center no-repeat transparent;
+        background-size: cover;
+    }
+    .tip {
+        margin-left: 2vw;
+        margin-right: 2vw;
+        margin-top: 5vw;
+        border: 0;
+        font-size: 4.3vw;
+        font-weight: 400;
+        color: $fontGrey;
+        letter-spacing: 0.21vw;
+        text-align: center;
+    }
+    .delete-image {
+        height: 4vw;
+        width: 4vw;
+        background: url(../image/icon-close.png) center center no-repeat transparent;
+        background-size: contain;
+        margin-left: 1vw;
+        margin-top: 1vw;
+    }
+    .image-tip {
+        margin-top: 8vw;
+    }
+    .file-input {
+        display: none;
+    }
+}
+
+.submit-btn {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 12vw;
+    background-color: #06c1ae;
+    text-align: center;
+    line-height: 12vw;
+    color: white;
+    font-size: 4.7vw;
+}
+
+.submit-btn:active {
+    box-shadow : 1px 0 32px rgba(0,0,0,.4) inset;
+}
+
+.jacking {
+    height: 12vw;
+}

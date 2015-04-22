@@ -1,0 +1,114 @@
+include ./lib/header.jade
+title 任务详情
+link(href="/static/public/css/taskInfo.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/taskInfo.min.js",language="javascript")
+body(ng-controller="TaskInfoCtrl",ng-cloak)
+    section#header(ng-show="submitView==false")
+        div.check_tab.clearfix(ng-if="(commun_count>1&&task.data.type==3)||(commun_count>1&&task.data.type==4)")
+            //div.first(class="{{tab1_active}}",ng-click="showOther()") {{ tab1 }}
+            //div.second(class="{{tab2_active}}",ng-click="showOther()") {{ tab2 }}
+            //div.more(ng-if="commun_count > 2")
+            div.more-menu(ng-repeat="i in tab track by $index")
+                div.commun_names.active(ng-if="active==i.num",ng-click="show_other( i.num )") 
+                    div.name(ng-if="i.rel==1") 
+                        span.tuan 团 
+                        span.name {{ i.name }}
+                        
+                    div.name(ng-if="i.rel!=1") {{ i.name }}
+                div.commun_names(ng-if="active!=i.num",ng-click="show_other( i.num )")
+                    div.name(ng-if="i.rel==1") 
+                        span.tuan 团 
+                        span.name {{ i.name }}
+                        
+                    div.name(ng-if="i.rel!=1") {{ i.name }}
+        div.right-coner-div=""
+        div.right-coner(ng-if="taskState=='已领取'")
+            div.stamp(style='background:url("/static/public/image/already-receive.png")')
+        div.right-coner(ng-if="taskState=='已提交'")
+            div.stamp(style='background:url("/static/public/image/already-submit.png")')
+        div.right-coner(ng-if="taskState=='已驳回'")
+            div.stamp(style='background:url("/static/public/image/already-confuse.png")')
+        div.right-coner(ng-if="taskState=='已评奖'")
+            div.stamp(src='/static/public/image/already-prize.png')
+            div.stamp(style='background:url("/static/public/image/already-prize.png")')
+        div.right-coner(ng-if="taskState=='已过期'")
+            div.stamp(style='background:url("/static/public/image/already-expire.png")')
+        div.right-coner(ng-if="taskState=='已通过'")
+            div.stamp(style='background:url("/static/public/image/already-pass.png")')
+        div.title {{ task.data.name }}
+        div.task-info.clearfix
+            div.end-time {{ task.data.endDate }}
+            div.line-type.clearfix(ng-if="task.data.type==1") 线上
+            div.line-type.clearfix(ng-if="task.data.type==3") 线上
+            div.line-type.clearfix(ng-if="task.data.type==2") 线下
+            div.line-type.clearfix(ng-if="task.data.type==4") 线下
+            div.type.clearfix(ng-if="task.data.type==3") 社团
+            div.type.clearfix(ng-if="task.data.type==4") 社团
+            div.type.clearfix(ng-if="task.data.type==1") 个人
+            div.type.clearfix(ng-if="task.data.type==2") 个人
+
+        div.banner
+            img(ng-src="{{ task.data.resourceUrl }}",onerror="this.src='http://placehold.it/375x170'")
+        div.desc(ng-bind-html="trustHtml()")
+        section.price-bar
+            div.right-text.clearfix(ng-click="add_fans()")
+                div.hot-icon.clearfix(ng-show="like==0",style="background:url('/static/public/image/hot-up-icon.png')")=""
+                div.hot-icon.clearfix(ng-show="like==1",style="background:url('/static/public/image/hot-up-icon-active.png')")=""
+                div.hot-text.clearfix 赞({{ likeNum }})
+    section#task(ng-if="task.data.prizeData")
+        span.green=""
+        span 奖励详情
+        div.prize-data
+            div.prize-data-detail.clearfix(ng-repeat="p in task.data.prizeData")
+                div.prize-line(ng-if="p.prizeType==1") {{ p.prizeLevel }} {{ p.prize }}
+                div.prize-line(ng-if="p.prizeType==2") {{ p.prizeLevel }} {{ p.prize }}&nbsp;积分
+    section.task-condition
+        span.green=""
+        span 任务条件
+        div.task-text(ng-if="task.data.condition") {{ task.data.condition }}
+        div.task-text(ng-if="!task.data.condition") 恭迎各路神仙鬼怪😊，只要你敢来，我们就敢给 
+    section.score(ng-if="taskState=='已评奖'&&show_task_prize_list")
+        div.prize-icon=""
+        span 获奖列表
+        div.score-sheet
+            div.score-list.clearfix(ng-repeat="m in taskPrizeList.data.list")
+                div.line.clearfix
+                    div.prize-icon=""
+                    div.name(ng-if="m.communityName&&m.prizeScore") {{ m.communityName }}获得{{ m.prizeScore }}&nbsp;积分
+                    div.name(ng-if="m.communityName&&m.prizeName") {{ m.communityName }}获得{{ m.prizeName }}
+                    div.name(ng-if="m.userName&&m.prizeScore") {{ m.userName }}获得{{ m.prizeScore }}&nbsp;积分
+                    div.name(ng-if="m.userName&&m.prizeName") {{ m.userName }}获得{{ m.prizeName }}&nbsp;积分
+    section.score-apply.clearfix(ng-if="taskState!='已评奖'&&show_scoreRanking")
+        div.apply-icon=""
+        span 申请列表
+        div.score-list.clearfix
+            div.line.clearfix(ng-repeat="m in scoreRanking.data.list")
+                div.name.clearfix(ng-if="m.communityName") {{ m.communityName }}
+                div.name.clearfix(ng-if="m.userName") {{ m.userName}}
+
+    div.placehold-footer=""
+    div.bottom-bar
+        button.baidu-btn.submit-task.grey(ng-show="taskState=='已领取'")
+            span 任务已领取，请耐心等候审核
+        button.baidu-btn.submit-task(ng-click="getTask()",ng-if="taskState=='未领取'")
+            span 领取任务
+        button.baidu-btn.submit-task(ng-show="(task.data.type==1&&taskState=='已通过')||(task.data.type==3&&taskState=='已通过'&&reltype!=0)",ng-click="submitTask();")
+            span {{ submitTextOnline }}
+        button.baidu-btn.submit-task(ng-click="getQrcode()",ng-show="(task.data.type==4&&taskState=='已通过'&&reltype!=0&&reltype!=4)||(task.data.type==2&&taskState=='已通过')")
+            span 点击获取二维码
+    div(class="alert-menu base {{ alertClass }}",ng-show="alert==true")
+        div.message {{ taskMessage }}
+        div.know(ng-click="iknow()")
+            a(href="javascript:;") 我知道了
+    div.submit-task-view.base.pull-up(ng-show="submitView==true")
+        div.add-file
+            div.add-title 添加文件
+            div.pull-right.clear.back-link(href="javascript:;",ng-click="backTask()") 返回
+            form(method="post",id="form",role="form",enctype="multipart/form-data")
+                div.add-area
+                    div.preview(ng-repeat="i in previews",style="{{ i.image }}")
+                        //div.close(ng-click="close_img(i.pos)")=""
+                    div.file-add(ng-click="fileAdd()")=""   
+                    input(hidden,name="taskStatusId",value="{{ taskStatusId }}")
+                    input.add-image(ng-repeat="i in image_files",name="file",type="file",file-upload,id="add-image-{{ i }}")
+        div.submit-btn(ng-click="form_submit()") {{ submitText }}

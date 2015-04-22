@@ -1,0 +1,25 @@
+include ./lib/header.jade
+link(href="/static/public/css/joinCommun.css", rel="stylesheet", type="text/css")
+script(src="/static/public/js/joinCommun.min.js", language="javascript")
+title 尽快找到你的组织哦
+body(ng-app="baidu", ng-controller="JoinCommunCtrl", ng-cloak)
+    section#header
+        div.join-bear=""
+        div.header-wrap
+            div.searchbody(ng-click="focus_school()")
+                div.search-image
+                input.school-input(type="text" placeholder="请输入学校" ng-model="schoolName" ng-change="changeSchool()")
+            div.searchbody(ng-click="focus_commun()")
+                div.search-image
+                input.commun-input(type="text" placeholder="请输入社团" ng-model="communName" ng-change="changeCommuns()")
+    section#school-content(ng-show="schoolList.length")
+        div.school-list
+            div.item.clearfix(ng-repeat="i in schoolList" ng-click="setSchoolName(i.id, i.name)") {{i.name}}
+    section#commun-content(ng-show="communList.length")
+        div.commun-list
+            div.item.clearfix(ng-repeat="i in communList")
+                div.detail.clearfix
+                    div.commun-name {{i.name}}
+                    div.belong-school {{i.school_name}}
+                div.add.joined.clearfix(ng-show="{{i.joined}}")
+                div.add.join.clearfix(ng-show="{{!i.joined}}",ng-click="joinCommun(i.id)")

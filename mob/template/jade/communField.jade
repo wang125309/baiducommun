@@ -1,0 +1,27 @@
+include ./lib/header.jade
+link(href="/static/public/css/communField.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/communField.min.js",language="javascript")
+body(ng-app,ng-controller="CommunFieldCtrl",ng-cloak,ng-init="showInstruction=false")
+	section#header.clearfix
+		div.join(ng-click="goJoin()")=""
+		div.create(ng-click="goCreate()")=""
+	div.show-instruction(ng-hide="showInstruction==false",ng-click="show_instruction()") 点击查看说明
+	div.instruction(ng-hide="showInstruction==true")
+		div.line-first 每个人只能加入2个社团，如果你创建了一个社团，那么只能再加入1个社团，每个人只能创建1个社团
+		div.show-instruction(ng-click="show_instruction()") 点击收回说明
+	section.body(ng-if="!ranklist_show")
+		div#rank-list
+			div.title
+				div.green=""
+				div.left-main 社团排行榜
+			div.rank(ng-repeat="i in monthRanking.data.ranking_list")
+				div.rank-detail.clearfix(ng-click="goCommun({{ i.id }})")
+					div.place.clearfix(ng-if="i.rank == 1",style="background:url('/static/public/image/rank-first.png');") {{ i.rank }}
+					div.place.clearfix(ng-if="i.rank == 2",style="background:url('/static/public/image/rank-second.png');") {{ i.rank }}
+					div.place.clearfix(ng-if="i.rank == 3",style="background:url('/static/public/image/rank-third.png');") {{ i.rank }}
+					div.place.clearfix(ng-if="i.rank >= 4",style="background:url('/static/public/image/rank-base.png');") {{ i.rank }}
+					div.name-line.clearfix
+						div.name {{ i.name }}
+						div.school {{ i.school_name }}
+					div.points.clearfix {{ i.score }} 积分
+include ./lib/footer.jade

@@ -1,0 +1,44 @@
+div.tip-frame(ng-show="tip.show",ng-click="clickTipFrame()",ng-if="inputQQ!=true")
+    div.tip-menu(ng-if="inputQQ!=true")
+        div.message.clearfix
+            div.tip-text-left
+            div.tip-text-center {{ tip.message }}
+            div.tip-text-right
+        div.btn-line.clearfix(ng-show="tip.btnline==true")
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine!=true") 确定
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine==true") {{ tip.sure_btn }}
+            div.right-btn(ng-click="tip.cancel()") 取消
+    div.tip-menu.qq-menu(ng-if="inputQQ==true")
+        div.message.clearfix
+            div.tip-text-left
+            div.tip-text-center(ng-if="inputQQ!=true") {{ tip.message }}
+            div.tip-text-center(ng-if="inputQQ==true") 
+                div.qqname(style="margin-left:5vw;") 新QQ
+                input.qq(type="text")
+            div.tip-text-right
+        div.btn-line.clearfix(ng-show="tip.btnline==true")
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine!=true") 确定
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine==true") {{ tip.sure_btn }}
+            div.right-btn(ng-click="tip.cancel()") 取消
+div.tip-frame(ng-show="tip.show",ng-if="inputQQ==true")
+    div.tip-menu(ng-if="inputQQ!=true")
+        div.message.clearfix
+            div.tip-text-left
+            div.tip-text-center {{ tip.message }}
+            div.tip-text-right
+        div.btn-line.clearfix(ng-show="tip.btnline==true")
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine!=true") 确定
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine==true") {{ tip.sure_btn }}
+            div.right-btn(ng-click="tip.cancel()") 取消
+    div.tip-menu.qq-menu(ng-if="inputQQ==true")
+        div.message.clearfix
+            div.tip-text-left
+            div.tip-text-center(ng-if="inputQQ!=true") {{ tip.message }}
+            div.tip-text-center(ng-if="inputQQ==true") 
+                div.qqname 新QQ
+                input.qq(type="text")
+            div.tip-text-right
+        div.btn-line.clearfix(ng-show="tip.btnline==true")
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine!=true") 确定
+            div.left-btn(ng-click="tip.sure()",ng-if="tip.mine==true") {{ tip.sure_btn }}
+            div.right-btn(ng-click="tip.cancel()") 取消

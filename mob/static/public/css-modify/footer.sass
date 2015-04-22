@@ -1,0 +1,113 @@
+@-webkit-keyframes pull-down-animation {
+  0% {
+    opacity:0;
+  }
+  50% {
+    opacity:0.5;
+  }
+  100% {
+    opacity:1;
+  }
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix   {
+  display:inline-table;
+  height:1%;
+  display:block;
+}
+.pull-down-animation {
+  -webkit-animation-name:pull-down-animation;
+}
+.base {
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  -webkit-animation-duration:0.2s;
+  -webkit-animation-delay:0s;
+  -webkit-animation-timing-function:ease;
+  -webkit-animation-fill-mode:both;
+}
+.placehold-footer {
+  width:100%;
+  height:10vh;
+}
+$fontBlack:#333;
+$fontGrey:#777;
+$baiduBtnColor: #06c1ae;
+#footer {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:10vh;
+  border-top:1px solid #dcdcdc;
+  background:#fff;
+  .footer-div {
+    width:33.3%;
+    float:left;
+    background-size:auto 80% !important;
+    background-position:50% !important;
+    height:100%;
+  }
+  .footer-div:active {
+    box-shadow:1px 0 32px rgba(0,0,0,.2) inset;
+  }
+  .task-btn {
+    background:url("/static/public/image/task-normal.png") no-repeat;
+  }
+
+  .commun-btn {
+    font-size:4.8vw;
+    background:url("/static/public/image/commun-normal.png") no-repeat;
+    .arrow {
+      background:url("/static/public/image/arrow-bottom.png") no-repeat;
+      height:2vh;
+      bottom:-1.9vh;
+      width:100%;
+      background-position:top center;
+      right:0;
+      position:absolute;
+      background-size:auto 100%;
+    }
+    background-position:50%;
+    .plat-form-menu {
+      position:absolute;
+      width:35.3%;
+      text-align:center;
+      z-index:100000;
+      bottom:11vh;
+      border:1px solid #dcdcdc;
+      background:#fff;
+      border-radius:3px;
+      .menu-line {
+
+        border-bottom:1px solid #dcdcdc;
+        padding:2vw;
+        >div {
+          white-space: nowrap;
+          word-break: break-all;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        a {
+          font-size:4.5vw;
+          color:$fontGrey;
+        }
+      }
+      .menu-line:active {
+        box-shadow:1px 0 32px rgba(0,0,0,.2) inset;
+      }
+      .menu-line:last-child {
+        border:none;
+      }
+    }
+  }
+  .my-btn {
+    background:url("/static/public/image/my-normal.png") no-repeat;
+  }
+}

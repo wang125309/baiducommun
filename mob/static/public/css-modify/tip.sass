@@ -1,0 +1,64 @@
+$fontGrey: #777;
+$baiduBtnColor: #06c1ae;
+
+.tip-frame {
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    position: fixed;
+    .tip-menu {
+        max-width:50%;
+        position: relative;
+        top: 45vh;
+        margin: 0 auto;
+        background:rgba(255,255,255,1);
+        border:1px solid #dcdcdc;
+        text-align:center;
+        border-radius:3px;
+        box-shadow:1px 1px 4px #ccc;
+        .message {
+            padding: 3vw;
+            font-size: 4.7vw;
+            .tip-text-left {
+                color:$fontGrey;
+                float:left;
+            }
+            .tip-text-center {
+                color:#333;
+                text-align: center;
+                width: 100%;
+                line-height: 6vw;
+            }
+            .tip-text-right {
+                color:$fontGrey;
+                float:left;
+            }
+            text-align:center;
+        }
+
+        .btn-line {
+            font-size:4.5vw;
+            text-align:center;
+            border-top:1px solid #dcdcdc;
+            .left-btn {
+                border-right:1px solid #dcdcdc;
+                float:left;
+                padding-top:2vw;
+                padding-bottom: 2vw;
+                width:50%;
+                color:$baiduBtnColor;
+            }
+            .left-btn:active {
+                box-shadow : 1px 0 32px rgba(0,0,0,.4) inset;
+            }
+            .right-btn {
+                padding-top:2vw;
+                padding-bottom: 2vw;
+                color:$fontGrey;
+            }
+            .right-btn:active {
+                box-shadow : 1px 0 32px rgba(0,0,0,.4) inset;
+            }
+        }   
+    }
+}

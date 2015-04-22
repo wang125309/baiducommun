@@ -1,0 +1,61 @@
+include ./lib/header.jade
+link(href="/static/public/css/index.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/index.min.js",language="javascript")
+title 任务中心
+body(ng-controller="MainCtrl",ng-cloak,ng-init="showMenu=false;")
+	include ./lib/tip.jade
+	div#sign(ng-show="signed==0",ng-if="issign.data.signinstat==0",ng-cloak)
+		button.baidu-btn(ng-click="sign()") 签到(+5积分)
+	section#header.clearfix
+		div#head.clearfix
+			div#part(class="head-tab")
+				div.text-area-wrap
+					div.text-pos.commun-tab(ng-click="changeCommun($event)") 社团任务
+			div#person(class="head-tab")
+				div.text-area-wrap
+					div.text-pos.person-tab(ng-click="changePerson($event)") 个人任务
+			div(is-open="status.isopen")
+				div#pull-down-filter(ng-click="toggleDropdown()")=""
+				div#pull-down-filter-menu.base(role="menu",ng-show="status.isopen==true")
+					div.arrow=""
+					div#time.clearfix(ng-click="order_by_time()")
+						div#time-icon=""
+						div#time-text 时间
+					div#hot.clearfix(ng-click="order_by_hot()")
+						div#hot-icon=""
+						div#hot-text 热度
+	section#work
+		div.work(infinite-scroll="loadMore()",scroll-threshold="200",time-threshold="600")
+			div.work-wrap-empty(ng-if="task_empty==true")=""
+			div.work-wrap(ng-repeat = "t in task.data | orderBy:order_by",ng-click="getTaskInfo(t.id)")
+				div.work-image(style="background:url({{t.resourceUrl}})")
+				div.bar
+					div.title.clearfix
+						div.task_name {{ t.name }}
+						div.total_score(ng-if="t.score") {{ t.score }}&nbsp;积分
+					div.desc {{ t.description | noHtmltag }}
+				div.line-end.clearfix(ng-if="t.type==1")
+					div.type 个人线上
+					div.finish-text {{ t.finishNum }}
+					div.icon-finish=""
+					div.hot-text {{ t.likeNum }}
+					div.icon-hot=""
+				div.line-end.clearfix(ng-if="t.type==2")
+					div.type 个人线下
+					div.finish-text {{ t.finishNum }}
+					div.icon-finish=""
+					div.hot-text {{ t.likeNum }}
+					div.icon-hot=""
+				div.line-end.clearfix(ng-if="t.type==3")
+					div.type 团队线上
+					div.finish-text {{ t.finishNum }}
+					div.icon-finish=""
+					div.hot-text {{ t.likeNum }}
+					div.icon-hot=""
+				div.line-end.clearfix(ng-if="t.type==4")
+					div.type 团队线下
+					div.finish-text {{ t.finishNum }}
+					div.icon-finish=""
+					div.hot-text {{ t.likeNum }}
+					div.icon-hot=""
+include ./lib/footer.jade

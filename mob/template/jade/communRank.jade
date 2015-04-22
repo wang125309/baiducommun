@@ -1,0 +1,19 @@
+include ./lib/header.jade
+link(href="/static/public/css/communRank.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/communRank.min.js",language="javascript")
+body(ng-app="baidu",ng-controller="CommunRankCtrl",ng-cloak)
+    section.clearfix
+        div#rank-list.clearfix
+            div.title.clearfix 积分总榜
+            div.rank(ng-repeat="i in communRanking.data.ranking_list")
+                div.rank-detail.clearfix
+                    div.place.clearfix(ng-if="i.rank == 1",style="background:url('/static/public/image/rank-first.png');") {{ i.rank }}
+                    div.place.clearfix(ng-if="i.rank == 2",style="background:url('/static/public/image/rank-second.png');") {{ i.rank }}
+                    div.place.clearfix(ng-if="i.rank == 3",style="background:url('/static/public/image/rank-third.png');") {{ i.rank }}
+                    div.place.clearfix(ng-if="i.rank >= 4",style="background:url('/static/public/image/rank-base.png');") {{ i.rank }}
+                    div.name-line.clearfix
+                        div.name {{ i.name }}
+                        div.school {{ i.school_name }}
+                    div.points.clearfix {{ i.score }} 积分 
+    section.clearfix
+include ./lib/footer.jade

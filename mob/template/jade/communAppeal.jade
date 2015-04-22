@@ -1,0 +1,16 @@
+include ./lib/header.jade
+link(href="/static/public/css/communAppeal.css", rel="stylesheet", type="text/css")
+script(src="/static/public/js/communAppeal.min.js", language="javascript")
+body(ng-app="baidu",ng-controller="CommunAppealCtrl",ng-cloak)
+    include ./lib/tip.jade
+    section
+        div.appeal-reason.pad 申诉理由
+        textarea.appeal-content.pad(placeholder="请填写申诉理由，例如盗用社团名、社团过期、非校园社团等理由" ng-model="reason")
+    div.appeal-submit(ng-click="submitAppeal()") 提交
+    div.success-alert.clearfix(ng-show="isSuccess" ng-click="hideSuccess()")
+        div.combine
+            div.circle
+                div.right
+            div.text 我们会尽快解决您的申诉！
+    div.fail-alert
+    div.jacking

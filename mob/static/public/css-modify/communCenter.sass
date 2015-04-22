@@ -1,0 +1,417 @@
+@import "../../../bower_components/normalize.css/normalize.css";
+@import "../css/footer.css";
+@import "../css/tip.css";
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  outline:none;
+}
+$fontBlack:#333;
+$fontGrey:#777;
+$baiduBtnColor: #06c1ae;
+#scoreHistory {
+  position:fixed;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  z-index:1000;
+  top:0;
+  background:#fff;
+}
+.status {
+  float:right;
+}
+.qq {
+  border:1px solid #dcdcdc;
+  height:7vw;
+  line-height:7vw;
+  font-size:5vw;
+  -webkit-user-select:initial;
+  user-select:initial;
+}
+.qqname {
+  float:left;
+  margin-right:3vw;
+}
+.qq-menu {
+  .right-btn {
+    padding-bottom:2vw;
+    padding-top:2vw;
+    color:$fontGrey;
+    width:49%;
+    float:left;
+  }
+  max-width:80%!important;
+}
+.number {
+  height:6vw;
+  font-size:4vw;
+  line-height:6vw;
+}
+#score {
+  position:fixed;
+  width:100%;
+  height:100%;
+  
+  background:#fff;
+  padding:0.1vw;
+  .score-detail:last-child {
+    border:none;
+  }
+  .score-detail {
+    margin:3vw 5vw;
+    border-bottom:1px solid #dcdcdc;
+    .reason {
+      float:left;
+      font-size:4.5vw; 
+      color:#333;
+    }
+    .score {
+      float:right;
+      font-size:4.5vw;
+      color:#333;
+    }
+    .data {
+      font-size:4.5vw;
+      color:#777;
+      padding-bottom:3vw;
+    }
+  }
+  .return-btn {
+    width:100%;
+    height:7vh;
+    line-height:7vh;
+    position:absolute;
+    bottom:0;
+    padding:0;
+    text-align:center;
+    font-size:5.3vw;
+  }
+}
+.bear-empty {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:url("/static/public/image/bear-empty.png") no-repeat;
+  background-position:center center;
+  background-size:50% auto;
+}
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix   {
+  display:inline-table;
+  height:1%;
+  display:block;
+}
+.baidu-btn {
+  background:$baiduBtnColor;
+  color:#fff;
+  padding:1vw 4vw;
+  border:0;
+  font-weight:100;
+  border-radius:2px;
+}
+.baidu-btn:active {
+  box-shadow:1px 0px 32px rgba(0,0,0,0.2) inset;
+}
+body {
+  background:#f5f5f5;
+}
+#header {
+  background:url("/static/public/image/commun-banner.png") no-repeat;
+  background-size:cover;
+  text-align:center;
+  padding-top:5vw;
+  padding-bottom:5vw;
+  .title {
+    margin-top:3vw;
+    font-size:6.4vw;
+    color:#fff;
+    text-shadow:#ccc 2px 2px 7px;
+  }
+  .percent {
+    font-size:5.4vw;
+    color:#fff;
+    text-shadow:#ccc 1px 1px 3px;
+  }
+  button {
+    margin-top:2vw;
+    font-size:4.4vw;
+  }
+  margin-bottom:1px solid #dcdcdc;
+}
+#body {
+  background:#fff;
+  .message-info {
+    margin-top:3vh;
+    padding:0 5vw;
+    border-top:1px solid #dcdcdc;
+    border-bottom:1px solid #dcdcdc;
+    box-shadow:#ccc 1px 1px 4px;
+    .message-line {
+      border-bottom:1px solid #dcdcdc;
+      width:100%;
+      .left-text {
+        font-size:4.5vw;
+        float:left;
+        width:60%;
+        line-height:6vw;
+        padding:3vw 0;
+        .red-point {
+          float:left;
+          width:2vw;
+          height:2vw;
+          background:red;
+          border-radius:50%;
+          margin-left:2vw;
+        }
+        .word {
+          float:left;
+        }
+        .sub-line {
+          line-height:6vw;
+          font-size:3.7vw;
+        }
+      }
+      .right-text {
+        text-align:right;
+        font-size:4.5vw;
+        float:right;
+        padding:3vw 0;
+        width:34vw;
+        white-space:nowrap;
+        word-break:break-all;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        .right-icon {
+          background:url('/static/public/image/go-right.png') no-repeat;
+          width:100%;
+          height:6.5vw;
+          background-size:auto 100%;
+          background-position:center right; 
+        }
+      }
+    }
+    .message-line:last-child {
+      border-bottom:0;
+    }
+  }
+}
+#work {
+    margin-top:3vh;
+    .work-title {
+        border-top:1px solid #dcdcdc;
+        width:100%;
+        background:#fff;
+        .green {
+          float:left;
+          margin:3vw 0;
+          height:5.5vw;
+          width:1.5vw;
+          margin-left:5vw;
+          background:green;
+        }
+        .title {
+          padding:3vw 2vw;
+          font-size:4.5vw;
+        }
+    }
+    .work {
+      .work-wrap {
+        margin-bottom:3vw;
+        background:#fff;
+        min-height:40vw;
+        border-top:1px solid #dcdcdc;
+        border-bottom:1px solid #dcdcdc;
+        .work-image {
+          width:100%;
+          height:38.9vw;
+          background-size:cover!important;
+          background:url('http://placehold.it/375x146');
+        }
+      }
+      .bar {
+        padding:3vw;
+        .title {
+          line-height:5.3vw;
+          .task_name {
+            float:left;
+            color:$fontBlack;
+            font-size:4.8vw;
+          }
+          .taskState {
+            float:right;
+            padding-top:1vw;
+            font-size:4.3vw;
+            padding-left:2vw;
+            color:$baiduBtnColor;
+          }
+          .taskStage {
+            float:right;
+            font-size:4.3vw;
+            padding-top:1vw;
+            padding-left:2vw;
+            color:rgb(235,192,160);
+          }
+          .total_score {
+            float:right;
+            font-size:5.3vw;
+            font-weight:100;
+            color:$baiduBtnColor;
+          }
+        }
+      .desc {
+        margin-top:1vh;
+        color:$fontGrey;
+        font-size:3.9vw;
+      }
+      
+    }
+    .line-end {
+      padding:3vw;
+      .type {
+        padding:1vw;
+        font-size:3.7vw;
+        border:1px solid #dcdcdc;
+        color:$fontGrey;
+        border-radius:1px;
+        float:left;
+      }
+      .icon-hot {
+        float:right;
+        color:$fontBlack;
+        width:4.9vw;
+        height:4.9vw;
+        text-align:right;
+        background:url('/static/public/image/hot-icon.png') no-repeat;
+        background-size:auto 100%;
+      }
+      .finish-text {
+        float:right;
+        font-size:4.9vw;
+        color:$fontGrey;
+        line-height:6.6vw;
+        margin-left:2vw;
+      }
+      .icon-finish {
+        float:right;
+        color:$fontBlack;
+        width:4.9vw;
+        height:4.9vw;
+        background:url('/static/public/image/finish-icon.png') no-repeat;
+        background-size:auto 100%;
+      }
+      .hot-text {
+        margin-left:2vw;
+        float:right;
+        margin-right:3vw;
+        color:$fontGrey;
+        font-size:4.9vw;
+        line-height:6.6vw;
+      }
+    }
+  }
+}
+
+.already-join {
+
+  background-color:rgba(255,255,255,0.6);
+  color:#777;
+  border:1px solid #dcdcdc;
+  background-image:url("/static/public/image/btn-correct.png");
+  background-repeat:no-repeat;
+  background-position:4vw center;
+  padding-left:10vw;
+  background-size:auto 50%;
+}
+#bottom-btn {
+  .baidu-btn {
+    background:#ff7f66!important;
+    height:7vh;
+    line-height:8vh;
+    border-radius:0;
+    font-size:5vw;
+    margin-top:5vw;
+    text-align:center;
+  }
+}
+.convert-frame {
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    .convert-menu {
+        width:80%;
+        position: absolute;
+        margin-top: 35vh;
+        margin-left: 10%;
+        background:rgba(255,255,255,1);
+        border:1px solid #dcdcdc;
+        text-align:center;
+        border-radius:3px;
+        box-shadow:1px 1px 4px #ccc;
+        .message {
+            font-size: 4.7vw;
+            padding:3vw;
+            .convert-text-left {
+                color:$fontGrey;
+                float:left;
+            }
+            .convert-text-center {
+                color:$fontGrey;
+                float:left;
+                text-align: center;
+                width: 100%;
+                line-height: 7vw;
+            }
+            .convert-text-right {
+                color:$fontGrey;
+                float:left;
+            }
+            text-align:center;
+        }
+        .warn {
+            font-size: 3.7vw;
+            font-weight: 400;
+            color: #777;
+            padding-bottom:3vw;
+        }
+        .btn-line {
+            font-size:4.5vw;
+            text-align:center;
+            border-top:1px solid #dcdcdc;
+            .left-btn {
+                border-right:1px solid #dcdcdc;
+                float:left;
+                padding-top:2vw;   
+                padding-bottom: 2vw;
+                width:50%;
+                color:$baiduBtnColor;
+            }
+            .right-btn {
+                padding-bottom:2vw;
+                padding-top:2vw;
+                color:$fontGrey;
+                width:49%;
+                float:left;
+            }
+        }
+    }
+}
+.commun_appeal {
+  float:right;
+  margin-top:5vw;
+  font-size:4.5vw;
+  color:$baiduBtnColor;
+}

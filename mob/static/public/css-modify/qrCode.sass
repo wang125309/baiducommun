@@ -1,0 +1,123 @@
+@import "../../../bower_components/normalize.css/normalize.css";
+@import "../css/footer.css";
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  outline:none;
+}
+$fontBlack:#333;
+$fontGrey:#777;
+$baiduBtnColor: #06c1ae;
+
+.baidu-btn {
+  background:$baiduBtnColor;
+  color:#fff;
+  padding:1vw 4vw;
+  border:0;
+  font-weight:100;
+  border-radius:2px;
+}
+body {
+  background:url("/static/public/image/phone-background.png") no-repeat;
+  background-size:cover;
+  background-color:#f5f5f5;
+
+  #body {
+    .longtap {
+      color:rgb(253,120,146);
+    }
+    .share-qrcode-commun-text {
+      background:url("/static/public/image/share-qrcode-text.png") no-repeat;
+      width:100%;
+      background-size:100%;
+      background-position:center center;
+      position:absolute;
+      top:0;
+      height:10vw;
+    }
+    .bear-task-outer {
+      position: absolute;
+      width:100%;
+      top:10%;
+      text-align:center;
+      height:90vh;
+      background:url("/static/public/image/bear-qrcode-task.png") no-repeat;
+      background-size:100% auto;
+      background-position:center top;
+      .qrcode {
+        background-position:center!important;
+        -webkit-user-select:initial;
+        -khtml-user-select:initial;
+        user-select:initial;
+        -webkit-touch-callout:initial;
+        background-repeat:no-repeat !important;
+        background-size:100% 100% !important;
+        position:relative;
+        margin-top:43vw;
+        width:192px;
+        height:192px;
+        z-index:100;
+      }
+      .qrcode-square {
+        position:absolute;
+        top:70vw;
+        width:100%;
+        text-align:center;
+      }
+    }
+    .bear-commun-outer {
+      position: absolute;
+      width:100%;
+      top:10%;
+      text-align:center;
+      height:90vh;
+      background:url("/static/public/image/bear-qrcode-commun.png") no-repeat;
+      background-size:100% auto;
+      background-position:center top;
+      .qrcode {
+        background-position:center!important;
+        -webkit-user-select:initial;
+        -khtml-user-select:initial;
+        user-select:initial;
+        -webkit-touch-callout:initial;
+        background-repeat:no-repeat !important;
+        background-size:100% 100% !important;
+        position:relative;
+        margin-top:43vw;
+        width:192px;
+        height:192px;
+        z-index:5;
+      }
+      .qrcode-square {
+        position:absolute;
+        top:70vw;
+        width:100%;
+        text-align:center;
+      }
+    }
+    }
+}
+.message {
+  .message1 {
+    width:100%;
+  }
+  .message2 {
+    width:100%;
+  }
+    position:absolute;
+  bottom:5vh;
+  font-size:5.5vw;
+  width:100%;
+  text-align:center;
+}
+.background {
+  position:absolute;
+  height:100%;
+  width:100%;
+  z-index:10;
+  background:rgba(0,0,0,0.8);
+}

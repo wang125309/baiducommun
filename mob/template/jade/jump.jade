@@ -1,0 +1,21 @@
+include ./lib/header.jade
+meta(name="format-detection",content="telephone=no")
+link(href="/static/public/css/phoneNumber.css", rel="stylesheet", type="text/css")
+script(src="/static/public/js/phoneNumber.min.js", language="javascript")
+body(ng-app="baidu",ng-controller="PhoneNumberCtrl",ng-cloak)
+	section#phone-body
+		div.text-phone-first 输入手机号
+		div.text-phone-second 参与抽奖
+		div.text-phone-number
+			div.phone {{ text }}
+	section#keyboard
+		div.bear-phone=""
+		div.keyboard
+			-for(var i=1 ;i < 10; i++) {
+			div(class="num-btn btn_#{i} clearfix",ng-click="add($event,#{i})") #{i}
+			-}
+			div(class="num-btn btn_null clearfix")=""
+			div(class="num-btn btn_0 clearfix",ng-click="add($event,#{0})") 0
+			div(class="num-btn btn_back clearfix",delete,ng-click="delete($event)")=""
+	section#btn-area
+		button(class="baidu-btn",ng-click="submitPhoneNumber()") 提 交

@@ -1,0 +1,10 @@
+include ./lib/header.jade
+title 攻略：如何领取巨额积分
+link(href="/static/public/css/help.css",rel="stylesheet",type="text/css")
+body
+	section#header=""
+	section#body
+		each val, index in {'1、新手引导':'/mob/freshGuide.do','2、攻略之社团线下任务（团长篇）':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=1&sn=bfb905195bc8bc539009ec459f0b3940#rd','3、攻略之社团线下任务（团员篇）':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=2&sn=ecc1c96bfd0845b2bf051af8c426d68a#rd','4、攻略之积分兑换':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=3&sn=3d7313808358992bb69401a187b75a0a#rd'}
+			div.li
+				a(href=val)=index
+	

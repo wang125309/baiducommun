@@ -1,0 +1,44 @@
+include ./lib/header.jade
+link(href="/static/public/css/userList.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/userList.min.js",language="javascript")
+body(ng-controller="userListCtrl",ng-cloak)
+    section#header.clearfix
+        div#head.clearfix
+            div#part(class="head-tab")
+                div.text-area-wrap
+                    div.text-pos.active(ng-click="tabMember()") 社团成员
+            div#person(ng-if="relType==1||relType==3",class="head-tab")
+                div.text-area-wrap
+                    div(ng-click="tabNew()",class="text-pos {{ new }}") 新的成员
+                    div.new-member(ng-if="applyments!=0") 
+    section#body.base(ng-show="show_members==true")
+        div#user-list.clearfix
+            div.user(ng-repeat="u in communMembers.data")
+                div.red-dot(ng-if="isNewMember(u.id)")
+                div.close-icon(ng-if="relType!=0&&relType!=2&&u.position_id!=1",ng-click="delete_user(u.id,u.nickname)")=""
+                div.avatar-img(style="background:url({{ u.image }}) no-repeat;background-position:center;background-size:cover;")
+                div.user-name {{ u.nickname }}
+
+    div(class="alert-menu base {{ alert.alertClass }}",ng-show="alert.show==true")
+
+        div.message.clearfix
+            div.alert-text-left {{ alert.alerttextLeft }}
+            div.alert-text-center {{ alert.alerttextCenter }}
+            div.alert-text-right {{ alert.alerttextRight }}
+        div.btn-line.clearfix
+            div.left-btn(ng-click="alert.sure()") 确定
+            div.right-btn(ng-click="alert.cancel()") 取消
+    section#body-new.base(ng-show="show_members==false&&(relType==1||relType==3)")
+        div#apply-list
+            div.apply.clearfix(ng-repeat="i in applyList.data")
+                div.avatar
+                    div.avatar-img(style="background:url({{ i.image }}) no-repeat;background-position:center;background-size:cover;")
+                div.detail
+                    div.name-line {{ i.nickname }}
+                    div.score-line {{ i.score }} &nbsp;积分
+                div.button-area
+                    button.baidu-btn(ng-click="receiveMember(i.id)") 接受
+                div.button-area
+                    button.baidu-btn(ng-click="refuseApply(i.id)") 拒绝
+
+    div.baidu-btn.pass(ng-show="show_members==false&&show_pass==true&&(relType==1||relType==3)",ng-click="pass_all_member()") 一键通过所有成员

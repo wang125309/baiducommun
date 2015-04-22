@@ -1,0 +1,200 @@
+@import "../../../bower_components/normalize.css/normalize.css";
+@import "../css/tip.css";
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  outline:none;
+}
+
+$fontGrey:#777;
+$fontBlack:#333;
+$divBorder:#cdcdcd;
+$backgroundOne:#f5f5f5;
+$backgroundTwo:#fff;
+
+body {
+    background-color: #f5f5f5;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix {
+  display:inline-table;
+  height:1%;
+  display:block;
+}
+#header {
+    .header-tip {
+        padding-left: 5vw;
+        height: 14vw;
+        line-height: 14vw;
+        font-size: 4.3vw;
+        font-weight: 400;
+        letter-spacing: 0.21vw;
+        color: $fontGrey;
+    }
+    .information-fill {
+        padding-left: 5vw;
+        background-color: #fff;
+        border-top: 1px solid $divBorder;
+        border-bottom: 1px solid $divBorder;
+        .item {
+            height: 16vw;
+            border-bottom: 1px solid $divBorder;
+            padding-right: 5vw;
+            .tip {
+                float: left;
+                height: inherit;
+                line-height: 16vw;
+                font-size: 4.7vw;
+                font-weight: 400;
+                letter-spacing: 0.23vw;
+            }
+            input {
+                margin-left: 5vw;
+                float: left; 
+                border: 0;
+                padding: 0;
+                height: 16vw;
+                font-size: 4.3vw;
+                font-weight: 400;
+                letter-spacing: 0.21vw;
+                color: $fontGrey;
+                -webkit-user-select: initial;
+                user-select: initial;
+            }
+            .select {
+                height: 16vw;
+                width: 5vw;
+                margin-left: 1vw;
+                background: url(../image/organization-arrow.png) center center no-repeat transparent;
+                background-size: 50%;
+                float: right;
+            }
+        }
+        .item:last-child {
+            border-bottom: 0;
+        }
+    }
+}
+
+.bear-create {
+  background:url("/static/public/image/create-bear.png") no-repeat;
+  width:100vw;
+  height:33vw;
+  background-size:auto 100%;
+  background-position:50vw center;
+  margin-top:10vw;
+}
+.bear-school {
+  margin-top:40vh;
+}
+#content {
+    .apply-desc {
+        padding-left: 5vw;
+        height: 16vw;
+        font-size: 4.3vw;
+        font-weight: 400;
+        color: $fontGrey;
+        line-height: 20vw;
+        letter-spacing: 0.21vw;
+    }
+    .detail {
+        width: 100%;
+        border: 0;
+        padding: 5vw;
+        padding-top:0;
+        font-size: 4.7vw;
+        font-weight: 400;
+        letter-spacing: 0.23vw;
+        color: $fontGrey;
+        box-sizing: border-box;
+    }
+
+}
+
+#submit {
+    .submit-btn {
+        height: 12vw;
+        line-height: 12vw;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: #06c1ae;
+        color: #fff;
+        font-size: 4.7vw;
+        font-weight: 400;
+        text-align: center;
+    }
+    .submit-btn:active {
+        box-shadow : 1px 0 32px rgba(0,0,0,.4) inset;
+    }
+}
+
+#footer {
+    width: 100%;
+    height: 12vw;
+}
+
+.school-choice {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: $backgroundOne;
+    z-index: 999;
+    top: 0;
+    .search {
+        background: $backgroundTwo;
+        padding: 6vw;
+        border: 1px solid $divBorder;
+        .frame {
+            padding: 2vw;
+            background: $backgroundOne;
+            .search-image {
+                width: 5vw;
+                height: 5vw;
+                padding: 1px;
+                float: left;
+                background: url(../image/search.png) center center no-repeat transparent;
+                background-size: contain;
+            }
+            input {
+                height: 5vw;
+                background: $backgroundOne;
+                margin-left: 2vw;
+                width: 70vw;
+                border: 0;
+                font-size: 4.7vw;
+                font-weight: 400;
+                color: #333;
+                letter-spacing: 0.23vw;
+                -webkit-user-select: initial;
+                user-select: initial;
+            }
+        }
+    }
+    .list {
+        margin-left: 6vw;
+        margin-right: 6vw;
+        .item {
+            margin-top: 5vw;
+            margin-bottom: 5vw;
+            .detail{
+                font-size: 4.7vw;
+                font-weight: 400;
+                color: $fontBlack;
+                letter-spacing: 0.23vw;
+            }
+        }
+    }
+}

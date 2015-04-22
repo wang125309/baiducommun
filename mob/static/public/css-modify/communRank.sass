@@ -1,0 +1,74 @@
+@import "../../../bower_components/bootstrap-css/css/bootstrap.css";
+@import "../css/footer.css";
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  outline:none;
+}
+$fontBlack:#333;
+$fontGrey:#777;
+$greenBorder: #06c1ae;
+
+body {
+    margin-top: 3vh;
+    margin-left: 6vw;
+    margin-right: 6vw;
+    background-color: #fff;
+}
+
+#rank-list {
+    .title {
+        padding-left: 3vw;
+        height: 4.7vw;
+        font-size: 4.7vw;
+        font-weight: 400;
+        color: $fontBlack;
+        letter-spacing: 0.23vw;
+        line-height: 4.7vw;
+        border-left: 4px solid $greenBorder;
+    }
+    .rank:last-child {
+        border:none;
+    }
+    .rank {
+        margin-top:1vh;
+        border-bottom:1px solid #dcdcdc;
+        .rank-detail {
+            .name-line {
+                float:left;
+                width:70%;
+            }
+            .place {
+                float:left;  
+                background-position:center top!important;
+                background-size:auto 100%!important;
+                background-repeat:no-repeat!important;
+                height:7.8vw;
+                width:6.5vw;
+                text-align:center;
+                line-height: 5.8vw;
+                color:#fff;
+            }
+            .name {
+                font-size:5vw;
+                margin-left:5vw;
+                font-weight:300;
+                line-height:3vh;
+            }
+            .school {
+                font-size:4vw;
+                margin-left:5vw;
+            }
+            .points {
+                font-size:4.2vw;
+                color:$fontGrey;
+                float:right;
+                line-height:5vh;
+            }
+        }
+    }
+}

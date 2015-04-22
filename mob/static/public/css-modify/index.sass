@@ -1,0 +1,297 @@
+@import "../../../bower_components/normalize.css/normalize.css";
+@import "../css/tip.css";
+@import "../css/footer.css";
+@-webkit-keyframes pull-down-animation {
+  0% {
+    opacity:0;
+  }
+  50% {
+    opacity:0.5;
+  }
+  100% {
+    opacity:1;
+  }
+}
+@-webkit-keyframes slide-down-animation {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+.slide-down-animation {
+  -webkit-animation-name:slide-down-animation;
+}
+.pull-down-animation {
+  -webkit-animation-name:pull-down-animation;
+}
+.base {
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  -webkit-animation-duration:0.2s;
+  -webkit-animation-delay:0s;
+  -webkit-animation-timing-function:ease;
+  -webkit-animation-fill-mode:both;
+}
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  outline:none;
+}
+.car {
+}
+body {
+  background:#f5f5f5;
+}
+$fontBlack:#333;
+$fontGrey:#777;
+$baiduBtnColor: #06c1ae;
+.baidu-btn {
+  background:$baiduBtnColor;
+  color:#fff;
+  padding:3vw 2vh;
+  border:0;
+  font-weight:100;
+  border-radius:1px;
+}
+.baidu-btn:active {
+  box-shadow:1px 0px 32px rgba(0,0,0,0.2) inset;
+}
+.select-task-type {
+  position:absolute;
+  z-index:101;
+  border-top:1px solid #dcdcdc;
+  width:100%;
+  background:#fff;
+  margin-top:13vw;
+  .select-line {
+    font-size:5.2vw;
+    border-bottom:1px solid #dcdcdc;
+    padding:2.8vw 6.8vw;
+    text-align:left;
+  }
+  .select-line.active {
+    color:$baiduBtnColor;
+    background:url("/static/public/image/active-correct.png") no-repeat;
+    background-size:auto 40%;
+    background-position:88.6vw center;
+  }
+}
+.message-icon {
+  position:fixed;
+  background:url("/static/public/image/message-icon.png") no-repeat;
+  height:6vh;
+  width:7vh;
+  top:1vh;
+  right:0;
+  background-size:auto 100%;
+  z-index:150;
+}
+
+#sign {
+  width:100%;
+  text-align:center;
+  height:20vh;
+  background:url("/static/public/image/bear.png") no-repeat;
+  background-color:#fff;
+  background-position:20%;
+  background-size:auto 80%;
+  button {
+    margin-left:25vw;
+    width:35vw;
+    height:5vh;
+    margin-top:7.5vh;
+    padding:1vw;
+  }
+  padding-top:2px;
+  padding-bottom:2px;
+}
+#header {
+  width:100%;
+  text-align:center;
+  border-bottom:1px solid #dcdcdc;
+  #head {
+    background:#fff;
+    border-top:1px solid #dcdcdc;
+    .head-tab {
+      float:left;
+      width:40%;
+      height:100%;
+      color:#333;
+      font-size:5.5vw;
+      .text-area-wrap {
+        height:100%;
+        .text-pos {
+          height:13vw;
+          width:60%;
+          margin:0 auto;
+          line-height:13vw;
+        }
+        .text-pos.active {
+          border-bottom:3px solid #06c1ae;
+        }
+      }
+    }
+    #pull-down-filter {
+      background:url("/static/public/image/up-down.png") no-repeat;
+      float:right;
+      height:13vw;
+      width:13vw;
+      background-size:auto 50%;
+      background-position:50%;
+      border-left:1px solid #dcdcdc;
+    }
+
+  }
+  .arrow {
+    background:url("/static/public/image/arrow-top.png") no-repeat;
+    height:2vh;
+    margin-top:-1.9vh;
+    width:35%;
+    right:0;
+    position:absolute;
+    background-size:auto 100%;
+  }
+  #pull-down-filter-menu {
+    position:absolute;
+
+    right:2px;
+    border-radius:1px;
+    background:#fff;
+    margin-top:13vw;
+    border:1px solid #dcdcdc;
+    #time {
+      padding:3vw 6vw;
+      border-bottom:1px solid #dcdcdc;
+      #time-icon {
+        float:left;
+        width:4.9vw;
+        height:4.9vw;
+        margin-right:1vw;
+        background:url(/static/public/image/finish-icon.png) no-repeat;
+        background-size:auto 100%;
+      }
+      #time-text {
+        color:$fontGrey;
+        float:left;
+      }
+    }
+    #hot {
+      padding:3vw 6vw;
+      #hot-icon {
+        float:left;
+        width:4.9vw;
+        height:4.9vw;
+        margin-right:1vw;
+        background:url(/static/public/image/hot-icon.png) no-repeat;
+        background-size:auto 100%;
+      }
+      #hot-text {
+        color:$fontGrey;
+        float:left;
+      }
+    }
+  }
+}
+#work-background {
+  position:absolute;
+  height:100%;
+  width:100%;
+  background:rgba(0,0,0,0.4);
+  z-index:100;
+}
+#work {
+    .work {
+      .work-wrap {
+        margin-bottom:3vw;
+        background:#fff;
+        border-top:1px solid #dcdcdc;
+        border-bottom:1px solid #dcdcdc;
+        .work-image {
+          width:100%;
+          height:38.9vw;
+          background-size:cover!important;
+          background:url('http://placehold.it/375x146');
+        }
+      }
+      .bar {
+        padding:3vw;
+        .title {
+          line-height:5.3vw;
+          .task_name {
+            color:$fontBlack;
+            font-size:4.8vw;
+          }
+          .total_score {
+            float:right;
+            font-size:5.3vw;
+            font-weight:100;
+            color:$baiduBtnColor;
+          }
+        }
+      .desc {
+        margin-top:1vh;
+        color:$fontGrey;
+        font-size:3.9vw;
+      }
+      
+    }
+    .line-end {
+      padding:3vw;
+      padding-top:0;
+      .type {
+        padding:1vw;
+        font-size:3.7vw;
+        border:1px solid #dcdcdc;
+        color:$fontGrey;
+        border-radius:1px;
+        float:left;
+      }
+      .icon-hot {
+        float:right;
+        color:$fontBlack;
+        width:4.9vw;
+        height:4.9vw;
+        text-align:right;
+        background:url('/static/public/image/hot-icon.png') no-repeat;
+        background-size:auto 100%;
+      }
+      .finish-text {
+        float:right;
+        font-size:4.9vw;
+        color:$fontGrey;
+        line-height:6.6vw;
+        margin-left:2vw;
+      }
+      .icon-finish {
+        float:right;
+        color:$fontBlack;
+        width:4.9vw;
+        height:4.9vw;
+        background:url('/static/public/image/finish-icon.png') no-repeat;
+        background-size:auto 100%;
+      }
+      .hot-text {
+        margin-left:2vw;
+        float:right;
+        margin-right:3vw;
+        color:$fontGrey;
+        font-size:4.9vw;
+        line-height:6.6vw;
+      }
+    }
+  }
+}
+.work-wrap-empty {
+  background:url("/static/public/image/bear-empty.png") no-repeat;
+  background-size:50%;
+  background-position:center;
+  height:70vh;
+  width:100vw;
+}
+

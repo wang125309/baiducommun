@@ -1,0 +1,9 @@
+include ./lib/header.jade
+title 新手引导 
+link(href="/static/public/css/freshGuide.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/freshGuide.min.js",language="javascript")
+body(ng-spp="baidu",ng-controller="freshGuideCtrl",ng-cloak)
+	div.first.base(ng-click="change(2)")=""
+	div.second.base(ng-click="change(3)")=""
+	div.third.base(ng-click="change(4)")=""
+	div.forth.base(ng-click="change(5)")=""

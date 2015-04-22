@@ -1,0 +1,91 @@
+include ./lib/header.jade
+title 个人中心
+link(href="/static/public/css/personCenter.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/personCenter.min.js",language="javascript")
+body(ng-app="baidu",ng-controller="PersonCenterCtrl",ng-cloak)
+    include ./lib/tip.jade
+    section#header.clearfix
+        div.avatar.clearfix=""
+            div.avatar-img(style="background:url('{{ user.data.portraitUrl }}') no-repeat;background-size:cover;background-position:center;")
+            div.add-v=""
+        div.message-info.clearfix
+            div.message-name-line.clearfix
+                span.edit-icon.clearfix(ng-click="goEdit()")=" "
+                div.name {{user.data.nickname}}
+                div.sex {{ user.data.sex }}
+            div.message-login-line
+                div.message {{'连续签到' + constantDay + '天'}}
+            div.message-percent-line
+                div.message {{'积分' + personScore}}
+        div.message-btn.clearfix
+            button.baidu-btn(ng-click="convertScore()") 兑换积分
+    section#task-info.clearfix
+        div.part-task(ng-click="change_tab('work')")
+            div.text-info-message
+                div.active 任务
+        div.part-percent(ng-click="change_tab('score')")
+            div.text-info-message
+                div 积分
+        div.part-commun(ng-click="change_tab('commun')")
+            div.text-info-message
+                div 社团
+    div.body-wrap
+        section#work.base(ng-show="condition=='task'")
+            section#work-background(ng-show="toggleCommun==true||togglePerson==true")=""        
+            div.work(infinite-scroll="loadMore()",scroll-threshold="200",time-threshold="600")
+                div.work-wrap-empty(ng-if="task_length == 0")=""
+                div.work-wrap(ng-repeat = "t in task.data",ng-click="getTaskInfo(t.taskId)",ng-if="t.taskStage!=3&&t.taskStage!=4")
+                    div.work-image(style="background:url('{{ t.taskResourceUrl }}')")
+                    div.bar
+                        div.title.clearfix
+                            div.task_name {{ t.taskName }}
+                            span.taskState(ng-if="t.taskState==2") 已领取
+                            span.taskState(ng-if="t.taskState==3") 已通过
+                            span.taskState(ng-if="t.taskState==4") 已评奖
+                            span.taskStage(ng-if="t.taskStage==1") 未发布
+                            span.taskStage(ng-if="t.taskStage==2") 已发布
+                            span.taskStage(ng-if="t.taskStage==3") 强制终止
+                            span.taskStage(ng-if="t.taskStage==4") 已过期
+                        div.desc {{ t.taskDescription | noHtmltag }}
+                    div.line-end.clearfix(ng-if="t.type==1")
+                        div.type 线上任务
+                    div.line-end.clearfix(ng-if="t.type==2")
+                        div.type 线下任务
+        section#score.base(ng-show="condition=='score'")
+            div.score-detail-empty(ng-if="scoreInfo_length == 0")=""
+            div.score-detail(ng-repeat = "s in scoreInfo.data.His_data | orderBy : '-xdate' | limitTo:50 ")
+                div.line-first.clearfix
+                    div.reason.clearfix(ng-if="s.type==1") 兑换
+                    div.reason.clearfix(ng-if="s.type==2") 签到
+                    div.reason.clearfix(ng-if="s.type==3") 领取任务
+                    div.reason.clearfix(ng-if="s.type==4") 补偿
+                    div.reason.clearfix(ng-if="s.type==5") 其他
+                    div.reason.clearfix(ng-if="s.type==6") 任务评奖得分
+                    div.score.clearfix {{ s.score }} 积分
+                div.data {{ s.xdate | date : 'yyyy-MM-dd' }}
+        section#commun.base(ng-show="condition=='commun'")
+            div.commun-detail-empty(ng-if="communs_length == 0")=""
+            div.commun-detail(ng-repeat = "c in communs.data", ng-click="jumpToSpecifyCommun(c.id)")
+                div.line-first.clearfix
+                    div.name.clearfix {{ c.name }}
+                    div.master-mark(ng-if="c.relType==1") 团长
+                    div.new-member(ng-if="c.relType==1&&c.hasNewMember") New
+                    div.score.clearfix {{ c.score }} 积分
+                div.school {{ c.schoolName }}
+            div.commun-detail(ng-repeat = "d in applyCommuns", ng-click="jumpToSpecifyCommun(d.id)")
+                div.line-first.clearfix
+                    div.name.clearfix {{d.name}}
+                    div.score.clearfix 未审批
+                div.school {{ d.school_name }}
+        div.convert-frame(ng-show="isConverting" ng-click="")
+            div.convert-menu
+                div.message.clearfix
+                    div.convert-text-left
+                    div.convert-text-center 您当前有{{personScore}}积分，可兑换{{personScore/10}}元，现在要去兑换吗？
+                    div.convert-text-right
+                div.warn
+                    div 兑换积分需要进行身份认证
+                div.btn-line.clearfix
+                    div.left-btn(ng-click="confirmConvert()") 去兑换
+                    div.right-btn(ng-click="hideConvert()") 取消
+include ./lib/footer.jade

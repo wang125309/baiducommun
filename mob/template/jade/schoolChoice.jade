@@ -1,0 +1,9 @@
+div.school-choice
+    div.search
+        div.frame
+            div.search-image
+            input.input-school(type="text" placeholder="请输入学校" ng-model="schoolName" ng-change="changeSchool()")
+    div.list(ng-show="schoolList.length")
+        div.item.clearfix(ng-repeat="i in schoolList")
+            div.detail.clearfix(ng-click="selectSchool(i.id, i.name)") {{i.name}}
+    div.bear-create.bear-school=""

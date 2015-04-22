@@ -1,0 +1,52 @@
+include ./lib/header.jade
+link(href="/static/public/css/completePersonInfo.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/completePersonInfo.min.js",language="javascript")
+body(ng-app="baidu",ng-controller="CompletePersonInfoCtrl",ng-cloak)
+    div(ng-view)
+    include ./lib/tip.jade
+    section#header.clearfix
+        div.description 兑换积分需要完善您的个人资料
+    section#must-fill.clearfix
+        span *
+        div.fill-tip 必填项
+    section#mainbody.clearfix
+        div.information
+            div.input.bottom-border.clearfix
+                span *
+                div.left-text 姓名
+                div.middle-text(ng-show="isName") !
+                div.right-text
+                    input(type="text" placeholder="请填写你的真实姓名" ng-model="person.realname" ng-blur="validateName()")
+            div.input.bottom-border.clearfix(ng-click="chooseSchool()")
+                span *
+                div.left-text 学校
+                div.middle-text(ng-show="isSchool") !
+                div.right-text
+                    input(type="text" placeholder="请选择你的学校" ng-model="person.school" readonly="readonly" ng-blur="validateSchool()")
+                    div.school-arrow
+            div.input.clearfix
+                span *
+                div.left-text 手机号
+                div.middle-text(ng-show="isPhone") !
+                div.right-text
+                    input(type="tel" placeholder="请填写你的手机号" ng-model="person.phonenum" maxlength="11" ng-blur="validatePhone()")
+    section#alter-fill.clearfix
+        div.fill-tip 选填项
+    section#alterbody.clearfix
+        div.information
+            div.input.bottom-border.clearfix(ng-show="false")
+                div.left-text 院系
+                div.right-text
+                    input(type="text" placeholder="请填写你的院系" ng-model="person.department")
+            div.input.bottom-border.clearfix
+                div.left-text 邮箱
+                div.middle-text(ng-show="isEmail") !
+                div.right-text
+                    input(type="text" placeholder="请填写你的邮箱" ng-model="person.email" ng-blur="validateEmail()")
+            div.input.clearfix
+                div.left-text 地址
+                div.right-text
+                    input(type="text" placeholder="请填写你的地址" ng-model="person.address")
+    section#bottom-btn.clearfix
+        input.submit-btn(id="submit-btn" type="button" ng-click="submitInfo()" value="提交")
+    div.jacking

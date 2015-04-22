@@ -1,0 +1,38 @@
+include ./lib/header.jade
+link(href="/static/public/css/authenticate.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/authenticate.min.js",language="javascript")
+body(ng-app="baidu",ng-controller="AuthenticateCtrl",ng-cloak)
+    include ./lib/tip.jade
+    form(method="post",id="form",role="form",enctype="multipart/form-data")
+        section.clearfix
+            div.card-number.clearfix
+                span *
+                div.lg-tip 请填写您的身份证号
+            input.number-input.clearfix(ng-model="authentication.numbers" name="cardNum" maxlength="19")
+        section.clearfix
+            div.card-number.clearfix
+                span *
+                div.lg-tip 请填写您的支付宝用于积分兑换
+            input.number-input.clearfix(ng-model="authentication.pay" name="zhifubao")
+        section.clearfix
+            div.upload-image.clearfix
+                span *
+                div.lg-tip 上传身份信息照片
+            div.desc.sm-tip.clearfix 请上传两张半身照。一张手持身份证背面和学生证封皮；另一张手持身份证正面和学生证内页。
+            div.demo-image.clearfix
+                div.demo-one
+                div.demo-two
+            div.instance-image.clearfix
+                div.instance-one
+                    div.delete-image(ng-click="deleteImage(1)" ng-show="isUploadedOne")
+                    div.add-image(ng-click="uploadImage(1)" ng-show="!isUploadedOne")
+                    div.tip(ng-bind-html="trustHtml(1)" ng-show="!isUploadedOne")
+                    input.file-one.file-input(type="file",name="file", onchange="angular.element(this).scope().startUpload()",accept="image/*")
+                div.instance-two
+                    div.delete-image(ng-click="deleteImage(2)" ng-show="isUploadedTwo")
+                    div.add-image(ng-click="uploadImage(2)" ng-show="!isUploadedTwo")
+                    div.tip(ng-bind-html="trustHtml(2)" ng-show="!isUploadedTwo")
+                    input.file-two.file-input(type="file",name="file", onchange="angular.element(this).scope().startUpload()",accept="image/*")
+            section.clearfix
+                div.submit-btn(ng-click="submitApplication()") 提交申请
+    div.jacking

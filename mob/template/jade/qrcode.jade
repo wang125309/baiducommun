@@ -1,0 +1,18 @@
+include ./lib/header.jade
+title 二维码
+meta(name="format-detection",content="telephone=no")
+link(href="/static/public/css/qrCode.css", rel="stylesheet", type="text/css")
+script(language="javascript",src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js")
+script(src="/static/public/js/qrcode.min.js", language="javascript")
+body(ng-app="baidu",ng-controller="qrcodeCtrl",ng-cloak)
+	section#body(ng-if="show_type==false")
+		section.share-qrcode-task-text=""
+		div.bear-task-outer
+			img.qrcode(ng-src="{{ url }}",style="width:{{width}}px;height:{{width}}px;")
+			div.qrcode-square="二维码生成中^_^"
+	section#body(ng-if="show_type==true")
+		div.background(ng-show="background_hide!=true",ng-click="hideBackground()")
+			section.share-qrcode-commun-text=""
+		div.bear-commun-outer
+			img.qrcode(ng-src="{{ url }}",style="width:{{width}}px;height:{{width}}px;")
+			div.qrcode-square="二维码生成中^_^"

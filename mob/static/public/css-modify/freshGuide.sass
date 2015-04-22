@@ -1,0 +1,54 @@
+@import "../css/tip.css";
+@import "../../../bower_components/normalize.css/normalize.css";
+
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-font-smoothing:antialiased;
+  outline:none;
+}
+.first,.second,.third,.forth {
+  position:absolute;
+  width:100%;
+  height:100%;  
+  background-size:100% 100%!important;
+  background-position:center center!important;
+}
+.base {
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  -webkit-animation-duration:0.3s;
+  -webkit-animation-delay:0s;
+  -webkit-animation-timing-function:ease;
+  -webkit-animation-fill-mode:both;
+}
+@-webkit-keyframes tab-left {
+  0% {
+    margin-left:100vw;
+  }
+  100% {
+    margin-left:0;
+  }
+}
+.tab-left {
+  -webkit-animation-name:tab-left;
+}
+.first {
+  background:url("/static/public/image/new-first.jpg") no-repeat;
+  z-index:5; 
+}
+.second {
+  background:url("/static/public/image/new-second.jpg") no-repeat;
+  z-index:4;
+}
+.third {
+  background:url("/static/public/image/new-forth.jpg") no-repeat;
+  z-index:3;
+}
+.forth {
+  background:url("/static/public/image/new-third.jpg") no-repeat;
+  z-index:2;
+}

@@ -1,0 +1,28 @@
+include ./lib/header.jade
+link(href="/static/public/css/createCommun.css", rel="stylesheet", type="text/css")
+script(src="/static/public/js/createCommun.min.js",language="javascript")
+title 创建社团
+body(ng-app="baidu", ng-controller="CreateCommunCtrl", ng-cloak)
+    include ./lib/tip.jade
+    div(ng-view)
+    section#header.clearfix
+        div.header-tip 填写社团信息
+        div.information-fill
+            div.item(ng-click="selectSchool()")
+                div.tip 我的学校
+                input(type="text" placeholder="请选择社团所在学校" ng-change="changeSchool()" ng-model="schoolName" readonly="readonly")
+                div.select(ng-click="selectSchool()")
+            div.item
+                div.tip 社团名称
+                input(type="text" placeholder="请填写社团名称" ng-model="communName")
+            div.item
+                div.tip QQ群(选填) 
+                input(type="text" placeholder="请填写社团QQ群号" ng-model="qq")
+    section#content.clearfix
+        div.apply-desc 申请社团认证说明
+        div.detail(ng-bind-html="trustHtml()")
+        div.bear-create=""
+    section#submit.clearfix
+        div.submit-btn(ng-click="createCommun()") 创建社团
+    
+    section#footer

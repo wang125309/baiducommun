@@ -1,0 +1,20 @@
+div.placehold-footer=""
+section#footer
+	div.task-btn.footer-div(ng-if="activeTab=='task'",style="background:url('/static/public/image/task-select.png') no-repeat;",ng-click="goIndex()")=""	
+	div.task-btn.footer-div(ng-if="activeTab!='task'",ng-click="goIndex()")=""	
+	div.commun-btn.footer-div(ng-click="toggleFooterMenuDropDown()",ng-if="activeTab=='commun'",style="background:url('/static/public/image/commun-select.png') no-repeat;")=""
+		div.plat-form-menu.base(is-open="footerMenu.isopen",ng-show="footerMenu.isopen==true")
+			div.arrow=""
+			div.menu-line(ng-repeat="c in communs.data")
+				div(ng-click="goCommunDetail($event,{{ c.id }})") {{ c.name }}
+			div.menu-line
+				div(ng-click="goCommunField($event)") 创建/加入社团
+	div.commun-btn.footer-div(ng-if="activeTab!='commun'",ng-click="toggleFooterMenuDropDown()")=""
+		div.plat-form-menu.base(is-open="footerMenu.isopen",ng-show="footerMenu.isopen==true")
+			div.arrow=""
+			div.menu-line(ng-repeat="c in communs.data")
+				div(ng-click="goCommunDetail($event,{{ c.id }})") {{ c.name }}
+			div.menu-line
+				div(ng-click="goCommunField($event)") 创建/加入社团
+	div.my-btn.footer-div(ng-click="goMy()",ng-if="activeTab=='my'",style="background:url('/static/public/image/my-select.png') no-repeat")=""
+	div.my-btn.footer-div(ng-click="goMy()",ng-if="activeTab!='my'")=""
