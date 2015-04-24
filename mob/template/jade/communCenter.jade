@@ -47,8 +47,8 @@ body(ng-app,ng-controller="CommunCenterCtrl",ng-cloak)
                 div.left-text.clearfix 查看积分记录
                 div.right-text
                     div.right-icon=""
-            div.message-line.clearfix(ng-click="send_message_show()" ng-show="relType==1")
-                div.left-text.clearfix 给团员发消息 
+            div.message-line.clearfix(ng-click="send_message_show()" ng-if="relType==1||relType==3")
+                div.left-text.clearfix 发消息给团员 
                 div.right-text
                     div.right-icon=""
     section#work(ng-if="show_task==true")
@@ -117,13 +117,18 @@ body(ng-app,ng-controller="CommunCenterCtrl",ng-cloak)
         div#score(ng-show="show_empty_bear==true")
             div.bear-empty=""
             div.return-btn.baidu-btn(ng-click="back_center()") 返回
-    section#sendMessage.base(ng-show="show_send==true")
+    section#sendMessage.base(ng-show="show_send==true",ng-if="relType==1||relType==3")
         div.send-title 
             span.pull-left 发消息给团员
             span.pull-right.back
                 a(href="javascript:;",ng-click="hide_send()") 返回 
         div.send
             textarea.send-text(placeholder="在这里给团员发消息哦") {{message}}
+            div.instruction
+                p 1、单条消息限70字以内
+                p 2、每个社团，团长发送消息数量：30条/天
+                p 3、严禁发送平台任务之外的任何不良、敏感信息，违者追讼
+                p 4、48小时之内与平台互动的社团成员，皆可收到团长发送的消息
             div.btn-line
                 botton.baidu-btn(ng-click="sendMessage()") 发送
 include ./lib/footer.jade

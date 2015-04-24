@@ -32372,173 +32372,6 @@ window.$ === undefined && (window.$ = Zepto)
 ;
 
 },{}],8:[function(require,module,exports){
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
-;(function($){
-  var touch = {},
-    touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
-    longTapDelay = 750,
-    gesture
-
-  function swipeDirection(x1, x2, y1, y2) {
-    return Math.abs(x1 - x2) >=
-      Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
-  }
-
-  function longTap() {
-    longTapTimeout = null
-    if (touch.last) {
-      touch.el.trigger('longTap')
-      touch = {}
-    }
-  }
-
-  function cancelLongTap() {
-    if (longTapTimeout) clearTimeout(longTapTimeout)
-    longTapTimeout = null
-  }
-
-  function cancelAll() {
-    if (touchTimeout) clearTimeout(touchTimeout)
-    if (tapTimeout) clearTimeout(tapTimeout)
-    if (swipeTimeout) clearTimeout(swipeTimeout)
-    if (longTapTimeout) clearTimeout(longTapTimeout)
-    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
-    touch = {}
-  }
-
-  function isPrimaryTouch(event){
-    return (event.pointerType == 'touch' ||
-      event.pointerType == event.MSPOINTER_TYPE_TOUCH)
-      && event.isPrimary
-  }
-
-  function isPointerEventType(e, type){
-    return (e.type == 'pointer'+type ||
-      e.type.toLowerCase() == 'mspointer'+type)
-  }
-
-  $(document).ready(function(){
-    var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
-
-    if ('MSGesture' in window) {
-      gesture = new MSGesture()
-      gesture.target = document.body
-    }
-
-    $(document)
-      .bind('MSGestureEnd', function(e){
-        var swipeDirectionFromVelocity =
-          e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
-        if (swipeDirectionFromVelocity) {
-          touch.el.trigger('swipe')
-          touch.el.trigger('swipe'+ swipeDirectionFromVelocity)
-        }
-      })
-      .on('touchstart MSPointerDown pointerdown', function(e){
-        if((_isPointerType = isPointerEventType(e, 'down')) &&
-          !isPrimaryTouch(e)) return
-        firstTouch = _isPointerType ? e : e.touches[0]
-        if (e.touches && e.touches.length === 1 && touch.x2) {
-          // Clear out touch movement data if we have it sticking around
-          // This can occur if touchcancel doesn't fire due to preventDefault, etc.
-          touch.x2 = undefined
-          touch.y2 = undefined
-        }
-        now = Date.now()
-        delta = now - (touch.last || now)
-        touch.el = $('tagName' in firstTouch.target ?
-          firstTouch.target : firstTouch.target.parentNode)
-        touchTimeout && clearTimeout(touchTimeout)
-        touch.x1 = firstTouch.pageX
-        touch.y1 = firstTouch.pageY
-        if (delta > 0 && delta <= 250) touch.isDoubleTap = true
-        touch.last = now
-        longTapTimeout = setTimeout(longTap, longTapDelay)
-        // adds the current touch contact for IE gesture recognition
-        if (gesture && _isPointerType) gesture.addPointer(e.pointerId);
-      })
-      .on('touchmove MSPointerMove pointermove', function(e){
-        if((_isPointerType = isPointerEventType(e, 'move')) &&
-          !isPrimaryTouch(e)) return
-        firstTouch = _isPointerType ? e : e.touches[0]
-        cancelLongTap()
-        touch.x2 = firstTouch.pageX
-        touch.y2 = firstTouch.pageY
-
-        deltaX += Math.abs(touch.x1 - touch.x2)
-        deltaY += Math.abs(touch.y1 - touch.y2)
-      })
-      .on('touchend MSPointerUp pointerup', function(e){
-        if((_isPointerType = isPointerEventType(e, 'up')) &&
-          !isPrimaryTouch(e)) return
-        cancelLongTap()
-
-        // swipe
-        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
-            (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
-
-          swipeTimeout = setTimeout(function() {
-            touch.el.trigger('swipe')
-            touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
-            touch = {}
-          }, 0)
-
-        // normal tap
-        else if ('last' in touch)
-          // don't fire tap when delta position changed by more than 30 pixels,
-          // for instance when moving to a point and back to origin
-          if (deltaX < 30 && deltaY < 30) {
-            // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
-            // ('tap' fires before 'scroll')
-            tapTimeout = setTimeout(function() {
-
-              // trigger universal 'tap' with the option to cancelTouch()
-              // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-              var event = $.Event('tap')
-              event.cancelTouch = cancelAll
-              touch.el.trigger(event)
-
-              // trigger double tap immediately
-              if (touch.isDoubleTap) {
-                if (touch.el) touch.el.trigger('doubleTap')
-                touch = {}
-              }
-
-              // trigger single tap after 250ms of inactivity
-              else {
-                touchTimeout = setTimeout(function(){
-                  touchTimeout = null
-                  if (touch.el) touch.el.trigger('singleTap')
-                  touch = {}
-                }, 250)
-              }
-            }, 0)
-          } else {
-            touch = {}
-          }
-          deltaX = deltaY = 0
-
-      })
-      // when the browser window loses focus,
-      // for example when a modal dialog is shown,
-      // cancel all ongoing events
-      .on('touchcancel MSPointerCancel pointercancel', cancelAll)
-
-    // scrolling the window indicates intention of the user
-    // to scroll, not tap or swipe, so cancel all ongoing events
-    $(window).on('scroll', cancelAll)
-  })
-
-  ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
-    'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(eventName){
-    $.fn[eventName] = function(callback){ return this.on(eventName, callback) }
-  })
-})(Zepto)
-
-},{}],9:[function(require,module,exports){
 angular.module('userModule',['userService']);
 angular.module('indexModule',['userModule']);
 angular.module('signModule',[]);
@@ -32568,7 +32401,7 @@ app = angular.module('baidu',['ngRoute']).
 			});
 		}]);
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 function getQueryParams(name,url) {
 	if (!url) url = location.href
 	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
@@ -32577,78 +32410,251 @@ function getQueryParams(name,url) {
 	var results = regex.exec( url );
 	return results == null ? null : results[1];
 }
-var qrcodeCtrl = angular.module('baidu',['communService','taskService','jsConfigService','ngTouch']).controller('qrcodeCtrl',['TaskInfo','CommunInfo','jsConfig','$scope','$q',function(TaskInfo,CommunInfo,jsConfig,$scope,$q){
-	$scope.width =  document.body.clientWidth*0.6;
-	taskId = getQueryParams("taskId",location.href);
-	entityId = getQueryParams("entityId",location.href);
-	commun_id = getQueryParams("commun_id",location.href);
-	if(taskId > 0) {
-		$scope.show_type = false;
-		$scope.share_text_show = false;
-		jsConfig.query({
-			"url":location.href
-		},function(data){
-			wx.config(data.data);
-			wx.error(function(res){
-				console.log(res);
-			});
-			wx.ready(function(){
-				wx.hideOptionMenu();
-			});
+var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','scoreExchangeService','userService','communService','getUserScoreInfoService','getSignedInfoService','getUserTaskStatusListService','getUserCommunRelTypeService','getALLTaskStatusListService','jsConfigService','ngTouch']).controller('PersonCenterCtrl',['$scope','getAppvCommunInfo','scoreExchange','User','getSignedInfo','Communs','getUserScoreInfo','getUserTaskStatusList','getUserCommunRelType','getALLTaskStatusList','jsConfig','$q',function($scope,getAppvCommunInfo,scoreExchange,User,getSignedInfo,Communs,getUserScoreInfo,getUserTaskStatusList,getUserCommunRelType,getALLTaskStatusList,jsConfig,$q){
+	$scope.tip = {
+        show: false,
+        message: ''
+    };
+	$scope.task_length = 0;
+	$scope.scoreInfo_length = 0;
+    $scope.clickTipFrame = function() {
+        $scope.tip.show = false;
+        $scope.tip.message = '';
+    };
+
+    function triggerAlert(isFrameShow, message, isLineShow) {
+        $scope.tip.show = isFrameShow;
+        $scope.tip.message = message;
+        $scope.tip.btnline = isLineShow;
+    };  
+       
+	jsConfig.query({
+		"url":location.href
+	},function(data){
+		wx.config(data.data);
+		wx.error(function(res){
+			console.log(res);
 		});
-		$scope.taskInfo = TaskInfo.query({taskId:taskId},function(d){
-			for (i in d.data.taskStatusData) {
-				console.log(entityId);
-				if(d.data.taskStatusData[i].entityId == entityId) {
-					$scope.url = d.data.taskStatusData[i].qeCodePicUrl;
-				}
+		wx.ready(function(){
+			wx.hideOptionMenu();
+		});
+	});
+
+    type = getQueryParams('tab', location.href);
+    
+    $scope.communs = Communs.query(function(d){
+		$scope.communs_length = d.data.length;
+	});
+    getAppvCommunInfo.query(function(result){
+        if (result.error_no !== '0'){
+        	location.href = location.href;
+        }
+        $scope.applyCommuns = result.data;
+    });
+	$scope.task = getALLTaskStatusList.query({
+		page:1,
+        rows:20,
+	},function(d){
+		$scope.task_length = d.data.length;
+	});
+	$scope.activeTab = 'my';
+    $scope.goEdit = function() {
+		location.href="/mob/completePersonInfo.do";
+    };
+	$scope.condition = 'task';
+    var get_last_active = function(name) {
+		if($scope.condition == 'task'){
+            base = 0;
+		}
+		else if($scope.condition == 'score') {
+			base = 1;
+        }
+		else if($scope.condition == 'commun') {
+			base = 2;
+        }
+		if(name == 'work') {
+			now = 0;
+        }
+		else if(name == 'score') {
+			now = 1;
+        }
+		else if(name == 'commun') {
+			now = 2;
+        }
+		console.log("base"+base);
+		console.log("now"+now);
+        if(now-base < 0) {
+			return "left";
+		}
+        else {
+			return "right";
+		}
+
+	};
+    var tab_checkout = function(name) {
+		$("#score").removeClass("go-left");
+        $("#score").removeClass("go-right");
+		$("#work").removeClass("go-left");
+		$("#work").removeClass("go-right");
+        $("#commun").removeClass("go-left");
+		$("#commun").removeClass("go-right");
+		$("#"+name).addClass("go-"+res);
+    };
+	$scope.change_tab = function(name) {
+		res = get_last_active(name);
+        if(name == 'score') {
+			$(".part-percent .text-info-message div").addClass("active");
+			$(".part-task .text-info-message div").removeClass("active");
+            $(".part-commun .text-info-message div").removeClass("active");
+			$scope.condition = 'score';
+		}
+		else if (name == 'commun') {
+			$(".part-commun .text-info-message div").addClass("active");
+            $(".part-task .text-info-message div").removeClass("active");
+			$(".part-percent .text-info-message div").removeClass("active");
+			$("#commun").addClass("go-"+res);
+			$scope.condition = 'commun';
+        }
+		else if (name == 'work') {
+			$(".part-task .text-info-message div").addClass("active");
+            $(".part-commun .text-info-message div").removeClass("active");
+			$(".part-percent .text-info-message div").removeClass("active");
+			$("#task").addClass("go-"+res);
+			$scope.condition = 'task';
+        }
+		tab_checkout(name);
+	};
+    
+    if (type) {
+        if (type === '1') {
+            $scope.change_tab('work');
+        } else if (type === '2') {
+            $scope.change_tab('score');
+        } else if(type === '3') {
+            $scope.change_tab('commun');
+        } else if(type === '4') {
+            $scope.isConverting = true;
+        }
+    }
+
+    $scope.scoreInfo = getUserScoreInfo.query(function(d){
+		$scope.scoreInfo_length = d.data.length;
+	});
+	getUserScoreInfo.query(function(result) {
+        if (result.error_no !== '0') {
+        	location.href = location.href;
+        }
+        if (result.data.Current_score) {
+            $scope.personScore = result.data.Current_score;
+        } else {
+            $scope.personScore = 0;
+        }
+    });
+    getSignedInfo.query({
+        startDate: '1294890876859',
+        endDate:'3000890876859'
+    },function(result) {
+        if (result.error_no !== '0') {
+        	location.href = location.href;
+        }
+        if (!result.data.continuous) {
+            $scope.constantDay = 0;
+        } else {
+            $scope.constantDay = result.data.continuous;
+        }
+    });
+    $scope.jumpToSpecifyCommun = function(commun_id) {
+        location.href = '/mob/communCenter.do?commun_id=' + commun_id; 
+    };
+	$scope.footerMenu = {
+        isopen : false
+	};
+	$scope.toggleFooterMenuDropDown = function() {
+        $scope.footerMenu.isopen = !$scope.footerMenu.isopen;
+	};
+	$scope.user = User.query(function(d){
+		if(d.error_no != 0) {
+			location.href = location.href;
+		}
+		else {
+            $scope.user = d;
+            console.log(d.data);
+		}
+	});
+	$scope.getTaskInfo = function(id) {
+        location.href="/mob/taskInfo.do?taskId="+id;
+	};
+	$scope.goIndex = function() {
+		location.href="/mob/index.do";
+	};
+	$scope.goMy = function() {
+		location.href="/mob/personCenter.do";
+	};
+	$scope.goCommunDetail = function($event,num) {
+		$event.preventDefault();
+		location.href="/mob/communCenter.do?commun_id="+num;
+	};
+	$scope.goCommunField = function($event) {
+        $event.preventDefault();
+		location.href="/mob/communField.do";
+	};
+    $scope.hideConvert = function() {
+        $scope.isConverting = false;
+    };
+    $scope.convertScore = function() {
+        $scope.isConverting = true; 
+    };
+	$scope.master = function(cid) {
+		getUserCommunRelType.query({"commun_id":cid},function(d){
+			if(d.data.reltype == 1) {
+				return 1;
+			}
+			else {
+				return 0;
 			}
 		});
-	}
-	else if(commun_id > 0)  {
-		$scope.show_type = true;
-		$scope.message1 = "将此二维码发给小伙伴";
-		$scope.message2 = "即可拉他入团，干一票大的呦！";
-		$scope.share_text_show = true;
-		$scope.commun = CommunInfo.query({commun_id:commun_id},function(d){
-			$scope.url = d.data.qrcode;
-			jsConfig.query({
-				"url":location.href
-			},function(data){
-				wx.config(data.data);
-				wx.error(function(res){
-					console.log(res);
-				});
-				console.log(data.data);
-				wx.ready(function(){
-					wx.onMenuShareTimeline({
-						link:location.href,
-						title:"来哥的社团，跟哥一起闯江湖，拿积（现）分（金）吧！",
-						imgUrl:$scope.url,
-					});
-					wx.onMenuShareAppMessage({
-						link:location.href,
-						title:"百度社团赞助平台",
-						desc:"来哥的社团，跟哥一起闯江湖，拿积（现）分（金）吧！",
-						imgUrl:$scope.url,
-					});			
-				});
-			});
-		});
-	}
-	if(localStorage['hideBackground-commun']) {
-		$scope.background_hide = true;
-	}
-	$scope.hideBackground = function() {
-		localStorage['hideBackground-commun'] = 1;	
-		$scope.background_hide = true;
 	};
-}]);
-qrcodeCtrl.$inject = ['$scope','qrcodeCtrl'];
+    $scope.confirmConvert = function() {
+        scoreExchange.query({
+            type: 1,
+            score: $scope.personScore
+        }, function(result) {
+            if (result.data.message) {
+                $scope.isConverting = false;
+                triggerAlert(true, result.data.message);
+            } else if (result.error_no !== '0') {
+                location.href = location.href;
+            } else if (result.data.status === '10122') {
+                $scope.isConverting = false;
+                triggerAlert(true, result.data.reason);
+                setTimeout(function() {
+                    location.href = '/mob/authenticate.do';
+                }, 1000);
+            } else if (result.data.status === '0'){
+                $scope.isConverting = false;
+                triggerAlert(true, '小主的积分兑换申请已经提交，耐心等待审批结果吧!（我们将于48小时之内审批您的申请）');
+            } else {
+                $scope.isConverting = false;
+                triggerAlert(true, result.data.reason);
+            }
+        });
+    };
+}])
+.filter('noHtmltag',function(){
+	return function(OriginalString) {
+		OriginalString = OriginalString.replace(/(<([^>]+)>)/ig,"");
+		if(OriginalString.length > 60) {
+			OriginalString = OriginalString.substring(0,60);
+			OriginalString += "...";
+			return OriginalString;
+		}
+		return OriginalString;
+	}
+});
+PersonCenterCtrl.$inject = ['$scope','PersonCenterCtrl'];
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require("../../../bower_components/zepto/zepto.js");
-require('../../../bower_components/zeptojs/src/touch.js');
 require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-route/angular-route.js");
 require("../../../bower_components/angular-resource/angular-resource.js");
@@ -32657,9 +32663,9 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/jqlite/jqlite.1.1.1.min.js");
 require("./app.js");
 require("./service/service.js");
-require("./controller/qrcodeController.js");
+require("./controller/personCenterController.js");
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-resource/angular-resource.js":2,"../../../bower_components/angular-route/angular-route.js":3,"../../../bower_components/angular-touch/angular-touch.js":4,"../../../bower_components/angular/angular.js":5,"../../../bower_components/jqlite/jqlite.1.1.1.min.js":6,"../../../bower_components/zepto/zepto.js":7,"../../../bower_components/zeptojs/src/touch.js":8,"./app.js":9,"./controller/qrcodeController.js":10,"./service/service.js":12}],12:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-resource/angular-resource.js":2,"../../../bower_components/angular-route/angular-route.js":3,"../../../bower_components/angular-touch/angular-touch.js":4,"../../../bower_components/angular/angular.js":5,"../../../bower_components/jqlite/jqlite.1.1.1.min.js":6,"../../../bower_components/zepto/zepto.js":7,"./app.js":8,"./controller/personCenterController.js":9,"./service/service.js":11}],11:[function(require,module,exports){
 angular.module('userService',['ngResource']).
 	factory('User',['$resource',function($resource){
 		return $resource('/api/getUserInfo.do',{},{
@@ -32969,24 +32975,98 @@ notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource)
 
 
 
-},{}]},{},[11])',params:{},isArray:false}
+},{}]},{},[10])tatusListService',['ngResource']);
+getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getALLTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
 		});
-    }]);
-var rejectAppvInfo = angular.module('rejectAppvInfoService', ['ngResource']);
-rejectAppvInfo.factory('rejectAppvInfo',['$resource',function($resource){
-        return $resource('/api/rejectAppvInfo.do',{},{
-            query:{method:'GET',params:{},isArrary:false}
-        });
-    }]);
-var delCommun = angular.module('delCommunService',['ngResource']);
-delCommun.factory('delCommun',['$resource', function($resource){
-        return $resource('/api/delCommun.do',{},{
-            query:{method:'GET',params:{},isArray:false}
-        });
-    }]);
-var getSubmitWorks = angular.module('getSubmitWorksService',['ngResource']);
-getSubmitWorks.factory('getSubmitWorks',['$resource',function($resource){
-		return $resource('/api/getSubmitWorks.do',{},{
+	}]);
+var notifyCommunMember = angular.module('notifyCommunMemberService',['ngResource']);
+notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource){
+		return $resource('/api/notifyCommunMember.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+},{}]},{},[11])ion($resource){
+		return $resource('/api/completeCommunityInfo.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getALLTaskStatusList = angular.module('getALLTaskStatusListService',['ngResource']);
+getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getALLTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var notifyCommunMember = angular.module('notifyCommunMemberService',['ngResource']);
+notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource){
+		return $resource('/api/notifyCommunMember.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+},{}]},{},[11])$resource('/api/getSubmitWorks.do',{},{
 			query:{method:'GET',params:{},isArray:false}
 		});
 	}]);
