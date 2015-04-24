@@ -191,7 +191,7 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 				"commun_id":commun_id,
 				"description":$(".send-text").val()
 			},function(d){
-				if(d.data.error_no == 0) {
+				if(d.error_no == 0) {
 					triggerAlert(true,'消息已经成功发送');
 					$scope.hide_send();
 				}
@@ -203,7 +203,9 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 		}
 		else {
 			triggerAlert(true,'消息发送失败，请注意您的消息长度');
+
 		}
+		$scope.hide_send();
 	}
 	$scope.confirmConvert = function() {
 		if($scope.communsInfo.data.score == 0) {

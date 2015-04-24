@@ -32569,65 +32569,36 @@ app = angular.module('baidu',['ngRoute']).
 		}]);
 
 },{}],10:[function(require,module,exports){
-function getQueryParams(name,url) {
-	if (!url) url = location.href
-	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-	var results = regex.exec( url );
-	return results == null ? null : results[1];
-}
-var PhoneNumberCtrl = angular.module('baidu',['finishJumpService','getLotteryListService','ngTouch']).controller('PhoneNumberCtrl',['finishJump','getLotteryList','$scope','$q',function(finishJump,getLotteryList,$scope,$q){
-	id = getQueryParams("id",location.href);
-	$scope.text = "";
-	$scope.add = function($event,num) {
-		if($scope.text.length < 11) {
-			$scope.text += num;
-		}
-		else {
-			return ;
-		}
-	};
-	$scope.submitPhoneNumber = function() {
-		if($scope.text.length < 11) {
-			alert("请输入正确的手机号");
-		}
-		else {
-			finishJump.query({phone_num:$scope.text,id:id},function(d){
-				location.href = d.data;	
+var freshGuideCtrl = angular.module('baidu',['ngTouch']).controller('freshGuideCtrl',['$scope','$q',function($scope,$q){
+	$scope.change = function(num) {
+		console.log(num);
+		if(num == 2) {
+			console.log(num);
+			$(".second").css({
+				"z-index":"6"
 			});
-		};
-	};
-	$scope.read = getLotteryList.query(function(d){
-		$scope.read = d;
-		colors = ['#0bc344','#6618be','#1e1b22','#d64418','#3017ab','#17ab1e','#12d9e5','#b112e5','#f7ef0e','#a29f56'];
-		$scope.read.text = [];
-
-		for(i=0;i<d.root.length;i++) {
-			t = {
-				color:colors[Math.ceil(Math.random()*10)],
-				text:d.root[i].phoneNum.substring(0,2)+"****"+d.root[i].phoneNum.substring(6,10)+" 获得"+d.root[i].prize
-			}
-			$scope.read.text.push(t);
+			$(".second").addClass("tab-left");
 		}
-		console.log($scope.read.text);
-	});
-	$scope.delete = function($event) {
-		$scope.text = $scope.text.substring(0,$scope.text.length-1);
-	};
-
-}])
-.directive('delete',function(){
-	return  {
-		link : function(scope,element,attr) {
-			element.on('longTap',function(){
-				scope.text = "";
-				scope.$apply();
+		if(num == 3) {
+			console.log(num);
+			$(".third").css({
+				"z-index":"7"
 			});
+			$(".third").addClass("tab-left");
 		}
-	}
-});
-PhoneNumberCtrl.$inject = ['$scope','PhoneNumberCtrl'];
+		if(num == 4) {
+			console.log(num);
+			$(".forth").css({
+				"z-index":"8"
+			});
+			$(".forth").addClass("tab-left");
+		}
+		if(num == 5) {
+			location.href = "/mob/index.do";
+		}
+	};
+}]);
+freshGuideCtrl.$inject = ['$scope','freshGuideCtrl'];
 
 },{}],11:[function(require,module,exports){
 require("../../../bower_components/zepto/zepto.js");
@@ -32640,9 +32611,9 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/jqlite/jqlite.1.1.1.min.js");
 require("./app.js");
 require("./service/service.js");
-require("./controller/phoneNumberController.js");
+require("./controller/freshGuideController.js");
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-resource/angular-resource.js":2,"../../../bower_components/angular-route/angular-route.js":3,"../../../bower_components/angular-touch/angular-touch.js":4,"../../../bower_components/angular/angular.js":5,"../../../bower_components/jqlite/jqlite.1.1.1.min.js":6,"../../../bower_components/zepto/zepto.js":7,"../../../bower_components/zeptojs/src/touch.js":8,"./app.js":9,"./controller/phoneNumberController.js":10,"./service/service.js":12}],12:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-resource/angular-resource.js":2,"../../../bower_components/angular-route/angular-route.js":3,"../../../bower_components/angular-touch/angular-touch.js":4,"../../../bower_components/angular/angular.js":5,"../../../bower_components/jqlite/jqlite.1.1.1.min.js":6,"../../../bower_components/zepto/zepto.js":7,"../../../bower_components/zeptojs/src/touch.js":8,"./app.js":9,"./controller/freshGuideController.js":10,"./service/service.js":12}],12:[function(require,module,exports){
 angular.module('userService',['ngResource']).
 	factory('User',['$resource',function($resource){
 		return $resource('/api/getUserInfo.do',{},{
@@ -32952,6 +32923,60 @@ notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource)
 
 
 
+},{}]},{},[11])ry('getCommunityScoreInfo',['$resource',function($resource){
+		return $resource('/api/getCommunityScoreInfo.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var complateCommunityInfo = angular.module('complateCommunityInfoService',['ngResource']);
+complateCommunityInfo.factory('complateCommunityInfo',['$resource',function($resource){
+		return $resource('/api/completeCommunityInfo.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getALLTaskStatusList = angular.module('getALLTaskStatusListService',['ngResource']);
+getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getALLTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var notifyCommunMember = angular.module('notifyCommunMemberService',['ngResource']);
+notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource){
+		return $resource('/api/notifyCommunMember.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 },{}]},{},[11])nityInfo.do',{},{
 			query:{method:'GET',params:{},isArray:false}
 		});
@@ -32999,7 +33024,35 @@ notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource)
 
 
 
-},{}]},{},[11])ion($resource){
+},{}]},{},[11])',params:{},isArray:false}
+		});
+    }]);
+var rejectAppvInfo = angular.module('rejectAppvInfoService', ['ngResource']);
+rejectAppvInfo.factory('rejectAppvInfo',['$resource',function($resource){
+        return $resource('/api/rejectAppvInfo.do',{},{
+            query:{method:'GET',params:{},isArrary:false}
+        });
+    }]);
+var delCommun = angular.module('delCommunService',['ngResource']);
+delCommun.factory('delCommun',['$resource', function($resource){
+        return $resource('/api/delCommun.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var getSubmitWorks = angular.module('getSubmitWorksService',['ngResource']);
+getSubmitWorks.factory('getSubmitWorks',['$resource',function($resource){
+		return $resource('/api/getSubmitWorks.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getCommunityScoreInfo = angular.module('getCommunityScoreInfoService',['ngResource']);
+getCommunityScoreInfo.factory('getCommunityScoreInfo',['$resource',function($resource){
+		return $resource('/api/getCommunityScoreInfo.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var complateCommunityInfo = angular.module('complateCommunityInfoService',['ngResource']);
+complateCommunityInfo.factory('complateCommunityInfo',['$resource',function($resource){
 		return $resource('/api/completeCommunityInfo.do',{},{
 			query:{method:'GET',params:{},isArray:false}
 		});
