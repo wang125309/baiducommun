@@ -182,23 +182,29 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 	};
 	$scope.send_message_show = function() {
 		$scope.show_send = true;
+		window.scrollTo(0,0);
 		$("#sendMessage").addClass("pull-up");
 	};
 	$scope.sendMessage = function() {
-		notifyCommunMember.query({
-			"commun_id":commun_id,
-			"description":$(".send-text").val()
-		},function(d){
-			if(d.data.error_no == 0) {
-				triggerAlert(true,'消息已经成功发送');
-				$scope.hide_send();
-			}
-			else {
-				triggerAlert(true,d.data.reason);
-				$scope.hide_send();
-			}
-		});
-	};
+		if($(".send-text").val().length > 0 &&$(".send-text").val().length <140)  {
+			notifyCommunMember.query({
+				"commun_id":commun_id,
+				"description":$(".send-text").val()
+			},function(d){
+				if(d.data.error_no == 0) {
+					triggerAlert(true,'消息已经成功发送');
+					$scope.hide_send();
+				}
+				else {
+					triggerAlert(true,d.data.reason);
+					$scope.hide_send();
+				}
+			});
+		}
+		else {
+			triggerAlert(true,'消息发送失败，请注意您的消息长度');
+		}
+	}
 	$scope.confirmConvert = function() {
 		if($scope.communsInfo.data.score == 0) {
 			$scope.isConverting = false;
