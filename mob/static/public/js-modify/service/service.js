@@ -270,10 +270,12 @@ getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resou
 			query:{method:'GET',params:{},isArray:false}
 		});
 	}]);
-
-
-
-
+var notifyCommunMember = angular.module('notifyCommunMemberService',['ngResource']);
+notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource){
+		return $resource('/api/notifyCommunMember.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
 
 
 
