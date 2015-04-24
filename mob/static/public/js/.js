@@ -1,6 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.14
+ * @license AngularJS v1.3.15
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -2139,7 +2139,7 @@ angular.module('ngAnimate', ['ng'])
 
 },{}],2:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.14
+ * @license AngularJS v1.3.15
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -2809,7 +2809,7 @@ angular.module('ngResource', ['ng']).
 
 },{}],3:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.14
+ * @license AngularJS v1.3.15
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -3799,8 +3799,26 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 })(window, window.angular);
 
 },{}],4:[function(require,module,exports){
+/*
+ AngularJS v1.3.15
+ (c) 2010-2014 Google, Inc. http://angularjs.org
+ License: MIT
+*/
+(function(n,h,p){'use strict';function E(a){var e=[];r(e,h.noop).chars(a);return e.join("")}function g(a){var e={};a=a.split(",");var d;for(d=0;d<a.length;d++)e[a[d]]=!0;return e}function F(a,e){function d(a,b,d,l){b=h.lowercase(b);if(s[b])for(;f.last()&&t[f.last()];)c("",f.last());u[b]&&f.last()==b&&c("",b);(l=v[b]||!!l)||f.push(b);var m={};d.replace(G,function(a,b,e,c,d){m[b]=q(e||c||d||"")});e.start&&e.start(b,m,l)}function c(a,b){var c=0,d;if(b=h.lowercase(b))for(c=f.length-1;0<=c&&f[c]!=b;c--);
+if(0<=c){for(d=f.length-1;d>=c;d--)e.end&&e.end(f[d]);f.length=c}}"string"!==typeof a&&(a=null===a||"undefined"===typeof a?"":""+a);var b,k,f=[],m=a,l;for(f.last=function(){return f[f.length-1]};a;){l="";k=!0;if(f.last()&&w[f.last()])a=a.replace(new RegExp("([\\W\\w]*)<\\s*\\/\\s*"+f.last()+"[^>]*>","i"),function(a,b){b=b.replace(H,"$1").replace(I,"$1");e.chars&&e.chars(q(b));return""}),c("",f.last());else{if(0===a.indexOf("\x3c!--"))b=a.indexOf("--",4),0<=b&&a.lastIndexOf("--\x3e",b)===b&&(e.comment&&
+e.comment(a.substring(4,b)),a=a.substring(b+3),k=!1);else if(x.test(a)){if(b=a.match(x))a=a.replace(b[0],""),k=!1}else if(J.test(a)){if(b=a.match(y))a=a.substring(b[0].length),b[0].replace(y,c),k=!1}else K.test(a)&&((b=a.match(z))?(b[4]&&(a=a.substring(b[0].length),b[0].replace(z,d)),k=!1):(l+="<",a=a.substring(1)));k&&(b=a.indexOf("<"),l+=0>b?a:a.substring(0,b),a=0>b?"":a.substring(b),e.chars&&e.chars(q(l)))}if(a==m)throw L("badparse",a);m=a}c()}function q(a){if(!a)return"";A.innerHTML=a.replace(/</g,
+"&lt;");return A.textContent}function B(a){return a.replace(/&/g,"&amp;").replace(M,function(a){var d=a.charCodeAt(0);a=a.charCodeAt(1);return"&#"+(1024*(d-55296)+(a-56320)+65536)+";"}).replace(N,function(a){return"&#"+a.charCodeAt(0)+";"}).replace(/</g,"&lt;").replace(/>/g,"&gt;")}function r(a,e){var d=!1,c=h.bind(a,a.push);return{start:function(a,k,f){a=h.lowercase(a);!d&&w[a]&&(d=a);d||!0!==C[a]||(c("<"),c(a),h.forEach(k,function(d,f){var k=h.lowercase(f),g="img"===a&&"src"===k||"background"===
+k;!0!==O[k]||!0===D[k]&&!e(d,g)||(c(" "),c(f),c('="'),c(B(d)),c('"'))}),c(f?"/>":">"))},end:function(a){a=h.lowercase(a);d||!0!==C[a]||(c("</"),c(a),c(">"));a==d&&(d=!1)},chars:function(a){d||c(B(a))}}}var L=h.$$minErr("$sanitize"),z=/^<((?:[a-zA-Z])[\w:-]*)((?:\s+[\w:-]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)\s*(>?)/,y=/^<\/\s*([\w:-]+)[^>]*>/,G=/([\w:-]+)(?:\s*=\s*(?:(?:"((?:[^"])*)")|(?:'((?:[^'])*)')|([^>\s]+)))?/g,K=/^</,J=/^<\//,H=/\x3c!--(.*?)--\x3e/g,x=/<!DOCTYPE([^>]*?)>/i,
+I=/<!\[CDATA\[(.*?)]]\x3e/g,M=/[\uD800-\uDBFF][\uDC00-\uDFFF]/g,N=/([^\#-~| |!])/g,v=g("area,br,col,hr,img,wbr");n=g("colgroup,dd,dt,li,p,tbody,td,tfoot,th,thead,tr");p=g("rp,rt");var u=h.extend({},p,n),s=h.extend({},n,g("address,article,aside,blockquote,caption,center,del,dir,div,dl,figure,figcaption,footer,h1,h2,h3,h4,h5,h6,header,hgroup,hr,ins,map,menu,nav,ol,pre,script,section,table,ul")),t=h.extend({},p,g("a,abbr,acronym,b,bdi,bdo,big,br,cite,code,del,dfn,em,font,i,img,ins,kbd,label,map,mark,q,ruby,rp,rt,s,samp,small,span,strike,strong,sub,sup,time,tt,u,var"));
+n=g("animate,animateColor,animateMotion,animateTransform,circle,defs,desc,ellipse,font-face,font-face-name,font-face-src,g,glyph,hkern,image,linearGradient,line,marker,metadata,missing-glyph,mpath,path,polygon,polyline,radialGradient,rect,set,stop,svg,switch,text,title,tspan,use");var w=g("script,style"),C=h.extend({},v,s,t,u,n),D=g("background,cite,href,longdesc,src,usemap,xlink:href");n=g("abbr,align,alt,axis,bgcolor,border,cellpadding,cellspacing,class,clear,color,cols,colspan,compact,coords,dir,face,headers,height,hreflang,hspace,ismap,lang,language,nohref,nowrap,rel,rev,rows,rowspan,rules,scope,scrolling,shape,size,span,start,summary,target,title,type,valign,value,vspace,width");
+p=g("accent-height,accumulate,additive,alphabetic,arabic-form,ascent,attributeName,attributeType,baseProfile,bbox,begin,by,calcMode,cap-height,class,color,color-rendering,content,cx,cy,d,dx,dy,descent,display,dur,end,fill,fill-rule,font-family,font-size,font-stretch,font-style,font-variant,font-weight,from,fx,fy,g1,g2,glyph-name,gradientUnits,hanging,height,horiz-adv-x,horiz-origin-x,ideographic,k,keyPoints,keySplines,keyTimes,lang,marker-end,marker-mid,marker-start,markerHeight,markerUnits,markerWidth,mathematical,max,min,offset,opacity,orient,origin,overline-position,overline-thickness,panose-1,path,pathLength,points,preserveAspectRatio,r,refX,refY,repeatCount,repeatDur,requiredExtensions,requiredFeatures,restart,rotate,rx,ry,slope,stemh,stemv,stop-color,stop-opacity,strikethrough-position,strikethrough-thickness,stroke,stroke-dasharray,stroke-dashoffset,stroke-linecap,stroke-linejoin,stroke-miterlimit,stroke-opacity,stroke-width,systemLanguage,target,text-anchor,to,transform,type,u1,u2,underline-position,underline-thickness,unicode,unicode-range,units-per-em,values,version,viewBox,visibility,width,widths,x,x-height,x1,x2,xlink:actuate,xlink:arcrole,xlink:role,xlink:show,xlink:title,xlink:type,xml:base,xml:lang,xml:space,xmlns,xmlns:xlink,y,y1,y2,zoomAndPan");
+var O=h.extend({},D,p,n),A=document.createElement("pre");h.module("ngSanitize",[]).provider("$sanitize",function(){this.$get=["$$sanitizeUri",function(a){return function(e){var d=[];F(e,r(d,function(c,b){return!/^unsafe/.test(a(c,b))}));return d.join("")}}]});h.module("ngSanitize").filter("linky",["$sanitize",function(a){var e=/((ftp|https?):\/\/|(www\.)|(mailto:)?[A-Za-z0-9._%+-]+@)\S*[^\s.;,(){}<>"\u201d\u2019]/,d=/^mailto:/;return function(c,b){function k(a){a&&g.push(E(a))}function f(a,c){g.push("<a ");
+h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.replace(/"/g,"&quot;"),'">');k(c);g.push("</a>")}if(!c)return c;for(var m,l=c,g=[],n,p;m=l.match(e);)n=m[0],m[2]||m[4]||(n=(m[3]?"http://":"mailto:")+n),p=m.index,k(l.substr(0,p)),f(n,m[0].replace(d,"")),l=l.substring(p+m[0].length);k(l);return a(g.join(""))}}])})(window,window.angular);
+//# sourceMappingURL=angular-sanitize.min.js.map
+
+},{}],5:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.14
+ * @license AngularJS v1.3.15
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -4422,9 +4440,9 @@ makeSwipeDirective('ngSwipeRight', 1, 'swiperight');
 
 })(window, window.angular);
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
- * @license AngularJS v1.3.14
+ * @license AngularJS v1.3.15
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -4479,7 +4497,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.3.14/' +
+    message = message + '\nhttp://errors.angularjs.org/1.3.15/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -4971,6 +4989,12 @@ function isString(value) {return typeof value === 'string';}
  * @description
  * Determines if a reference is a `Number`.
  *
+ * This includes the "special" numbers `NaN`, `+Infinity` and `-Infinity`.
+ *
+ * If you wish to exclude these then you can use the native
+ * [`isFinite'](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isFinite)
+ * method.
+ *
  * @param {*} value Reference to check.
  * @returns {boolean} True if `value` is a `Number`.
  */
@@ -5339,10 +5363,11 @@ function equals(o1, o2) {
       } else if (isDate(o1)) {
         if (!isDate(o2)) return false;
         return equals(o1.getTime(), o2.getTime());
-      } else if (isRegExp(o1) && isRegExp(o2)) {
-        return o1.toString() == o2.toString();
+      } else if (isRegExp(o1)) {
+        return isRegExp(o2) ? o1.toString() == o2.toString() : false;
       } else {
-        if (isScope(o1) || isScope(o2) || isWindow(o1) || isWindow(o2) || isArray(o2)) return false;
+        if (isScope(o1) || isScope(o2) || isWindow(o1) || isWindow(o2) ||
+          isArray(o2) || isDate(o2) || isRegExp(o2)) return false;
         keySet = {};
         for (key in o1) {
           if (key.charAt(0) === '$' || isFunction(o1[key])) continue;
@@ -6546,11 +6571,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.3.14',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.3.15',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
-  dot: 14,
-  codeName: 'instantaneous-browserification'
+  dot: 15,
+  codeName: 'locality-filtration'
 };
 
 
@@ -6686,6 +6711,17 @@ function publishExternalAPI(angular) {
     }
   ]);
 }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* global JQLitePrototype: true,
   addEventListenerFn: true,
@@ -9110,6 +9146,7 @@ var $AnimateProvider = ['$provide', function($provide) {
        * @return {Promise} the animation callback promise
        */
       leave: function(element, options) {
+        applyStyles(element, options);
         element.remove();
         return asyncPromise();
       },
@@ -9514,11 +9551,19 @@ function Browser(window, document, $log, $sniffer) {
     fireUrlChange();
   }
 
+  function getCurrentState() {
+    try {
+      return history.state;
+    } catch (e) {
+      // MSIE can reportedly throw when there is no state (UNCONFIRMED).
+    }
+  }
+
   // This variable should be used *only* inside the cacheState function.
   var lastCachedState = null;
   function cacheState() {
     // This should be the only place in $browser where `history.state` is read.
-    cachedState = window.history.state;
+    cachedState = getCurrentState();
     cachedState = isUndefined(cachedState) ? null : cachedState;
 
     // Prevent callbacks fo fire twice if both hashchange & popstate were fired.
@@ -10115,7 +10160,7 @@ function $CacheFactoryProvider() {
  * the document, but it must be a descendent of the {@link ng.$rootElement $rootElement} (IE,
  * element with ng-app attribute), otherwise the template will be ignored.
  *
- * Adding via the $templateCache service:
+ * Adding via the `$templateCache` service:
  *
  * ```js
  * var myApp = angular.module('myApp', []);
@@ -10142,6 +10187,17 @@ function $TemplateCacheProvider() {
     return $cacheFactory('templates');
   }];
 }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* ! VARIABLE/FUNCTION NAMING CONVENTIONS THAT APPLY TO THIS FILE!
  *
@@ -10354,7 +10410,8 @@ function $TemplateCacheProvider() {
  * Require another directive and inject its controller as the fourth argument to the linking function. The
  * `require` takes a string name (or array of strings) of the directive(s) to pass in. If an array is used, the
  * injected argument will be an array in corresponding order. If no such directive can be
- * found, or if the directive does not have a controller, then an error is raised. The name can be prefixed with:
+ * found, or if the directive does not have a controller, then an error is raised (unless no link function
+ * is specified, in which case error checking is skipped). The name can be prefixed with:
  *
  * * (no prefix) - Locate the required controller on the current element. Throw an error if not found.
  * * `?` - Attempt to locate the required controller or pass `null` to the `link` fn if not found.
@@ -14904,7 +14961,15 @@ function $LocaleProvider() {
         mediumDate: 'MMM d, y',
         shortDate: 'M/d/yy',
         mediumTime: 'h:mm:ss a',
-        shortTime: 'h:mm a'
+        shortTime: 'h:mm a',
+        ERANAMES: [
+          "Before Christ",
+          "Anno Domini"
+        ],
+        ERAS: [
+          "BC",
+          "AD"
+        ]
       },
 
       pluralCat: function(num) {
@@ -15912,6 +15977,7 @@ function $LocationProvider() {
          <button ng-click="$log.warn(message)">warn</button>
          <button ng-click="$log.info(message)">info</button>
          <button ng-click="$log.error(message)">error</button>
+         <button ng-click="$log.debug(message)">debug</button>
        </div>
      </file>
    </example>
@@ -16041,6 +16107,17 @@ function $LogProvider() {
     }
   }];
 }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 var $parseMinErr = minErr('$parse');
 
@@ -17977,8 +18054,26 @@ function $RootScopeProvider() {
     return TTL;
   };
 
+  function createChildScopeClass(parent) {
+    function ChildScope() {
+      this.$$watchers = this.$$nextSibling =
+          this.$$childHead = this.$$childTail = null;
+      this.$$listeners = {};
+      this.$$listenerCount = {};
+      this.$$watchersCount = 0;
+      this.$id = nextUid();
+      this.$$ChildScope = null;
+    }
+    ChildScope.prototype = parent;
+    return ChildScope;
+  }
+
   this.$get = ['$injector', '$exceptionHandler', '$parse', '$browser',
       function($injector, $exceptionHandler, $parse, $browser) {
+
+    function destroyChildScope($event) {
+        $event.currentScope.$$destroyed = true;
+    }
 
     /**
      * @ngdoc type
@@ -18102,15 +18197,7 @@ function $RootScopeProvider() {
           // Only create a child scope class if somebody asks for one,
           // but cache it to allow the VM to optimize lookups.
           if (!this.$$ChildScope) {
-            this.$$ChildScope = function ChildScope() {
-              this.$$watchers = this.$$nextSibling =
-                  this.$$childHead = this.$$childTail = null;
-              this.$$listeners = {};
-              this.$$listenerCount = {};
-              this.$id = nextUid();
-              this.$$ChildScope = null;
-            };
-            this.$$ChildScope.prototype = this;
+            this.$$ChildScope = createChildScopeClass(this);
           }
           child = new this.$$ChildScope();
         }
@@ -18128,13 +18215,9 @@ function $RootScopeProvider() {
         // prototypically. In all other cases, this property needs to be set
         // when the parent scope is destroyed.
         // The listener needs to be added after the parent is set
-        if (isolate || parent != this) child.$on('$destroy', destroyChild);
+        if (isolate || parent != this) child.$on('$destroy', destroyChildScope);
 
         return child;
-
-        function destroyChild() {
-          child.$$destroyed = true;
-        }
       },
 
       /**
@@ -19294,6 +19377,17 @@ function $$SanitizeUriProvider() {
     };
   };
 }
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *     Any commits to this file should be reviewed with security in mind.  *
+ *   Changes to this file can potentially create security vulnerabilities. *
+ *          An approval from 2 Core members with history of modifying      *
+ *                         this file is required.                          *
+ *                                                                         *
+ *  Does the change somehow allow for arbitrary javascript to be executed? *
+ *    Or allows for someone to change the prototype of built-in objects?   *
+ *     Or gives undesired access to variables likes document or window?    *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 var $sceMinErr = minErr('$sce');
 
@@ -20470,7 +20564,7 @@ function $TemplateRequestProvider() {
       };
 
       return $http.get(tpl, httpOptions)
-        .finally(function() {
+        ['finally'](function() {
           handleRequestFn.totalPendingRequests--;
         })
         .then(function(response) {
@@ -21166,8 +21260,8 @@ function createPredicateFn(expression, comparator, matchAgainstAnyProp) {
 }
 
 function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatchWholeObject) {
-  var actualType = typeof actual;
-  var expectedType = typeof expected;
+  var actualType = (actual !== null) ? typeof actual : 'null';
+  var expectedType = (expected !== null) ? typeof expected : 'null';
 
   if ((expectedType === 'string') && (expected.charAt(0) === '!')) {
     return !deepCompare(actual, expected.substring(1), comparator, matchAgainstAnyProp);
@@ -21192,7 +21286,7 @@ function deepCompare(actual, expected, comparator, matchAgainstAnyProp, dontMatc
       } else if (expectedType === 'object') {
         for (key in expected) {
           var expectedVal = expected[key];
-          if (isFunction(expectedVal)) {
+          if (isFunction(expectedVal) || isUndefined(expectedVal)) {
             continue;
           }
 
@@ -21506,6 +21600,14 @@ function ampmGetter(date, formats) {
   return date.getHours() < 12 ? formats.AMPMS[0] : formats.AMPMS[1];
 }
 
+function eraGetter(date, formats) {
+  return date.getFullYear() <= 0 ? formats.ERAS[0] : formats.ERAS[1];
+}
+
+function longEraGetter(date, formats) {
+  return date.getFullYear() <= 0 ? formats.ERANAMES[0] : formats.ERANAMES[1];
+}
+
 var DATE_FORMATS = {
   yyyy: dateGetter('FullYear', 4),
     yy: dateGetter('FullYear', 2, 0, true),
@@ -21532,10 +21634,14 @@ var DATE_FORMATS = {
      a: ampmGetter,
      Z: timeZoneGetter,
     ww: weekGetter(2),
-     w: weekGetter(1)
+     w: weekGetter(1),
+     G: eraGetter,
+     GG: eraGetter,
+     GGG: eraGetter,
+     GGGG: longEraGetter
 };
 
-var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEw']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+|H+|h+|m+|s+|a|Z|w+))(.*)/,
+var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+|H+|h+|m+|s+|a|Z|G+|w+))(.*)/,
     NUMBER_STRING = /^\-?\d+$/;
 
 /**
@@ -21572,6 +21678,8 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEw']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d
  *   * `'Z'`: 4 digit (+sign) representation of the timezone offset (-1200-+1200)
  *   * `'ww'`: Week of year, padded (00-53). Week 01 is the week with the first Thursday of the year
  *   * `'w'`: Week of year (0-53). Week 1 is the week with the first Thursday of the year
+ *   * `'G'`, `'GG'`, `'GGG'`: The abbreviated form of the era string (e.g. 'AD')
+ *   * `'GGGG'`: The long form of the era string (e.g. 'Anno Domini')
  *
  *   `format` string can also be one of the following predefined
  *   {@link guide/i18n localizable formats}:
@@ -21905,6 +22013,43 @@ function limitToFilter() {
  * @param {boolean=} reverse Reverse the order of the array.
  * @returns {Array} Sorted copy of the source array.
  *
+ *
+ * @example
+ * The example below demonstrates a simple ngRepeat, where the data is sorted
+ * by age in descending order (predicate is set to `'-age'`).
+ * `reverse` is not set, which means it defaults to `false`.
+   <example module="orderByExample">
+     <file name="index.html">
+       <script>
+         angular.module('orderByExample', [])
+           .controller('ExampleController', ['$scope', function($scope) {
+             $scope.friends =
+                 [{name:'John', phone:'555-1212', age:10},
+                  {name:'Mary', phone:'555-9876', age:19},
+                  {name:'Mike', phone:'555-4321', age:21},
+                  {name:'Adam', phone:'555-5678', age:35},
+                  {name:'Julie', phone:'555-8765', age:29}];
+           }]);
+       </script>
+       <div ng-controller="ExampleController">
+         <table class="friend">
+           <tr>
+             <th>Name</th>
+             <th>Phone Number</th>
+             <th>Age</th>
+           </tr>
+           <tr ng-repeat="friend in friends | orderBy:'-age'">
+             <td>{{friend.name}}</td>
+             <td>{{friend.phone}}</td>
+             <td>{{friend.age}}</td>
+           </tr>
+         </table>
+       </div>
+     </file>
+   </example>
+ *
+ * The predicate and reverse parameters can be controlled dynamically through scope properties,
+ * as shown in the next example.
  * @example
    <example module="orderByExample">
      <file name="index.html">
@@ -22287,6 +22432,7 @@ var htmlAnchorDirective = valueFn({
  * but not on older IEs:
  *
  * ```html
+ * <!-- See below for an example of ng-disabled being used correctly -->
  * <div ng-init="isDisabled = false">
  *  <button disabled="{{isDisabled}}">Disabled</button>
  * </div>
@@ -22862,7 +23008,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
  *
  * # Alias: {@link ng.directive:ngForm `ngForm`}
  *
- * In Angular forms can be nested. This means that the outer form is valid when all of the child
+ * In Angular, forms can be nested. This means that the outer form is valid when all of the child
  * forms are valid as well. However, browsers do not allow nesting of `<form>` elements, so
  * Angular provides the {@link ng.directive:ngForm `ngForm`} directive which behaves identically to
  * `<form>` but can be nested.  This allows you to have nested forms, which is very useful when
@@ -23000,9 +23146,11 @@ var formDirectiveFactory = function(isNgForm) {
       name: 'form',
       restrict: isNgForm ? 'EAC' : 'E',
       controller: FormController,
-      compile: function ngFormCompile(formElement) {
+      compile: function ngFormCompile(formElement, attr) {
         // Setup initial state of the control
         formElement.addClass(PRISTINE_CLASS).addClass(VALID_CLASS);
+
+        var nameAttr = attr.name ? 'name' : (isNgForm && attr.ngForm ? 'ngForm' : false);
 
         return {
           pre: function ngFormPreLink(scope, formElement, attr, controller) {
@@ -23034,23 +23182,21 @@ var formDirectiveFactory = function(isNgForm) {
               });
             }
 
-            var parentFormCtrl = controller.$$parentForm,
-                alias = controller.$name;
+            var parentFormCtrl = controller.$$parentForm;
 
-            if (alias) {
-              setter(scope, null, alias, controller, alias);
-              attr.$observe(attr.name ? 'name' : 'ngForm', function(newValue) {
-                if (alias === newValue) return;
-                setter(scope, null, alias, undefined, alias);
-                alias = newValue;
-                setter(scope, null, alias, controller, alias);
-                parentFormCtrl.$$renameControl(controller, alias);
+            if (nameAttr) {
+              setter(scope, null, controller.$name, controller, controller.$name);
+              attr.$observe(nameAttr, function(newValue) {
+                if (controller.$name === newValue) return;
+                setter(scope, null, controller.$name, undefined, controller.$name);
+                parentFormCtrl.$$renameControl(controller, newValue);
+                setter(scope, null, controller.$name, controller, controller.$name);
               });
             }
             formElement.on('$destroy', function() {
               parentFormCtrl.$removeControl(controller);
-              if (alias) {
-                setter(scope, null, alias, undefined, alias);
+              if (nameAttr) {
+                setter(scope, null, attr[nameAttr], undefined, controller.$name);
               }
               extend(controller, nullFormCtrl); //stop propagating child destruction handlers upwards
             });
@@ -27023,8 +27169,8 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  * data-binding. Notice how different directives (`contenteditable`, `ng-model`, and `required`)
  * collaborate together to achieve the desired result.
  *
- * Note that `contenteditable` is an HTML5 attribute, which tells the browser to let the element
- * contents be edited in place by the user.  This will not work on older browsers.
+ * `contenteditable` is an HTML5 attribute, which tells the browser to let the element
+ * contents be edited in place by the user.
  *
  * We are using the {@link ng.service:$sce $sce} service here and include the {@link ngSanitize $sanitize}
  * module to automatically remove "bad" content like inline event listener (e.g. `<span onclick="...">`).
@@ -30604,55 +30750,6 @@ var minlengthDirective = function() {
 })(window, document);
 
 !window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}</style>');
-},{}],6:[function(require,module,exports){
-/*!
- * jQLite JavaScript Library v1.1.1 (http://code.google.com/p/jqlite/)
- * Copyright (c) 2010 Brett Fattori (bfattori@gmail.com)
- * Licensed under the MIT license
- * http://www.opensource.org/licenses/mit-license.php
- *
- * Many thanks to the jQuery team's efforts.  Some code is
- * Copyright (c) 2010, John Resig.  See
- * http://jquery.org/license
- *
- * @author Brett Fattori (bfattori@gmail.com)
- * @author $Author: bfattori $
- * @version $Revision: 145 $
- *
- * Created: 03/29/2010
- * Modified: $Date: 2010-06-21 11:08:14 -0400 (Mon, 21 Jun 2010) $
- */
-(function(){function B(){return+new Date}var D=function(a,b){if(a===""&&b)return b;var d=a.split(" "),c=d.shift(),e;if(c.charAt(0)=="#"){var g=i.getElementById(c.substring(1));e=g?[g]:[]}else{e=c.charAt(0)!=="."?c.split(".")[0]:"*";var h=c.split("."),j=null;if(e.indexOf("[")!=-1){j=e;e=e.substr(0,e.indexOf("["))}g=function(o){var n=arguments.callee,k;if(!(k=!n.needClass)){k=n.classes;if(o.className.length==0)k=false;else{for(var r=o.className.split(" "),l=k.length,p=0;p<k.length;p++)f.inArray(k[p],
-r)!=-1&&l--;k=l==0}}if(k=k){if(!(k=!n.needAttribute)){n=n.attributes;k=true;for(r=0;r<n.length;r++){l=n[r].split("=");p=l[0].indexOf("!")!=-1||l[0].indexOf("*")!=-1?l[0].charAt(l[0].length-1)+"=":"=";if(p!="=")l[0]=l[0].substring(0,l[0].length-1);switch(p){case "=":k&=o.getAttribute(l[0])===l[1];break;case "!=":k&=o.getAttribute(l[0])!==l[1];break;case "*=":k&=o.getAttribute(l[0]).indexOf(l[1])!=-1;break;default:k=false}}k=k}k=k}if(k)return o};for(var u=[],s=0;s<b.length;s++)for(var C=b[s].getElementsByTagName(e),
-v=0;v<C.length;v++)u.push(C[v]);h&&h.shift();e=[];g.classes=h;if(j!=null){var w=j.indexOf("[");s=j.lastIndexOf("]");w=j.substring(w+1,s).split("][")}g.attributes=j!=null?w:null;g.needClass=c.indexOf(".")!=-1&&h.length>0;g.needAttribute=j!=null;for(c=0;c<u.length;c++)g(u[c])&&e.push(u[c])}return D(d.join(" "),e)},Q=function(a,b){b=b||i;if(a.nodeType&&a.nodeType===E){a=i.body;if(a===null)return[i]}if(a.nodeType&&a.nodeType===m)return[a];if(a.jquery&&typeof a.jquery==="string")return a.toArray();if(b)b=
-F(b);if(f.isArray(a))return a;else if(typeof a==="string"){for(var d=[],c=0;c<b.length;c++){var e=[b[c]];if(!f.forceSimpleSelectorEngine&&e[0].querySelectorAll){e=e[0].querySelectorAll(a);for(var g=0;g<e.length;g++)d.push(e.item(g))}else d=d.concat(D(a,e))}return d}else return null},G=false;setTimeout(function(){var a=i.body;if(a){var b=i.createElement("script"),d="i"+(new Date).getTime();b.type="text/javascript";try{b.appendChild(i.createTextNode("window."+d+"=1;"))}catch(c){}a.insertBefore(b,a.firstChild);
-var e=true;if(window[d])delete window[d];else e=false;a.removeChild(b);G=e}else setTimeout(arguments.callee,33)},33);var H=function(a){var b=i.createElement("div");b.innerHTML=a;return{scripts:b.getElementsByTagName("script"),data:a}},I=function(a){a=a.replace(/-/g," ");a=a;var b=true;b=b||false;a=!a?"":a.toString().replace(/^\s*|\s*$/g,"");var d="";if(a.length<=0)a="";else{var c=false;d+=b?a.charAt(0):a.charAt(0).toUpperCase();for(b=1;b<a.length;b++){d+=c?a.charAt(b).toUpperCase():a.charAt(b).toLowerCase();
-var e=a.charCodeAt(b);c=e==32||e==45||e==46;if(e==99||e==67)if(a.charCodeAt(b-1)==77||a.charCodeAt(b-1)==109)c=true}a=d}return a.replace(/ /g,"")},J={click:"MouseEvents",dblclick:"MouseEvents",mousedown:"MouseEvents",mouseup:"MouseEvents",mouseover:"MouseEvents",mousemove:"MouseEvents",mouseout:"MouseEvents",contextmenu:"MouseEvents",keypress:"KeyEvents",keydown:"KeyEvents",keyup:"KeyEvents",load:"HTMLEvents",unload:"HTMLEvents",abort:"HTMLEvents",error:"HTMLEvents",resize:"HTMLEvents",scroll:"HTMLEvents",
-select:"HTMLEvents",change:"HTMLEvents",submit:"HTMLEvents",reset:"HTMLEvents",focus:"HTMLEvents",blur:"HTMLEvents",touchstart:"MouseEvents",touchend:"MouseEvents",touchmove:"MouseEvents"},K=function(a,b,d){if(f.isFunction(d)){if(typeof b==="string")b=b.toLowerCase();var c=J[b];if(b.indexOf("on")==0)b=b.substring(2);if(c){c=function(e){var g=arguments.callee,h=e.data||[];h.unshift(e);g=g.fn.apply(a,h);if(typeof g!="undefined"&&g===false){if(e.preventDefault&&e.stopPropagation){e.preventDefault();
-e.stopPropagation()}else{e.returnValue=false;e.cancelBubble=true}return false}return true};c.fn=d;a.addEventListener?a.addEventListener(b,c,false):a.attachEvent("on"+b,c)}else{if(!a._handlers)a._handlers={};c=a._handlers[b]||[];c.push(d);a._handlers[b]=c}}},f=function(a,b){return(new x).init(a,b)},i=window.document,y=Object.prototype.hasOwnProperty,z=Object.prototype.toString,L=Array.prototype.push,R=Array.prototype.slice,m=1,E=9,A=[],M=false,N=false,q;f.forceSimpleSelectorEngine=false;f.each=function(a,
-b){var d,c=0,e=a.length;if(e===undefined||f.isFunction(a))for(d in a){if(b.call(a[d],d,a[d])===false)break}else for(d=a[0];c<e&&b.call(d,c,d)!==false;d=a[++c]);return a};f.noop=function(){};f.isFunction=function(a){return z.call(a)==="[object Function]"};f.isArray=function(a){return z.call(a)==="[object Array]"};f.isPlainObject=function(a){if(!a||z.call(a)!=="[object Object]"||a.nodeType||a.setInterval)return false;if(a.constructor&&!y.call(a,"constructor")&&!y.call(a.constructor.prototype,"isPrototypeOf"))return false;
-var b;for(b in a);return b===undefined||y.call(a,b)};f.merge=function(a,b){var d=a.length,c=0;if(typeof b.length==="number")for(var e=b.length;c<e;c++)a[d++]=b[c];else for(;b[c]!==undefined;)a[d++]=b[c++];a.length=d;return a};f.param=function(a){var b="";a&&f.each(a,function(d,c){b+=(b.length!=0?"&":"")+c+"="+encodeURIComponent(d)});return b};f.evalScripts=function(a){for(var b=i.getElementsByTagName("head")[0]||i.documentElement,d=0;d<a.length;d++){var c=i.createElement("script");c.type="text/javascript";
-if(G)c.appendChild(i.createTextNode(a[d].text));else c.text=a[d].text;b.insertBefore(c,b.firstChild);b.removeChild(c)}};f.ready=function(){for(M=true;A.length>0;)A.shift()()};var t="jQuery"+B(),S=0,O={};f.noData={embed:true,object:true,applet:true};f.cache={};f.data=function(a,b,d){if(!(a.nodeName&&jQuery.noData[a.nodeName.toLowerCase()])){a=a==window?O:a;var c=a[t];c||(c=a[t]=++S);if(b&&!jQuery.cache[c])jQuery.cache[c]={};if(d!==undefined)jQuery.cache[c][b]=d;return b?jQuery.cache[c][b]:c}};f.removeData=
-function(a,b){a=a==window?O:a;var d=a[t];if(b){if(jQuery.cache[d]){delete jQuery.cache[d][b];b="";for(b in jQuery.cache[d])break;b||jQuery.removeData(a)}}else{try{delete a[t]}catch(c){a.removeAttribute&&a.removeAttribute(t)}delete jQuery.cache[d]}};f.ajax={status:-1,statusText:"",responseText:null,responseXML:null,send:function(a,b,d){if(f.isFunction(b)){d=b;b={}}if(a){var c=true,e=null,g=null;if(typeof b.async!=="undefined"){c=b.async;delete b.async}if(typeof b.username!=="undefined"){e=b.username;
-delete b.username}if(typeof b.password!=="undefined"){g=b.password;delete b.password}b=f.param(b);if(b.length!=0)a+=(a.indexOf("?")==-1?"?":"&")+b;b=new XMLHttpRequest;b.open("GET",a,c,e,g);b.send();if(c){a=function(h){var j=arguments.callee;h.status==200?f.ajax.complete(h,j.cb):f.ajax.error(h,j.cb)};a.cb=d;d=function(){var h=arguments.callee;h.req.readyState!=4?setTimeout(h,250):h.xcb(h.req)};d.req=b;d.xcb=a;setTimeout(d,250)}}},complete:function(a,b){f.ajax.status=a.status;f.ajax.responseText=a.responseText;
-f.ajax.responseXML=a.responseXML;f.isFunction(b)&&b(a.responseText,a.status)},error:function(a,b){f.ajax.status=a.status;f.ajax.statusText=a.statusText;f.isFunction(b)&&b(a.status,a.statusText)}};f.makeArray=function(a,b){var d=b||[];if(a!=null)a.length==null||typeof a==="string"||jQuery.isFunction(a)||typeof a!=="function"&&a.setInterval?L.call(d,a):f.merge(d,a);return d};f.inArray=function(a,b){for(var d=0;d<b.length;d++)if(b[d]===a)return d;return-1};f.trim=function(a){return a!=null?a.toString().replace(/^\s*|\s*$/g,
-""):""};var x=function(){};x.prototype={selector:"",context:null,length:0,jquery:"jqlite-1.1.1",init:function(a,b){if(!a)return this;if(a.nodeType){this.context=this[0]=a;this.length=1}else if(typeof a==="function")this.ready(a);else{var d=[];if(a.jquery&&typeof a.jquery==="string")d=a.toArray();else if(f.isArray(a))d=a;else if(typeof a==="string"&&f.trim(a).indexOf("<")==0&&f.trim(a).indexOf(">")!=-1){d=f.trim(a).toLowerCase();d=d.indexOf("<option")==0?"SELECT":d.indexOf("<li")==0?"UL":d.indexOf("<tr")==
-0?"TBODY":d.indexOf("<td")==0?"TR":"DIV";d=i.createElement(d);d.innerHTML=a;d=[d.removeChild(d.firstChild)]}else{if(a.indexOf(",")!=-1){d=a.split(",");for(var c=0;c<d.length;c++)d[c]=f.trim(d[c])}else d=[a];c=[];for(var e=0;e<d.length;e++)c=c.concat(Q(d[e],b));d=c}L.apply(this,d)}return this},each:function(a){return f.each(this,a)},size:function(){return this.length},toArray:function(){return R.call(this,0)},ready:function(a){if(M)a();else{A.push(a);return this}},data:function(a,b){if(typeof a===
-"undefined"&&this.length)return jQuery.data(this[0]);else if(typeof a==="object")return this.each(function(){jQuery.data(this,a)});var d=a.split(".");d[1]=d[1]?"."+d[1]:"";if(b===undefined){if(data===undefined&&this.length)data=jQuery.data(this[0],a);return data===undefined&&d[1]?this.data(d[0]):data}else return this.each(function(){jQuery.data(this,a,b)})},removeData:function(a){return this.each(function(){jQuery.removeData(this,a)})},addClass:function(a){return this.each(function(){if(this.className.length!=
-0){var b=this.className.split(" ");if(f.inArray(a,b)==-1){b.push(a);this.className=b.join(" ")}}else this.className=a})},removeClass:function(a){return this.each(function(){if(this.className.length!=0){var b=this.className.split(" "),d=f.inArray(a,b);if(d!=-1){b.splice(d,1);this.className=b.join(" ")}}})},hasClass:function(a){if(this[0].className.length==0)return false;return f.inArray(a,this[0].className.split(" "))!=-1},isElementName:function(a){return this[0].nodeName.toLowerCase()===a.toLowerCase()},
-toggleClass:function(a){return this.each(function(){if(this.className.length==0)this.className=a;else{var b=this.className.split(" "),d=f.inArray(a,b);d!=-1?b.splice(d,1):b.push(a);this.className=b.join(" ")}})},hide:function(a){return this.each(function(){if(this.style&&this.style.display!=null)if(this.style.display.toString()!="none"){this._oldDisplay=this.style.display.toString()||(this.nodeName!="span"?"block":"inline");this.style.display="none"}f.isFunction(a)&&a(this)})},show:function(a){return this.each(function(){this.style.display=
-(this._oldDisplay&&this._oldDisplay!=""?this._oldDisplay:null)||(this.nodeName!="span"?"block":"inline");f.isFunction(a)&&a(this)})},css:function(a,b){if(typeof a==="string"&&b==null)return this[0].style[I(a)];else{a=typeof a==="string"?P(a,b):a;return this.each(function(){var d=this;typeof d.style!="undefined"&&f.each(a,function(c,e){e=typeof e==="number"?e+"px":e;var g=I(c);d.style[g]||(g=c);d.style[g]=e})})}},load:function(a,b,d){if(f.isFunction(b)){d=b;b={}}return this.each(function(){var c=function(e,
-g){var h=arguments.callee;if(e){var j=H(e);h.elem.innerHTML=j.data;f.evalScripts(j.scripts)}f.isFunction(h.cback)&&h.cback(e,g)};c.cback=d;c.elem=this;f.ajax.send(a,b,c)})},html:function(a){return a?this.each(function(){var b=H(a);this.innerHTML=b.data;f.evalScripts(b.scripts)}):this[0].innerHTML},attr:function(a,b){return typeof a==="string"&&b==null?this[0]?this[0].getAttribute(a):"":this.each(function(){a=typeof a==="string"?P(a,b):a;for(var d in a)this.setAttribute(d,a[d])})},eq:function(a){var b=
-this.toArray();this.context=this[0]=a<0?b[b.length+a]:b[a];this.length=1;return this},first:function(){this.context=this[0]=this.toArray()[0];this.length=1;return this},last:function(){var a=this.toArray();this.context=this[0]=a[a.length-1];this.length=1;return this},index:function(a){var b=-1;if(this.length!=0){var d=this[0];if(a){var c=f(a)[0];this.each(function(g){if(this===c){b=g;return false}})}else{a=this.parent()[0].firstChild;for(var e=[];a!=null;){a.nodeType===m&&e.push(a);a=a.nextSibling}f.each(a,
-function(g){if(this===d){b=g;return false}})}}return b},next:function(a){var b=[];if(a){var d=f(a);this.each(function(){for(var c=this.nextSibling;c!=null&&c.nodeType!==m;)c=c.nextSibling;if(c!=null){var e=false;d.each(function(){if(this==c){e=true;return false}});e&&b.push(c)}})}else this.each(function(){for(var c=this.nextSibling;c!=null&&c.nodeType!==m;)c=c.nextSibling;c!=null&&b.push(c)});return f(b)},prev:function(a){var b=[];if(a){var d=f(a);this.each(function(){for(var c=this.previousSibling;c!=
-null&&c.nodeType!==m;)c=c.previousSibling;if(c!=null){var e=false;d.each(function(){if(this==c){e=true;return false}});e&&b.push(c)}})}else this.each(function(){for(var c=this.previousSibling;c!=null&&c.nodeType!==m;)c=c.previousSibling;c!=null&&b.push(c)});return f(b)},parent:function(a){var b=[];if(a){var d=f(a);this.each(function(){var c=this.parentNode,e=false;d.each(function(){if(this==c){e=true;return false}});e&&b.push(c)})}else this.each(function(){b.push(this.parentNode)});return f(b)},parents:function(a){var b=
-[];if(a){var d=f(a);this.each(function(){for(var c=this;c!=i.body;){d.each(function(){this==c&&b.push(c)});c=c.parentNode}})}else this.each(function(){for(var c=this;c!=i.body;){c=c.parentNode;b.push(c)}});return f(b)},children:function(a){var b=[];if(a){var d=f(a);this.each(function(){for(var c=this.firstChild;c!=null;){c.nodeType==m&&d.each(function(){this===c&&b.push(c)});c=c.nextSibling}})}else this.each(function(){for(var c=this.firstChild;c!=null;){c.nodeType==m&&b.push(c);c=c.nextSibling}});
-return f(b)},append:function(a){a=F(a);return this.each(function(){for(var b=0;b<a.length;b++)this.appendChild(a[b])})},remove:function(a){return this.each(function(){a?$(a,this).remove():this.parentNode.removeChild(this)})},empty:function(){return this.each(function(){this.innerHTML=""})},val:function(a){if(a==null){var b=null;if(this&&this.length!=0&&typeof this[0].value!="undefined")b=this[0].value;return b}else return this.each(function(){if(typeof this.value!="undefined")this.value=a})},bind:function(a,
-b){return this.each(function(){K(this,a,b)})},trigger:function(a,b){return this.each(function(){var d;var c;c=a;if(typeof c==="string")c=c.toLowerCase();var e=null,g=J[c]||"Event";if(i.createEvent){e=i.createEvent(g);e._eventClass=g;c&&e.initEvent(c,true,true)}if(i.createEventObject){e=i.createEventObject();if(c){e.type=c;e._eventClass=g}}c=e;if(c._eventClass!=="Event"){c.data=b;d=this.dispatchEvent(c)}else if(e=(this._handlers||{})[a])for(g=0;g<e.length;g++){var h=f.isArray(b)?b:[];h.unshift(c);
-h=e[g].apply(this,h);if(!(typeof h=="undefined"?true:h))break}return d})},submit:function(a){return this.each(function(){if(f.isFunction(a))K(this,"onsubmit",a);else this.submit&&this.submit()})}};if(i.addEventListener)q=function(){i.removeEventListener("DOMContentLoaded",q,false);f.ready()};else if(i.attachEvent)q=function(){if(i.readyState==="complete"){i.detachEvent("onreadystatechange",q);f.ready()}};if(!N){N=true;if(i.readyState==="complete")return f.ready();if(i.addEventListener){i.addEventListener("DOMContentLoaded",
-q,false);window.addEventListener("load",f.ready,false)}else if(i.attachEvent){i.attachEvent("onreadystatechange",q);window.attachEvent("onload",f.ready)}}var P=function(a,b){var d={};d[a]=b;return d},F=function(a){if(a.nodeType&&(a.nodeType===m||a.nodeType===E))a=[a];else if(typeof a==="string")a=f(a).toArray();else if(a.jquery&&typeof a.jquery==="string")a=a.toArray();return a};if(typeof window.jQuery=="undefined"){window.jQuery=f;window.jQuery.fn=x.prototype;window.$=window.jQuery;window.now=B}jQuery.extend=
-jQuery.fn.extend=function(){var a=arguments[0]||{},b=1,d=arguments.length,c=false,e,g,h,j;if(typeof a==="boolean"){c=a;a=arguments[1]||{};b=2}if(typeof a!=="object"&&!jQuery.isFunction(a))a={};if(d===b){a=this;--b}for(;b<d;b++)if((e=arguments[b])!=null)for(g in e){h=a[g];j=e[g];if(a!==j)if(c&&j&&(jQuery.isPlainObject(j)||jQuery.isArray(j))){h=h&&(jQuery.isPlainObject(h)||jQuery.isArray(h))?h:jQuery.isArray(j)?[]:{};a[g]=jQuery.extend(c,h,j)}else if(j!==undefined)a[g]=j}return a};jQuery.each("click,dblclick,mouseover,mouseout,mousedown,mouseup,keydown,keypress,keyup,focus,blur,change,select,error,load,unload,scroll,resize,touchstart,touchend,touchmove".split(","),
-function(a,b){jQuery.fn[b]=function(d){return d?this.bind(b,d):this.trigger(b)}})})();
 },{}],7:[function(require,module,exports){
 /* Zepto v1.1.6 - zepto event ajax form ie - zeptojs.com/license */
 
@@ -32244,173 +32341,6 @@ window.$ === undefined && (window.$ = Zepto)
 ;
 
 },{}],8:[function(require,module,exports){
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
-;(function($){
-  var touch = {},
-    touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
-    longTapDelay = 750,
-    gesture
-
-  function swipeDirection(x1, x2, y1, y2) {
-    return Math.abs(x1 - x2) >=
-      Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
-  }
-
-  function longTap() {
-    longTapTimeout = null
-    if (touch.last) {
-      touch.el.trigger('longTap')
-      touch = {}
-    }
-  }
-
-  function cancelLongTap() {
-    if (longTapTimeout) clearTimeout(longTapTimeout)
-    longTapTimeout = null
-  }
-
-  function cancelAll() {
-    if (touchTimeout) clearTimeout(touchTimeout)
-    if (tapTimeout) clearTimeout(tapTimeout)
-    if (swipeTimeout) clearTimeout(swipeTimeout)
-    if (longTapTimeout) clearTimeout(longTapTimeout)
-    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
-    touch = {}
-  }
-
-  function isPrimaryTouch(event){
-    return (event.pointerType == 'touch' ||
-      event.pointerType == event.MSPOINTER_TYPE_TOUCH)
-      && event.isPrimary
-  }
-
-  function isPointerEventType(e, type){
-    return (e.type == 'pointer'+type ||
-      e.type.toLowerCase() == 'mspointer'+type)
-  }
-
-  $(document).ready(function(){
-    var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
-
-    if ('MSGesture' in window) {
-      gesture = new MSGesture()
-      gesture.target = document.body
-    }
-
-    $(document)
-      .bind('MSGestureEnd', function(e){
-        var swipeDirectionFromVelocity =
-          e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
-        if (swipeDirectionFromVelocity) {
-          touch.el.trigger('swipe')
-          touch.el.trigger('swipe'+ swipeDirectionFromVelocity)
-        }
-      })
-      .on('touchstart MSPointerDown pointerdown', function(e){
-        if((_isPointerType = isPointerEventType(e, 'down')) &&
-          !isPrimaryTouch(e)) return
-        firstTouch = _isPointerType ? e : e.touches[0]
-        if (e.touches && e.touches.length === 1 && touch.x2) {
-          // Clear out touch movement data if we have it sticking around
-          // This can occur if touchcancel doesn't fire due to preventDefault, etc.
-          touch.x2 = undefined
-          touch.y2 = undefined
-        }
-        now = Date.now()
-        delta = now - (touch.last || now)
-        touch.el = $('tagName' in firstTouch.target ?
-          firstTouch.target : firstTouch.target.parentNode)
-        touchTimeout && clearTimeout(touchTimeout)
-        touch.x1 = firstTouch.pageX
-        touch.y1 = firstTouch.pageY
-        if (delta > 0 && delta <= 250) touch.isDoubleTap = true
-        touch.last = now
-        longTapTimeout = setTimeout(longTap, longTapDelay)
-        // adds the current touch contact for IE gesture recognition
-        if (gesture && _isPointerType) gesture.addPointer(e.pointerId);
-      })
-      .on('touchmove MSPointerMove pointermove', function(e){
-        if((_isPointerType = isPointerEventType(e, 'move')) &&
-          !isPrimaryTouch(e)) return
-        firstTouch = _isPointerType ? e : e.touches[0]
-        cancelLongTap()
-        touch.x2 = firstTouch.pageX
-        touch.y2 = firstTouch.pageY
-
-        deltaX += Math.abs(touch.x1 - touch.x2)
-        deltaY += Math.abs(touch.y1 - touch.y2)
-      })
-      .on('touchend MSPointerUp pointerup', function(e){
-        if((_isPointerType = isPointerEventType(e, 'up')) &&
-          !isPrimaryTouch(e)) return
-        cancelLongTap()
-
-        // swipe
-        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
-            (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
-
-          swipeTimeout = setTimeout(function() {
-            touch.el.trigger('swipe')
-            touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
-            touch = {}
-          }, 0)
-
-        // normal tap
-        else if ('last' in touch)
-          // don't fire tap when delta position changed by more than 30 pixels,
-          // for instance when moving to a point and back to origin
-          if (deltaX < 30 && deltaY < 30) {
-            // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
-            // ('tap' fires before 'scroll')
-            tapTimeout = setTimeout(function() {
-
-              // trigger universal 'tap' with the option to cancelTouch()
-              // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-              var event = $.Event('tap')
-              event.cancelTouch = cancelAll
-              touch.el.trigger(event)
-
-              // trigger double tap immediately
-              if (touch.isDoubleTap) {
-                if (touch.el) touch.el.trigger('doubleTap')
-                touch = {}
-              }
-
-              // trigger single tap after 250ms of inactivity
-              else {
-                touchTimeout = setTimeout(function(){
-                  touchTimeout = null
-                  if (touch.el) touch.el.trigger('singleTap')
-                  touch = {}
-                }, 250)
-              }
-            }, 0)
-          } else {
-            touch = {}
-          }
-          deltaX = deltaY = 0
-
-      })
-      // when the browser window loses focus,
-      // for example when a modal dialog is shown,
-      // cancel all ongoing events
-      .on('touchcancel MSPointerCancel pointercancel', cancelAll)
-
-    // scrolling the window indicates intention of the user
-    // to scroll, not tap or swipe, so cancel all ongoing events
-    $(window).on('scroll', cancelAll)
-  })
-
-  ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
-    'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(eventName){
-    $.fn[eventName] = function(callback){ return this.on(eventName, callback) }
-  })
-})(Zepto)
-
-},{}],9:[function(require,module,exports){
 angular.module('userModule',['userService']);
 angular.module('indexModule',['userModule']);
 angular.module('signModule',[]);
@@ -32440,88 +32370,497 @@ app = angular.module('baidu',['ngRoute']).
 			});
 		}]);
 
-},{}],10:[function(require,module,exports){
-function getQueryParams(name,url) {
-	if (!url) url = location.href
-	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
-	var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-	var results = regex.exec( url );
-	return results == null ? null : results[1];
-}
-var qrcodeCtrl = angular.module('baidu',['communService','taskService','jsConfigService','ngTouch']).controller('qrcodeCtrl',['TaskInfo','CommunInfo','jsConfig','$scope','$q',function(TaskInfo,CommunInfo,jsConfig,$scope,$q){
-	$scope.width =  document.body.clientWidth*0.6;
-	taskId = getQueryParams("taskId",location.href);
-	entityId = getQueryParams("entityId",location.href);
-	commun_id = getQueryParams("commun_id",location.href);
-	if(taskId > 0) {
-		$scope.show_type = false;
-		$scope.share_text_show = false;
-		jsConfig.query({
-			"url":location.href
-		},function(data){
-			wx.config(data.data);
-			wx.error(function(res){
-				console.log(res);
-			});
-			wx.ready(function(){
-				wx.hideOptionMenu();
-			});
-		});
-		$scope.taskInfo = TaskInfo.query({taskId:taskId},function(d){
-			for (i in d.data.taskStatusData) {
-				console.log(entityId);
-				if(d.data.taskStatusData[i].entityId == entityId) {
-					$scope.url = d.data.taskStatusData[i].qeCodePicUrl;
-				}
-			}
-		});
-	}
-	else if(commun_id > 0)  {
-		$scope.show_type = true;
-		$scope.message1 = "将此二维码发给小伙伴";
-		$scope.message2 = "即可拉他入团，干一票大的呦！";
-		$scope.share_text_show = true;
-		$scope.commun = CommunInfo.query({commun_id:commun_id},function(d){
-			$scope.url = d.data.qrcode;
-			jsConfig.query({
-				"url":location.href
-			},function(data){
-				wx.config(data.data);
-				wx.error(function(res){
-					console.log(res);
-				});
-				console.log(data.data);
-				wx.ready(function(){
-					wx.onMenuShareTimeline({
-						link:location.href,
-						title:"来哥的社团，跟哥一起闯江湖，拿积（现）分（金）吧！",
-						imgUrl:$scope.url,
-					});
-					wx.onMenuShareAppMessage({
-						link:location.href,
-						title:"百度社团赞助平台",
-						desc:"来哥的社团，跟哥一起闯江湖，拿积（现）分（金）吧！",
-						imgUrl:$scope.url,
-					});			
-				});
-			});
-		});
-	}
-	if(localStorage['hideBackground-commun']) {
-		$scope.background_hide = true;
-	}
-	$scope.hideBackground = function() {
-		localStorage['hideBackground-commun'] = 1;	
-		$scope.background_hide = true;
-	};
-}]);
-qrcodeCtrl.$inject = ['$scope','qrcodeCtrl'];
+},{}],9:[function(require,module,exports){
+var AuthenticateCtrl = angular.module('baidu',['personalAuthenticationService', 'jsConfigService','ngSanitize']).controller('AuthenticateCtrl',['$scope','PersonalAuthentication','jsConfig','$sce','$q','$http',function($scope,PersonalAuthentication,jsConfig,$sce,$q,$http){
+    $scope.tip = {
+        show: false,
+        message: ''
+    };
 
-},{}],11:[function(require,module,exports){
+    $scope.clickTipFrame = function() {
+        $scope.tip.show = false;
+        $scope.tip.message = '';
+    };
+
+    function triggerAlert(isFrameShow, message, isLineShow) {
+        $scope.tip.show = isFrameShow;
+        $scope.tip.message = message;
+        $scope.tip.btnline = isLineShow;
+    };
+    
+	jsConfig.query({
+		"url":location.href
+	},function(data){
+		wx.config(data.data);
+		wx.error(function(res){
+			console.log(res);
+		});
+		wx.ready(function(){
+			wx.hideOptionMenu();
+		});
+	});
+
+    $scope.authentication = {
+        numbers: null    
+    };
+       
+    $scope.trustHtml = function(flag) {
+        if (flag === 1) {
+            html = '<div>点击上传</div>' + 
+                '<div><span style="color: #06c1ae;">身份证背面</span>和</div>' +
+                '<div><span style="color: #06c1ae;">学生证封皮</span>照片</div>';
+        } else if (flag === 2) {
+            html = '<div>点击上传</div>' + 
+                '<div><span style="color: #06c1ae;">身份证正面</span>和</div>' +
+                '<div><span style="color: #06c1ae;">学生证内页</span>照片</div>';;
+        } else {
+            return false;
+        }
+        return $sce.trustAsHtml(html);
+    };
+
+    isAuthorized = false;
+    isUploadingOne = false;
+    isUploadingTwo = false;
+    $scope.isUploadedOne = false;
+    $scope.isUploadedTwo = false;
+        
+    $scope.uploadImage = function(flag) {
+    if (flag === 1) {
+        isUploadingOne = true;
+            $('.file-one').click();
+        } else if (flag === 2) {
+            isUploadingTwo = true;
+            $('.file-two').click();
+        } else {
+            return false;
+        }
+    };
+
+    $scope.submitApplication = function() {
+        if (isAuthorized) {
+            return triggerAlert(true, '申请已提交');
+        }
+        if (validateNumbers() && validateUpload()) {
+            var formdata = new FormData($('#form')[0]);
+            $.ajax({
+                type:"POST",
+                url:"/api/authUserInfo.do",
+                data:formdata,
+                processData : false,
+                contentType:false,
+                success:function(result) {
+                    if (result.error_no === '130067') {
+                        triggerAlert(true, result.data.reason);
+                        $scope.$apply();
+                    } else if (result.error_no === '0') {
+                        triggerAlert(true, result.data.reason);
+                        isAuthorized = true;
+                        $scope.$apply();
+                        setTimeout(function() {
+                            location.href = '/mob/personCenter.do';
+                        }, 1000);
+                    } else {
+                        location.href = location.href;
+                    }
+                },
+                error:function(data) {
+                    triggerAlert(true, '未知错误！');
+                }
+            }); 
+        }
+    };
+
+    $scope.startUpload = function() {
+        var fReader = new FileReader();
+        if (isUploadingOne) {
+            file_element = $('.file-one');
+        } else if (isUploadingTwo) {
+            file_element = $('.file-two')
+        } else {
+            return false;
+        }
+
+        if (file_element.value != '') {
+            var file = file_element[0];
+            fReader.onload = function(event) {
+                    uploadImage = event.target.result;
+                    if (isUploadingOne) {
+                        $('.instance-one').css('background-image', 'url(' + uploadImage + ')');
+                        $scope.isUploadedOne = true;
+                        isUploadingOne =false;
+                    } else if (isUploadingTwo) {
+                        $('.instance-two').css('background-image', 'url(' + uploadImage + ')');
+                        $scope.isUploadedTwo = true;
+                        isUploadingTwo = false;
+                    }
+                    $scope.$apply();
+            };
+            fReader.readAsDataURL(file.files[0]);
+        }
+    };
+
+    $scope.deleteImage = function(flag) {
+            if (flag === 1) {
+                $('.instance-one').css('background-image', '');
+                $scope.isUploadedOne = false;
+            } else if (flag === 2) {
+                $('.instance-two').css('background-image', '');
+                $scope.isUploadedTwo = false;
+            } else {
+                return false;
+            }
+    };
+
+    function validateNumbers() {
+            if (!$scope.authentication.numbers) {
+                triggerAlert(true, '身份证号不能为空!');    
+                return false;
+            } else if (!/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test($scope.authentication.numbers)) {
+                triggerAlert(true, '身份证格式不正确!');
+                return false;
+            } else if(!$scope.authentication.pay) {
+				triggerAlert(true,'请输入您的支付宝账户!');
+				return false;
+			}
+			else
+			{
+                return true;
+            }
+    };
+
+    function validateUpload() {
+        if ($scope.isUploadedOne & $scope.isUploadedTwo) {
+            return true;
+        } else {
+            triggerAlert(true, '请上传照片!');
+            return false;
+        }
+    };
+}]);
+AuthenticateCtrl.$inject = ['$scope','AuthenticateCtrl'];
+
+},{}],10:[function(require,module,exports){
 require("../../../bower_components/zepto/zepto.js");
-require('../../../bower_components/zeptojs/src/touch.js');
 require("../../../bower_components/angular/angular.js");
+require("../../../bower_components/angular-route/angular-route.js");
+require("../../../bower_components/angular-resource/angular-resource.js");
+require("../../../bower_components/angular-touch/angular-touch.js");
+require("../../../bower_components/angular-animate/angular-animate.js");
+require("../../../bower_components/angular-sanitize/angular-sanitize.min.js");
+require("./app.js");
+require("./service/service.js");
+require("./controller/authenticateController.js");
+
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-resource/angular-resource.js":2,"../../../bower_components/angular-route/angular-route.js":3,"../../../bower_components/angular-sanitize/angular-sanitize.min.js":4,"../../../bower_components/angular-touch/angular-touch.js":5,"../../../bower_components/angular/angular.js":6,"../../../bower_components/zepto/zepto.js":7,"./app.js":8,"./controller/authenticateController.js":9,"./service/service.js":11}],11:[function(require,module,exports){
+angular.module('userService',['ngResource']).
+	factory('User',['$resource',function($resource){
+		return $resource('/api/getUserInfo.do',{},{
+				query: {method:'GET', params:{},isArray:false}
+		});
+	}]);
+var completeUserInfo = angular.module('completeUserInfoService', ['ngResource']);
+completeUserInfo.factory('CompleteUserInfo', ['$resource', function($resource){
+        return $resource('/api/completionUserInfo.do',{},{
+            query: {method:'GET', params:{}, isArray:false}
+        });
+    }]);
+var personalAuthentication = angular.module('personalAuthenticationService', ['ngResource']);
+personalAuthentication.factory('PersonalAuthentication', ['$resource', function($resource) {
+        return $resource('/api/authUserInfo.do',{},{
+            query:{method:'GET', params:{}, isArray:false}
+        });
+    }]);
+var appealCommunity = angular.module('appealCommunityService', ['ngResource']);
+appealCommunity.factory('AppealCommunity', ['$resource', function($resource) {
+        return $resource('/api/appealCommunity.do',{},{
+            query:{method:'GET', params:{}, isArray:false}
+        });
+    }]);
+var sign = angular.module('signService',['ngResource']);
+sign.factory('Sign',['$resource',function($resource){
+		return $resource('/api/isSignIn.do',{},{
+			query: {method:'GET', params:{},isArray:false}
+		});
+	}]);
+sign.factory('SignIn',['$resource',function($resource){
+		return $resource('/api/signIn.do',{},{
+			query: {method:'GET', params:{},isArray:false}
+		});
+	}]);	
+var commun = angular.module('communService',['ngResource']);
+commun.factory('CommunsInfo',['$resource',function($resource){
+		return $resource('/api/getCommunsInfo.do',{},{
+			query: {method:'GET', params:{}, isArray:false}
+		});
+	}]);
+commun.factory('Communs',['$resource',function($resource){
+		return $resource('/api/getUserCommun.do',{},{
+			query: {method:'GET', params:{}, isArray:false}
+		});
+	}]);
+commun.factory('CommunInfo',['$resource',function($resource){
+
+		return $resource('/api/getCommunInfo.do',{},{
+			query: {method:'GET',params:{}, isArray:false}
+		});	
+	}]);
+var task = angular.module('taskService',['ngResource']);
+task.factory('Task',['$resource',function($resource){
+		return $resource('/api/getTaskList.do',{},{
+query: {method:'GET', params:{},isarray:false}
+		});
+	}]);
+task.factory('Like',['$resource',function($resource){
+		return $resource('/api/likeTask.do',{},{
+			query:{method:'GET',params:{},isarray:false}
+		});
+	}]);
+task.factory('TaskInfo',['$resource',function($resource){
+		return $resource('/api/getTaskDetails.do',{},{
+			query: {method:'GET', params:{}, isarray:false}
+		});
+	}]);
+var communRanking = angular.module('communRankingService', ['ngResource']);
+communRanking.factory('CommunRanking', ['$resource', function($resource){
+        return $resource('/api/communRanking.do',{},{
+            query: {method:'GET', params:{}, isArray:false}
+        });
+    }]);
+var monthRanking = angular.module('monthRankingService',['ngResource']);
+monthRanking.factory('monthRanking',['$resource',function($resource){
+		return $resource('/api/monthRanking.do',{},{
+			query: {method:'GET',params:{size:10},isArray:false}
+		});
+	}]);
+var scoreRanking = angular.module('scoreRankingService',['ngResource']);
+scoreRanking.factory('scoreRanking',['$resource',function($resource){
+		return $resource('/api/getTaskReceiveList.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var taskPrizeList = angular.module('taskPrizeService',['ngResource']);
+taskPrizeList.factory('taskPrizeList',['$resource',function($resource){
+		return $resource('/api/getTaskPrizeList.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var receiveTask = angular.module('receiveTaskService',['ngResource']);
+receiveTask.factory('ReceiveTask',['$resource',function($resource){
+		return $resource('/api/receiveTask.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getCommunMemberInfo = angular.module('getCommunMemberInfoService',['ngResource']);
+getCommunMemberInfo.factory('getCommunMemberInfo',['$resource',function($resource){
+		return $resource('/api/getCommunMemberInfo.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getUserCommunRelType = angular.module('getUserCommunRelTypeService',['ngResource']);
+getUserCommunRelType.factory('getUserCommunRelType',['$resource',function($resource){
+		return $resource('/api/getUserCommunRelType.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getCommunityTaskStatusList = angular.module('getCommunityTaskStatusListService',['ngResource']);
+getCommunityTaskStatusList.factory('getCommunityTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getCommunityTaskStatusList.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getAppvUserInfos = angular.module('getAppvUserInfosService',['ngResource']);
+getAppvUserInfos.factory('getAppvUserInfos',['$resource',function($resource){
+		return $resource('/api/getAppvUserInfos.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var searchSchool = angular.module('searchSchoolService', ['ngResource']);
+searchSchool.factory('searchSchool', ['$resource', function($resource) {
+        return $resource('/api/searchSchool.do',{}, {
+            query: {method:'GET', params:{},isArrary:false}
+        });
+    }]);
+var existsCommun = angular.module('existsCommunService', ['ngResource']);
+existsCommun.factory('existsCommun', ['$resource', function($resource) {
+        return $resource('/api/existsCommun.do',{}, {
+            query: {method:'GET', params:{}, isArray:false}
+        });
+    }]);
+var getTooltipStr = angular.module('getTooltipStrService', ['ngResource']);
+getTooltipStr.factory('getTooltipStr', ['$resource', function($resource) {
+        return $resource('/api/getTooltipStr.do',{}, {
+            query: {method:'GET', params:{}, isArray:false}
+        });
+    }]);
+var regCommun = angular.module('regCommunService', ['ngResource']);
+regCommun.factory('regCommun', ['$resource', function($resource) {
+        return $resource('/api/regCommun.do',{},{
+            query: {method:'GET',params:{},isArray:false}
+        });
+    }]);
+var getUserScoreInfo = angular.module('getUserScoreInfoService',['ngResource']);
+getUserScoreInfo.factory('getUserScoreInfo',['$resource',function($resource){
+		return $resource('/api/getUserScoreInfo.do',{},{
+			query: {method:'GET',params:{},isArray:false}
+		});
+	}]);
+var joinCommun = angular.module('joinCommunService', ['ngResource']);
+joinCommun.factory('joinCommun', ['$resource', function($resource) {
+        return $resource('/api/joinCommun.do',{}, {
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var findCommunList = angular.module('findCommunListService', ['ngResource']);
+findCommunList.factory('findCommunList', ['$resource', function($resource) {
+        return $resource('/api/findCommunList.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var finishJump = angular.module('finishJumpService',['ngResource']);
+finishJump.factory('finishJump',['$resource',function($resource){
+		return $resource('/static/finishJump.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getUserTaskStatusList = angular.module('getUserTaskStatusListService',['ngResource']);
+getUserTaskStatusList.factory('getUserTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getUserTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getSignedInfo = angular.module('getSignedInfoService', ['ngResource']);
+getSignedInfo.factory('getSignedInfo',['$resource', function($resource) {
+        return $resource('/api/getSignedInfo.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var scoreExchange = angular.module('scoreExchangeService', ['ngResource']);
+scoreExchange.factory('scoreExchange',['$resource', function($resource) {
+        return $resource('/api/scoreExchange.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var quitCommun = angular.module('quitCommunService',['ngResource']);
+quitCommun.factory('quitCommun',['$resource',function($resource){
+		return $resource('/api/quitCommun.do',{},{
+			query:{method:'GET',parmas:{},isArray:false}
+		});
+	}]);
+var acceptAppvInfo= angular.module('acceptAppvInfoService',['ngResource']);
+acceptAppvInfo.factory('acceptAppvInfo',['$resource',function($resource){
+		return $resource('/api/acceptAppvInfo.do',{},{
+			query:{method:'GET',parmas:{},isArray:false}
+		});
+	}]);
+acceptAppvInfo.factory('acceptAllAppvInfo',['$resource', function($resource){
+        return $resource('/api/acceptAllAppvInfo.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var cancelAppvInfo = angular.module('cancelAppvInfoService',['ngResource']);
+cancelAppvInfo.factory('cancelAppvInfo',['$resource',function($resource){
+        return $resource('/api/cancleAppvInfo.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var kickMember = angular.module('kickMemberService',['ngResource']);
+kickMember.factory('kickMember',['$resource',function($resource){
+		return $resource('/api/kickMember.do',{},{
+			query:{method:'GET',parmas:{},isArray:false}
+		});
+	}]);
+var getLotteryList = angular.module('getLotteryListService',['ngResource']);
+getLotteryList.factory('getLotteryList',['$resource',function($resource){
+		return $resource('/static/getLotteryList.do',{},{
+			query:{method:'GET',parmas:{},isArray:false}
+		});
+	}]);
+var getAppvCommunInfo = angular.module('getAppvCommunInfoService',['ngResource']);
+getAppvCommunInfo.factory('getAppvCommunInfo',['$resource',function($resource) {
+        return $resource('/api/getAppvCommunInfo.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var jsConfig = angular.module('jsConfigService',['ngResource']);
+jsConfig.factory('jsConfig',['$resource',function($resource){
+		return $resource('/api/getJsConfig.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+    }]);
+var rejectAppvInfo = angular.module('rejectAppvInfoService', ['ngResource']);
+rejectAppvInfo.factory('rejectAppvInfo',['$resource',function($resource){
+        return $resource('/api/rejectAppvInfo.do',{},{
+            query:{method:'GET',params:{},isArrary:false}
+        });
+    }]);
+var delCommun = angular.module('delCommunService',['ngResource']);
+delCommun.factory('delCommun',['$resource', function($resource){
+        return $resource('/api/delCommun.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+var getSubmitWorks = angular.module('getSubmitWorksService',['ngResource']);
+getSubmitWorks.factory('getSubmitWorks',['$resource',function($resource){
+		return $resource('/api/getSubmitWorks.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getCommunityScoreInfo = angular.module('getCommunityScoreInfoService',['ngResource']);
+getCommunityScoreInfo.factory('getCommunityScoreInfo',['$resource',function($resource){
+		return $resource('/api/getCommunityScoreInfo.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var complateCommunityInfo = angular.module('complateCommunityInfoService',['ngResource']);
+complateCommunityInfo.factory('complateCommunityInfo',['$resource',function($resource){
+		return $resource('/api/completeCommunityInfo.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+var getALLTaskStatusList = angular.module('getALLTaskStatusListService',['ngResource']);
+getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getALLTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+},{}]},{},[10])e("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-route/angular-route.js");
 require("../../../bower_components/angular-resource/angular-resource.js");
 require("../../../bower_components/angular-touch/angular-touch.js");
@@ -32798,14 +33137,48 @@ complateCommunityInfo.factory('complateCommunityInfo',['$resource',function($res
 			query:{method:'GET',params:{},isArray:false}
 		});
 	}]);
-
-},{}]},{},[11])n $resource('/static/getLotteryList.do',{},{
-			query:{method:'GET',parmas:{},isArray:false}
+var getALLTaskStatusList = angular.module('getALLTaskStatusListService',['ngResource']);
+getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getALLTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
 		});
 	}]);
-var getAppvCommunInfo = angular.module('getAppvCommunInfoService',['ngResource']);
-getAppvCommunInfo.factory('getAppvCommunInfo',['$resource',function($resource) {
-        return $resource('/api/getAppvCommunInfo.do',{},{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+},{}]},{},[11]),{
             query:{method:'GET',params:{},isArray:false}
         });
     }]);
@@ -32846,5 +33219,45 @@ complateCommunityInfo.factory('complateCommunityInfo',['$resource',function($res
 			query:{method:'GET',params:{},isArray:false}
 		});
 	}]);
+var getALLTaskStatusList = angular.module('getALLTaskStatusListService',['ngResource']);
+getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getALLTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 },{}]},{},[11])

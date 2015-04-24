@@ -264,3 +264,43 @@ complateCommunityInfo.factory('complateCommunityInfo',['$resource',function($res
 			query:{method:'GET',params:{},isArray:false}
 		});
 	}]);
+var getALLTaskStatusList = angular.module('getALLTaskStatusListService',['ngResource']);
+getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
+		return $resource('/api/getALLTaskStatusList.do',{},{
+			query:{method:'GET',params:{},isArray:false}
+		});
+	}]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

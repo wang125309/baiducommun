@@ -15,7 +15,6 @@ var CommunFieldCtrl = angular.module('baidu',['communService','monthRankingServi
 		},function(data){
 			wx.config(data.data);
 			wx.error(function(res){
-				console.log(res);
 			});
 			wx.ready(function(){
 				wx.hideOptionMenu();

@@ -71,20 +71,22 @@ body(ng-controller="TaskInfoCtrl",ng-cloak)
         div.prize-icon=""
         span 获奖列表
         div.score-sheet
-            div.score-list.clearfix(ng-repeat="m in taskPrizeList.data.list")
+            div.score-list.clearfix(ng-repeat="m in taskPrizeList.data.list track by $index")
                 div.line.clearfix
                     div.prize-icon=""
                     div.name(ng-if="m.communityName&&m.prizeScore") {{ m.communityName }}获得{{ m.prizeScore }}&nbsp;积分
                     div.name(ng-if="m.communityName&&m.prizeName") {{ m.communityName }}获得{{ m.prizeName }}
                     div.name(ng-if="m.userName&&m.prizeScore") {{ m.userName }}获得{{ m.prizeScore }}&nbsp;积分
                     div.name(ng-if="m.userName&&m.prizeName") {{ m.userName }}获得{{ m.prizeName }}&nbsp;积分
+        div.show_more(ng-click="prize_show_more()",ng-show="prize_more_show==true")="查看更多"
     section.score-apply.clearfix(ng-if="taskState!='已评奖'&&show_scoreRanking")
         div.apply-icon=""
         span 申请列表
         div.score-list.clearfix
-            div.line.clearfix(ng-repeat="m in scoreRanking.data.list")
+            div.line.clearfix(ng-repeat="m in scoreRanking.data.list track by $index")
                 div.name.clearfix(ng-if="m.communityName") {{ m.communityName }}
                 div.name.clearfix(ng-if="m.userName") {{ m.userName}}
+        div.show_more(ng-click="apply_show_more()",ng-show="apply_more_show==true")="查看更多"
 
     div.placehold-footer=""
     div.bottom-bar

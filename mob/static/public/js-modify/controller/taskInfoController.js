@@ -33,6 +33,40 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 	else {
 		$scope.like = 0;
 	}
+	$scope.apply_count = 1;
+	$scope.prize_count = 1;
+	$scope.apply_show_more = function() {
+		$scope.apply_count += 1;
+		if($scope.apply_more_show) {
+			scoreRanking.query({taskId:id,page:$scope.apply_count,rows:10},function(d){
+				if(d.data.list.length == 0) {
+					$scope.apply_more_show = false;
+				}
+				else {
+					for(i in d.data.list) {
+						$scope.scoreRanking.data.list.push(d.data.list[i]);
+					}
+					console.log($scope.scoreRanking);			
+				}	
+			});
+		}
+	};
+	$scope.prize_show_more = function() {
+		$scope.prize_count += 1;
+		if($scope.prize_more_show) {
+			taskPrizeList.query({taskId:id,page:$scope.prize_count,rows:10},function(d){
+				if(d.data.list.length == 0) {
+					$scope.prize_more_show = false;
+				}
+				else {
+					for(i in d.data.list) {
+						$scope.taskPrizeList.data.list.push(d.data.list[i]);
+					}
+					console.log($scope.taskPrizeList);			
+				}	
+			});
+		}
+	};
 	var update_task = function() {
 		$scope.task = TaskInfo.query({"taskId":id},function(data){
 			Like.query({taskId:id,type:2},function(d){
@@ -41,6 +75,14 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 			$scope.communs = Communs.query(function(cd){
 				$scope.communs = cd;
 				scoreRanking.query({taskId:id,page:1,rows:10},function(d){
+					scoreRanking.query({taskId:id,page:2,rows:10},function(d){
+						if(d.data.list.length == 0) {
+							$scope.apply_more_show = false;
+						}
+						else {
+							$scope.apply_more_show = true;
+						}
+					});
 					$scope.scoreRanking = d;
 					if(d.data.list&&d.data.list.length>0) {
 						$scope.show_scoreRanking = true;
@@ -51,6 +93,14 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 				});
 				taskPrizeList.query({taskId:id,page:1,rows:10},function(d){
 					$scope.taskPrizeList = d;
+					taskPrizeList.query({taskId:id,page:2,rows:10},function(d){
+						if(d.data.list.length == 0) {
+							$scope.prize_more_show = false;
+						}
+						else {
+							$scope.prize_more_show = true;
+						}
+					});
 					if(d.data.list&&d.data.list.length>0) {
 						$scope.show_task_prize_list = true;
 					}
@@ -66,7 +116,7 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 					if($scope.communs.data.length>1) {
 						$scope.tab = [];
 						for(i=0;i<$scope.communs.data.length;i++) {
-								$scope.tab.push({"num":i,"cid":cd.data[i].id,"name":cd.data[i].name,"rel":cd.data[i].relType});
+							$scope.tab.push({"num":i,"cid":cd.data[i].id,"name":cd.data[i].name,"rel":cd.data[i].relType});
 						}
 						console.log($scope.tab);
 						if(cid) {
@@ -183,176 +233,176 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 					};
 				}
 			});
-		});
+});
 
+}
+update_task();
+$scope.show_other = function(i) {
+	$scope.communNum = i;
+	$scope.active = i;
+	localStorage['commun'] = i;
+	if(cid) {
+		$scope.show_task_condition = true;
 	}
 	update_task();
-	$scope.show_other = function(i) {
-		$scope.communNum = i;
-		$scope.active = i;
-		localStorage['commun'] = i;
-		if(cid) {
-			$scope.show_task_condition = true;
-		}
-		update_task();
-	};
-	$scope.add_fans = function() {
-		if(localStorage[id+"num"]>0) {
-			Like.query({taskId:id,type:1},function(d){
-				$scope.likeNum = d.data.likeNum;
-				localStorage[id+"num"] = 0;
-				$scope.like = false;
-			});
-		}
-		else {
-			Like.query({taskId:id,type:0},function(d){
-				$scope.likeNum = d.data.likeNum;
-				localStorage[id+"num"] = 1;
-				$scope.like = true;
-			});
-		}
-	};
-	var alertTask = function(data,str) {
-		if(str) {
-			if(str == "goCreate") {
-				setTimeout(function(){
-					location.href = "/mob/createCommun.do";
-				},1000);
-			}
-		}
-		$scope.taskMessage = data;
-		$scope.alertClass = 'enter';
-		$scope.alert = true;
-		$scope.$apply();
-	};
-	$scope.alert = false;
-	$scope.alertClass="";
-	var alreadyGet = false;
-
-	$scope.getTask = function() {
-		if(alreadyGet == false) {
-			alreadyGet = true;
-			console.log($scope.reltype);
-			if(($scope.task.data.type==1||$scope.task.data.type==2)||(($scope.reltype.data.reltype==1||$scope.reltype.data.reltype==3)&&(($scope.task.data.type==3||$scope.task.data.type==4)&&$scope.taskState=="未领取"))) {
-				User.query(function(user){
-					if(!user.data.realName&&!user.data.schoolId&&!user.data.realName&&!user.data.realName.length&&!user.data.phoneNum&&!user.data.phoneNum.length) {
-						$scope.need_complate = 1;
-						alertTask("您需要先完善个人信息");
-					}
-					else {
-						receiveTask.query({"taskId":id},function(data){
-							console.log(data);
-							if(data.error_no == 0) {
-								if(data.data.status == 1) {
-									alertTask(data.data.reason);
-								}
-								else {
-									if(data.data.reason) {
-										alertTask(data.data.reason);
-									}	
-									else {
-										alertTask("任务已经领取成功了哦~");
-										$scope.taskState = '已领取';
-									}
-								}
-							}
-							else {
-								location.href=location.href;
-							}
-						});
-					}
-				});
-			}
-			else if(($scope.task.data.type==3||$scope.task.data.type==4)&&($scope.taskState=='未领取')&&($scope.communs.data.length==0)) {
-				alertTask("您还没有社团，您可以自己创建一个社团哦~","goCreate");
-			}
-			else {
-				alertTask("对不起哦，您不是社团领袖，不能领取任务~");
-			}
-		}
-		else {
-			alreadyGet = true;
-		}
-	};
-	$scope.iknow = function() {
-		already_submit = false;
-		alreadyGet = false;
-		if($scope.need_complate==1) {
-			location.href="/mob/completePersonInfo.do";
-			$scope.need_complate==0;
-		}
-		$scope.alert = false;
-		$scope.alertClass = '';
-	};
-	$scope.footerMenu = {
-		isopen : false
-	};
-	$scope.toggleFooterMenuDropDown = function() {
-		$scope.footerMenu.isopen = !$scope.footerMenu.isopen;
-	};
-	$scope.fileAdd = function() {
-		var num = $scope.image_files[$scope.image_files.length-1];
-		$("#add-image-"+num).click();
-	};
-	$scope.upload_css="background:#dcdcdc";
-	$scope.previews = [];
-	$scope.image_files = [1];
-
-	$scope.submitTask = function() {
-		$scope.submitView = true;
-	};
-	$scope.goIndex = function() {
-		location.href="/mob/index.do";
-	};
-	$scope.close_img = function(i) {
-		if(!$scope.previews.splice(i,1)) {
-			$scope.previews.pop();
-		}
-	};
-
-
-	$scope.getQrcode = function() {
-		location.href="/mob/qrcode.do?taskId="+$scope.task.data.id+"&entityId="+$scope.entityId;	
-	};
-	$scope.submitView = false;
-
-	if(localStorage[id]==1) {
-		$scope.submitText = "继续提交";
-		$scope.submitTextOnline = "继续提交";
+};
+$scope.add_fans = function() {
+	if(localStorage[id+"num"]>0) {
+		Like.query({taskId:id,type:1},function(d){
+			$scope.likeNum = d.data.likeNum;
+			localStorage[id+"num"] = 0;
+			$scope.like = false;
+		});
 	}
 	else {
-		$scope.submitText = "确认提交";
-		$scope.submitTextOnline = "提交任务";
+		Like.query({taskId:id,type:0},function(d){
+			$scope.likeNum = d.data.likeNum;
+			localStorage[id+"num"] = 1;
+			$scope.like = true;
+		});
 	}
-	var already_submit = false;
-	$scope.form_submit = function() {
-		if(already_submit == false) {
-			if($scope.image_files.length == 1) {
-				alertTask("至少传些神马图片吧");
-			}
-			else {
-				var formdata = new FormData($('#form')[0]);
-				$.ajax({
-					type:"POST",
-					url:"/api/taskSubmitWorks.do",
-					data:formdata,
-					processData : false, 
-					contentType:false,
-					success:function(data) {
-						alertTask("任务提交成功");
-						localStorage[id] = 1;
-						$scope.submitText = "继续提交";
-						already_submit = true;
-						$scope.submitView = false;
-					},
-					error:function(data) {
-						already_submit = true;
-						alertTask("任务提交失败");
-					}
-				});
-			}
+};
+var alertTask = function(data,str) {
+	if(str) {
+		if(str == "goCreate") {
+			setTimeout(function(){
+				location.href = "/mob/createCommun.do";
+			},1000);
 		}
-	};
+	}
+	$scope.taskMessage = data;
+	$scope.alertClass = 'enter';
+	$scope.alert = true;
+	$scope.$apply();
+};
+$scope.alert = false;
+$scope.alertClass="";
+var alreadyGet = false;
+
+$scope.getTask = function() {
+	if(alreadyGet == false) {
+		alreadyGet = true;
+		console.log($scope.reltype);
+		if(($scope.task.data.type==1||$scope.task.data.type==2)||(($scope.reltype.data.reltype==1||$scope.reltype.data.reltype==3)&&(($scope.task.data.type==3||$scope.task.data.type==4)&&$scope.taskState=="未领取"))) {
+			User.query(function(user){
+				if(!user.data.realName&&!user.data.schoolId&&!user.data.realName&&!user.data.realName.length&&!user.data.phoneNum&&!user.data.phoneNum.length) {
+					$scope.need_complate = 1;
+					alertTask("您需要先完善个人信息");
+				}
+				else {
+					receiveTask.query({"taskId":id},function(data){
+						console.log(data);
+						if(data.error_no == 0) {
+							if(data.data.status == 1) {
+								alertTask(data.data.reason);
+							}
+							else {
+								if(data.data.reason) {
+									alertTask(data.data.reason);
+								}	
+								else {
+									alertTask("任务已经领取成功了哦~");
+									$scope.taskState = '已领取';
+								}
+							}
+						}
+						else {
+							location.href=location.href;
+						}
+					});
+				}
+			});
+		}
+		else if(($scope.task.data.type==3||$scope.task.data.type==4)&&($scope.taskState=='未领取')&&($scope.communs.data.length==0)) {
+			alertTask("您还没有社团，您可以自己创建一个社团哦~","goCreate");
+		}
+		else {
+			alertTask("对不起哦，您不是社团领袖，不能领取任务~");
+		}
+	}
+	else {
+		alreadyGet = true;
+	}
+};
+$scope.iknow = function() {
+	already_submit = false;
+	alreadyGet = false;
+	if($scope.need_complate==1) {
+		location.href="/mob/completePersonInfo.do";
+		$scope.need_complate==0;
+	}
+	$scope.alert = false;
+	$scope.alertClass = '';
+};
+$scope.footerMenu = {
+	isopen : false
+};
+$scope.toggleFooterMenuDropDown = function() {
+	$scope.footerMenu.isopen = !$scope.footerMenu.isopen;
+};
+$scope.fileAdd = function() {
+	var num = $scope.image_files[$scope.image_files.length-1];
+	$("#add-image-"+num).click();
+};
+$scope.upload_css="background:#dcdcdc";
+$scope.previews = [];
+$scope.image_files = [1];
+
+$scope.submitTask = function() {
+	$scope.submitView = true;
+};
+$scope.goIndex = function() {
+	location.href="/mob/index.do";
+};
+$scope.close_img = function(i) {
+	if(!$scope.previews.splice(i,1)) {
+		$scope.previews.pop();
+	}
+};
+
+
+$scope.getQrcode = function() {
+	location.href="/mob/qrcode.do?taskId="+$scope.task.data.id+"&entityId="+$scope.entityId;	
+};
+$scope.submitView = false;
+
+if(localStorage[id]==1) {
+	$scope.submitText = "继续提交";
+	$scope.submitTextOnline = "继续提交";
+}
+else {
+	$scope.submitText = "确认提交";
+	$scope.submitTextOnline = "提交任务";
+}
+var already_submit = false;
+$scope.form_submit = function() {
+	if(already_submit == false) {
+		if($scope.image_files.length == 1) {
+			alertTask("至少传些神马图片吧");
+		}
+		else {
+			var formdata = new FormData($('#form')[0]);
+			$.ajax({
+				type:"POST",
+				url:"/api/taskSubmitWorks.do",
+				data:formdata,
+				processData : false, 
+				contentType:false,
+				success:function(data) {
+					alertTask("任务提交成功");
+					localStorage[id] = 1;
+					$scope.submitText = "继续提交";
+					already_submit = true;
+					$scope.submitView = false;
+				},
+				error:function(data) {
+					already_submit = true;
+					alertTask("任务提交失败");
+				}
+			});
+		}
+	}
+};
 }])
 .directive('fileUpload',function(){
 	return {

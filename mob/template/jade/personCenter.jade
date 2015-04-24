@@ -31,7 +31,7 @@ body(ng-app="baidu",ng-controller="PersonCenterCtrl",ng-cloak)
                 div 社团
     div.body-wrap
         section#work.base(ng-show="condition=='task'")
-            section#work-background(ng-show="toggleCommun==true||togglePerson==true")=""        
+            section#work-background(ng-show="toggleCommun==true || togglePerson==true")=""        
             div.work(infinite-scroll="loadMore()",scroll-threshold="200",time-threshold="600")
                 div.work-wrap-empty(ng-if="task_length == 0")=""
                 div.work-wrap(ng-repeat = "t in task.data",ng-click="getTaskInfo(t.taskId)",ng-if="t.taskStage!=3&&t.taskStage!=4")
@@ -48,9 +48,13 @@ body(ng-app="baidu",ng-controller="PersonCenterCtrl",ng-cloak)
                             span.taskStage(ng-if="t.taskStage==4") 已过期
                         div.desc {{ t.taskDescription | noHtmltag }}
                     div.line-end.clearfix(ng-if="t.type==1")
-                        div.type 线上任务
+                        div.type 个人线上
                     div.line-end.clearfix(ng-if="t.type==2")
-                        div.type 线下任务
+                        div.type 个人线下
+                    div.line-end.clearfix(ng-if="t.type==3")
+                        div.type 团队线下
+                    div.line-end.clearfix(ng-if="t.type==4")
+                        div.type 团队线下
         section#score.base(ng-show="condition=='score'")
             div.score-detail-empty(ng-if="scoreInfo_length == 0")=""
             div.score-detail(ng-repeat = "s in scoreInfo.data.His_data | orderBy : '-xdate' | limitTo:50 ")

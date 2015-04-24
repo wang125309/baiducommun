@@ -6,7 +6,7 @@ function getQueryParams(name,url) {
 	var results = regex.exec( url );
 	return results == null ? null : results[1];
 }
-var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','scoreExchangeService','userService','communService','getUserScoreInfoService','getSignedInfoService','getUserTaskStatusListService','getUserCommunRelTypeService','jsConfigService','ngTouch']).controller('PersonCenterCtrl',['$scope','getAppvCommunInfo','scoreExchange','User','getSignedInfo','Communs','getUserScoreInfo','getUserTaskStatusList','getUserCommunRelType','jsConfig','$q',function($scope,getAppvCommunInfo,scoreExchange,User,getSignedInfo,Communs,getUserScoreInfo,getUserTaskStatusList,getUserCommunRelType,jsConfig,$q){
+var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','scoreExchangeService','userService','communService','getUserScoreInfoService','getSignedInfoService','getUserTaskStatusListService','getUserCommunRelTypeService','getALLTaskStatusListService','jsConfigService','ngTouch']).controller('PersonCenterCtrl',['$scope','getAppvCommunInfo','scoreExchange','User','getSignedInfo','Communs','getUserScoreInfo','getUserTaskStatusList','getUserCommunRelType','getALLTaskStatusList','jsConfig','$q',function($scope,getAppvCommunInfo,scoreExchange,User,getSignedInfo,Communs,getUserScoreInfo,getUserTaskStatusList,getUserCommunRelType,getALLTaskStatusList,jsConfig,$q){
 	$scope.tip = {
         show: false,
         message: ''
@@ -43,13 +43,13 @@ var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','score
 	});
     getAppvCommunInfo.query(function(result){
         if (result.error_no !== '0'){
-            location.href = location.href;
+        	location.href = location.href;
         }
         $scope.applyCommuns = result.data;
     });
-	$scope.task = getUserTaskStatusList.query({
+	$scope.task = getALLTaskStatusList.query({
 		page:1,
-        rows:5,
+        rows:20,
 	},function(d){
 		$scope.task_length = d.data.length;
 	});
@@ -138,7 +138,7 @@ var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','score
 	});
 	getUserScoreInfo.query(function(result) {
         if (result.error_no !== '0') {
-            location.href = location.href;
+        	location.href = location.href;
         }
         if (result.data.Current_score) {
             $scope.personScore = result.data.Current_score;
@@ -151,9 +151,8 @@ var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','score
         endDate:'3000890876859'
     },function(result) {
         if (result.error_no !== '0') {
-            location.href = location.href;
+        	location.href = location.href;
         }
-
         if (!result.data.continuous) {
             $scope.constantDay = 0;
         } else {
@@ -171,7 +170,7 @@ var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','score
 	};
 	$scope.user = User.query(function(d){
 		if(d.error_no != 0) {
-            location.href = location.href;
+			location.href = location.href;
 		}
 		else {
             $scope.user = d;

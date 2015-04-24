@@ -52,7 +52,18 @@ gulp.task('sass',function(){
 });
 
 var js_files = ['app','service','index','taskInfo','communCenter','personCenter', 'userList', 'completePersonInfo', 'authenticate', 'communAppeal', 'communField', 'createCommun', 'joinCommun', 'phoneNumber','qrcode','freshGuide'];
-
+var js_files_only = ['phoneNumber'];
+gulp.task('js-only',function(){
+    for (i in js_files_only) {
+        gulp.src('./static/public/js-modify/'+js_files_only[i]+'.js')
+			.pipe(browserify())
+			.pipe(concat('.js'))
+            .pipe(gulp.dest('./static/public/js'))
+            .pipe(rename(js_files_only[i]+'.min.js'))
+            .pipe(uglify())
+            .pipe(gulp.dest('./static/public/js'));
+    }
+});
 gulp.task('js-observe',function(){
     for (i in js_files) {
         gulp.src('./static/public/js-modify/'+js_files[i]+'.js')
