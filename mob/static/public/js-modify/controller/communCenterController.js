@@ -302,7 +302,7 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 		} else {
 			var qq_num = $(".qq").val();
 			flc = false;
-			for(i = 0 ;i < qq_num ; i++) {
+			for(i = 0 ;i < qq_num.length ; i++) {
 				if(qq_num[i]<'0'||qq_num[i]>'9') {
 					flc = true;
 				}

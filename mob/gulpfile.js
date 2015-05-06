@@ -52,7 +52,7 @@ gulp.task('sass',function(){
 });
 
 var js_files = ['app','service','index','taskInfo','communCenter','personCenter', 'userList', 'completePersonInfo', 'authenticate', 'communAppeal', 'communField', 'createCommun', 'joinCommun', 'phoneNumber','qrcode','freshGuide'];
-var js_files_only = ['phoneNumber'];
+var js_files_only = ['phoneNumber','communCenter'];
 gulp.task('js-only',function(){
     for (i in js_files_only) {
         gulp.src('./static/public/js-modify/'+js_files_only[i]+'.js')
