@@ -1,0 +1,93 @@
+@import "../../../bower_components/normalize.css/normalize.css";
+@import "../css/footer.css";
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  outline:none;
+}
+$fontBlack:#333;
+$fontGrey:#777;
+$baiduBtnColor: #06c1ae;
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix{
+  display:inline-table;
+  height:1%;
+  display:block;
+}
+.baidu-btn {
+  background:$baiduBtnColor;
+  color:#fff;
+  padding:1vw 4vw;
+  border:0;
+  font-weight:100;
+  border-radius:2px;
+}
+.baidu-btn:active {
+  box-shadow:1px 0px 32px rgba(0,0,0,0.2) inset;
+}
+body {
+  .green {
+    width:2vw;
+    height:inherit;
+  }
+  .title {
+    font-size:5.5vw;
+  }
+  .rank:last-child {
+    border:none;
+  }
+  ifream {
+    padding:3px;
+    border:1px solid #dcdcdc;
+  }
+  .rank {
+    margin-top:1vh;
+    border-bottom:1px solid #dcdcdc;
+    .rank-detail {
+      padding-top:3vw;
+      padding-bottom:3vw;
+      .name-line {
+        float:left;
+        width:50%;
+      }
+        .place {
+          float:left;  
+            background-position:center top!important;
+            background-size:auto 100%!important;
+            background-repeat:no-repeat!important;
+            height:5vh;
+            width:5vh;
+            text-align:center;
+            color:#fff;
+        }
+        .name {
+          font-size:5vw;
+          margin-left:5vw;
+          font-weight:300;
+          line-height:3vh;
+        }
+        .school {
+          font-size:4vw;
+          margin-left:5vw;
+        }
+        .points {
+          font-size:4.2vw;
+          color:$fontGrey;
+          float:right;
+          line-height:5vh;
+        }
+      }
+    }
+  }
+

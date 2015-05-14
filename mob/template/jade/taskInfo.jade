@@ -87,16 +87,17 @@ body(ng-controller="TaskInfoCtrl",ng-cloak)
                 div.name.clearfix(ng-if="m.communityName") {{ m.communityName }}
                 div.name.clearfix(ng-if="m.userName") {{ m.userName}}
         div.show_more(ng-click="apply_show_more()",ng-show="apply_more_show==true")="查看更多"
-
     div.placehold-footer=""
     div.bottom-bar
         button.baidu-btn.submit-task.grey(ng-show="taskState=='已领取'")
             span 任务已领取，请耐心等候审核
         button.baidu-btn.submit-task(ng-click="getTask()",ng-if="taskState=='未领取'")
             span 领取任务
-        button.baidu-btn.submit-task(ng-show="(task.data.type==1&&taskState=='已通过')||(task.data.type==3&&taskState=='已通过'&&reltype!=0)",ng-click="submitTask();")
+        button.baidu-btn.submit-task(ng-if="(isWxTask==1&&taskState=='已通过')||(isWxTask==1&&taskState=='已通过'&&reltype!=0&&reltype!=4)",ng-click="wxForward();")
+            span 点击转发任务
+        button.baidu-btn.submit-task(ng-if="isWxTask==2&&((task.data.type==1&&taskState=='已通过')||(task.data.type==3&&taskState=='已通过'&&reltype!=0))",ng-click="submitTask();")
             span {{ submitTextOnline }}
-        button.baidu-btn.submit-task(ng-click="getQrcode()",ng-show="(task.data.type==4&&taskState=='已通过'&&reltype!=0&&reltype!=4)||(task.data.type==2&&taskState=='已通过')")
+        button.baidu-btn.submit-task(ng-click="getQrcode()",ng-if="((task.data.type==4&&taskState=='已通过'&&reltype!=0&&reltype!=4)||(task.data.type==2&&taskState=='已通过'))&&isWxTask==2")
             span 点击获取二维码
     div(class="alert-menu base {{ alertClass }}",ng-show="alert==true")
         div.message {{ taskMessage }}
@@ -109,7 +110,6 @@ body(ng-controller="TaskInfoCtrl",ng-cloak)
             form(method="post",id="form",role="form",enctype="multipart/form-data")
                 div.add-area
                     div.preview(ng-repeat="i in previews",style="{{ i.image }}")
-                        //div.close(ng-click="close_img(i.pos)")=""
                     div.file-add(ng-click="fileAdd()")=""   
                     input(hidden,name="taskStatusId",value="{{ taskStatusId }}")
                     input.add-image(ng-repeat="i in image_files",name="file",type="file",file-upload,id="add-image-{{ i }}")

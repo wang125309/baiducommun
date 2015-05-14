@@ -33,6 +33,9 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 	else {
 		$scope.like = 0;
 	}
+    $scope.wxForward = function() {
+        location.href = '/mob/sharePage.do?taskId='+id+'&taskStatusId='+$scope.taskStatusId; 
+    }
 	$scope.apply_count = 1;
 	$scope.prize_count = 1;
 	$scope.apply_show_more = function() {
@@ -72,6 +75,7 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 			Like.query({taskId:id,type:2},function(d){
 				$scope.likeNum = d.data.likeNum;
 			});
+            
 			$scope.communs = Communs.query(function(cd){
 				$scope.communs = cd;
 				scoreRanking.query({taskId:id,page:1,rows:10},function(d){
@@ -186,6 +190,7 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 								$scope.taskState = '已评奖';
 							}
 						}
+                        
 						getSubmitWorks.query({
 							taskStatusId:$scope.taskStatusId
 						},function(d){
@@ -196,6 +201,7 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 						});
 					}
 				}
+                $scope.isWxTask = data.isWxForward;
 				if(data.type==1||data.type==2) {
 					$scope.taskType = "person";
 					localStorage['tasktype'] = 5;
@@ -233,7 +239,7 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 					};
 				}
 			});
-});
+    });
 
 }
 update_task();
