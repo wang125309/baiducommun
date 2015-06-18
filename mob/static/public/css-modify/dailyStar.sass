@@ -1,0 +1,181 @@
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-font-smoothing:antialiased;
+  outline:none;
+}
+
+$fontBlack:#333;
+$fontGrey:#777;
+$divBorder:#dcdcdc;
+@mixin wimage {
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  background-position:top center;
+}
+@mixin padding-area {
+  height:30vw;
+  overflow:auto;
+  margin:5vw;
+  border-radius:5px;
+}
+body {
+  margin:0;
+  background-color: #fcb3ae;
+  .header {
+    position:absolute;
+    height:60vw;
+    width:100%;
+    background-image:url('/static/public/image/star-banner.png');
+    top:0;
+    @include wimage;
+  }
+  .no-aword  {
+    font-size:6vw;
+    line-height:30vw;
+    text-align:center;
+  }
+  section.body {
+    padding-bottom:5vw;
+    margin-top:58vw;
+    section.rank-first {
+      @include padding-area;   
+      margin-bottom:0;
+      background-color:#fc3131;
+      overflow:hidden;
+      height:40vw;
+      .icon-rank-first {
+        background-image:url('/static/public/image/star-get.png');
+        position:absolute;
+        margin-left:-5vw;
+        margin-top:-6vw;
+        @include wimage;
+        height: 20vw;
+        width: 20vw;
+      }
+      .rank-item {
+        padding:5vw;
+        color:#fff;
+        text-align:center;
+        .nickname {
+          font-size:6vw;
+          margin-left:4vw;
+          float:left;
+          width:26vw;
+          overflow:hidden;
+          text-overflow:ellipsis;
+          white-space:nowrap;
+        }
+        .realname {
+          float:left;
+          line-height:10vw;
+        }
+        .aword-text {
+          font-size:5vw;
+          float:left;
+        }
+        .aword {
+          float:left;
+          @include wimage;
+          width: 40vw;
+          height:40vw;
+        }
+      }
+    }
+  }
+  section.rank-second {
+    @include padding-area;
+    .icon-rank-second {
+      background-image:url('/static/public/image/history-top.png');
+      @include wimage;
+      width:27vw;
+      height:10vw;
+      position:absolute;
+      right:0vw;
+      margin-top:-4vw;
+    }
+    height:7vw;
+    margin-top:6vw;
+    background-color:#fb695f;
+    height:30vw;
+    .history-area {
+      padding:3vw;
+      .history {
+        line-height:7vw;
+        font-size:3.7vw;
+      }
+    }
+  }
+  section.rank-third {
+    @include wimage;
+    width:100%;
+    height:50vw;
+    background-image:url('/static/public/image/blue-text.png');
+    position:relative;
+    .big-ancle {
+      @include wimage;
+      position:absolute;
+      position:absolute;
+      background-image:url('/static/public/image/big-ancle.gif');
+      height:30vw;
+      left:0;
+      margin-top:3vw;
+      width:20vw;
+    }
+    .fish {
+      @include wimage;
+      position:absolute;
+      background-image:url('/static/public/image/fish-crash.gif');
+      height:28vw;
+      width:25vw;
+      right:15vw;
+      bottom:-8vw;
+    }
+
+  }
+  section.rank-forth {
+    margin:5vw;
+    background:rgb(50,0,231);
+    color:#fff;
+    font-size:3.7vw;
+    padding:3vw;
+    border-radius:5px;
+    height:40vw;
+    .rank-item {
+      .nickname {
+        float:left;
+      }
+      .realname {
+        float:left;
+      }
+      line-height:9vw;
+    }
+    height:35vw;
+    overflow:auto;
+    margin-top:0;
+  }
+  section.note {
+    border:1px dashed #333;
+    margin:5vw;
+    background:#fff;
+    position:relative;
+    .title {
+      margin-top:-6vw;
+      background-image:url('/static/public/image/note-rule.png');
+      @include wimage;
+      width:40vw;
+      height:10vw;
+      position:absolute;
+      margin-left:25vw;
+    }
+    .note-inner {
+      margin-top:5vw;
+    }
+    .desc {
+      position:absolute;
+      bottom:-6vw;
+      font-size:3vw;
+      right:0;
+    }
+  }
+}

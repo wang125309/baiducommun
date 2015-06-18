@@ -1,10 +1,71 @@
 include ./lib/header.jade
 title 攻略：如何领取巨额积分
 link(href="/static/public/css/help.css",rel="stylesheet",type="text/css")
-body
-	section#header=""
-	section#body
-		each val, index in {'1、新手引导':'/mob/freshGuide.do','2、攻略之社团线下任务（团长篇）':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=1&sn=bfb905195bc8bc539009ec459f0b3940#rd','3、攻略之社团线下任务（团员篇）':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=2&sn=ecc1c96bfd0845b2bf051af8c426d68a#rd','4、攻略之积分兑换':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=3&sn=3d7313808358992bb69401a187b75a0a#rd'}
-			div.li
-				a(href=val)=index
-	
+script(src="/static/public/js/help.min.js",language="javascript")
+body(ng-app,ng-controller="helpCtrl",ng-cloak)
+    section#header=""
+    section#body
+        div.qricon=""
+        div.QA
+            div.problem(ng-click="showProblem(1)")
+                div.title Q1: 如何加入社团or如何招募团员？ 
+                div.answer-area(ng-show="p1==true")
+                    div.answer A1：方法一:团员：1.【新兵报到】→【加入社团】→输入学校名或社团名称进行搜索或者【我的】→【社团】→【创建/加入社团】→【加入社团】→输入学校名或社团名称进行搜索
+                    div.answer 2.找到你想加入的社团后，点击”+”进入社团主页，点击【加入社团】
+                    div.answer 3.耐心等待团长通过你的申请，若申请过程中你想终止申请，点击【撤销社团申请】
+                    div.img11=""
+                    div.answer 方法二：团长：【我的】→【社团】→点击你所创建的社团→【社团二维码】→【发送给好友或分享到朋友圈】→团员微信扫一扫二维码即可加入
+                    div.img12=""
+            div.problem(ng-click="showProblem(2)")
+                div.title Q2: 如何创建新社团？
+                div.answer-area(ng-show="p2==true")
+                    div.answer A2: 1.关注“百度社团赞助平台”账号后，点击【我的】进入【个人中心】，点击下方的【社团】→【创建/加入社团】
+                    div.img21=""
+                    div.answer 2.填写社团信息，包括学校名称、社团名称及QQ群；
+                    div.answer 3.信息填写完毕后，点击页面下方的【创建社团】，社团创建成功！
+                    div.answer 4.如果你的社团名称被其他社团抢注，可以点击【去申诉】，工作人员会及时解决
+                    div.img22=""
+            div.problem(ng-click="showProblem(3)")
+                div.title Q3:团长如何审批团员？  
+                div.answer-area(ng-show="p3==true")
+                    div.answer A3:方法一：小伙伴们通过以上两种方法申请加入社团后，团长会收到窗口消息，点击【点此审批吧】
+                    div.img31=""
+                    div.answer 方法二：【我的】→【社团】→点击你所创建的社团→【成员管理】
+                    div.answer PS:对于新加入的小伙伴，团长可以选择【接受】或【拒绝】；若新加入的小伙伴特别特别多，你可以选择点击页面下方的【一键通过所有成员】。
+                    div.img32=""
+            div.problem(ng-click="showProblem(4)")
+                div.title Q4:如何做任务？
+                div.answer-area(ng-show="p4==true")
+                    div.answer A4:1.点击【任务】，在推送的新任务消息中，社团任务的标志是“[团]”，个人任务的标志是“[个]”，也可点击【查看所有任务列表】可查看所有正在发布的任务。
+                    div.img41=""
+                    div.answer 2.选取任务，点击进入任务详情页面，点击【领取任务】，任务领取成功后，你需要耐心等待审批；
+                    div.answer 3.审批通过后，点击【点击获取二维码】，将任务的二维码分享给你的团员们或分享到朋友圈，开始干活吧！
+            div.problem(ng-click="showProblem(5)")
+                div.title Q5:如何查积分？
+                div.answer-area(ng-show="p5==true")
+                    div.answer A5:1.点击【我的】，进入个人中心，页面上方即显示你的个人积分；
+                    div.img51=""
+                    div.answer 2.在【个人中心】中点击下方的【社团】，下方即会显示你的社团积分。
+                    div.img52=""
+            div.problem(ng-click="showProblem(6)")
+                div.title Q6:如何申请提现？
+                div.answer-area(ng-show="p6==true")
+                    div.answer A6:1.【我的】→【个人中心】，此页面的【积分兑换】为个人积分的兑换；
+                    div.img61=""
+                    div.answer 2.社团积分的兑换需要进入【社团中心】页面，同样点击【积分兑换】;
+                    div.img62=""
+                    div.answer 3.系统会告知你当前积分可兑换的现金金额，点击【去兑换】，然后耐心等待审批;
+                    div.img63=""
+                    div.answer 4.审批通过后，你会收到窗口消息提示。
+                    div.img64=""
+            div.problem(ng-click="showProblem(7)")
+                div.title Q7:提现/积分兑换规则？
+                div.answer-area(ng-show="p7==true")
+                    div.answer A7:1.社团积分——每月10到20号可以申请兑换；
+                    div.answer 2.个人积分——积分满500方可申请提现。
+        div.icon-strange=""
+        div.strage
+            each val, index in {'1、欢迎来到百度社团赞助平台':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=206207851&idx=1&sn=7e4dead6ae76dacb547cbf1a5a0df1cd#rd','2、新手引导':'/mob/freshGuide.do','3、攻略之社团线下任务（团长篇）':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=1&sn=bfb905195bc8bc539009ec459f0b3940#rd','4、攻略之社团线下任务（团员篇）':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=2&sn=ecc1c96bfd0845b2bf051af8c426d68a#rd','5、攻略之积分兑换':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=205098312&idx=3&sn=3d7313808358992bb69401a187b75a0a#rd','6、攻略之转发分享任务':'http://mp.weixin.qq.com/s?__biz=MzA3NjM2NDU4Mw==&mid=206268154&idx=1&sn=09307b313cdf130c71c1e99f1336f4a2#rd'}
+                div.li
+                    a(href=val)=index
+    

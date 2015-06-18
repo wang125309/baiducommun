@@ -51,8 +51,8 @@ gulp.task('sass',function(){
         .pipe(gulp.dest('./static/public/css'));
 });
 
-var js_files = ['app','service','index','taskInfo','communCenter','personCenter', 'userList', 'completePersonInfo', 'authenticate', 'communAppeal', 'communField', 'createCommun', 'joinCommun', 'phoneNumber','qrcode','freshGuide'];
-var js_files_only = ['phoneNumber','communCenter','sharePage'];
+var js_files = ['app','service','index','taskInfo','communCenter','personCenter', 'userList', 'completePersonInfo', 'authenticate', 'communAppeal', 'communField', 'createCommun', 'joinCommun', 'phoneNumber','qrcode','freshGuide','phoneNumber','communCenter','sharePage','phoneCode','help','dailyStar'];
+var js_files_only = ['communCenter'];
 gulp.task('js-only',function(){
     for (i in js_files_only) {
         gulp.src('./static/public/js-modify/'+js_files_only[i]+'.js')
@@ -67,6 +67,16 @@ gulp.task('js-only',function(){
 gulp.task('js-observe',function(){
     for (i in js_files) {
         gulp.src('./static/public/js-modify/'+js_files[i]+'.js')
+			.pipe(browserify())
+			.pipe(concat('.js'))
+            .pipe(gulp.dest('./static/public/js'))
+            .pipe(rename(js_files[i]+'.min.js'))
+            .pipe(gulp.dest('./static/public/js'));
+	}
+});
+gulp.task('js-observe-only',function(){
+    for (i in js_files) {
+        gulp.src('./static/public/js-modify/'+js_files_only[i]+'.js')
 			.pipe(browserify())
 			.pipe(concat('.js'))
             .pipe(gulp.dest('./static/public/js'))

@@ -6,7 +6,7 @@ function getQueryParams(name,url) {
 	var results = regex.exec( url );
 	return results == null ? null : results[1];
 }
-var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','scoreExchangeService','userService','communService','getUserScoreInfoService','getSignedInfoService','getUserTaskStatusListService','getUserCommunRelTypeService','getALLTaskStatusListService','jsConfigService','ngTouch']).controller('PersonCenterCtrl',['$scope','getAppvCommunInfo','scoreExchange','User','getSignedInfo','Communs','getUserScoreInfo','getUserTaskStatusList','getUserCommunRelType','getALLTaskStatusList','jsConfig','$q',function($scope,getAppvCommunInfo,scoreExchange,User,getSignedInfo,Communs,getUserScoreInfo,getUserTaskStatusList,getUserCommunRelType,getALLTaskStatusList,jsConfig,$q){
+var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','scoreExchangeService','userService','communService','getUserScoreInfoService','getSignedInfoService','getUserTaskStatusListService','getUserCommunRelTypeService','getALLTaskStatusListService','signService','jsConfigService','ngTouch']).controller('PersonCenterCtrl',['$scope','getAppvCommunInfo','scoreExchange','User','getSignedInfo','Communs','getUserScoreInfo','getUserTaskStatusList','getUserCommunRelType','getALLTaskStatusList','Sign','SignIn','jsConfig','$q',function($scope,getAppvCommunInfo,scoreExchange,User,getSignedInfo,Communs,getUserScoreInfo,getUserTaskStatusList,getUserCommunRelType,getALLTaskStatusList,Sign,SignIn,jsConfig,$q){
 	$scope.tip = {
         show: false,
         message: ''
@@ -57,6 +57,7 @@ var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','score
     $scope.goEdit = function() {
 		location.href="/mob/completePersonInfo.do";
     };
+	$scope.issign = Sign.query();
 	$scope.condition = 'task';
     var get_last_active = function(name) {
 		if($scope.condition == 'task'){
@@ -177,8 +178,8 @@ var PersonCenterCtrl = angular.module('baidu',['getAppvCommunInfoService','score
             console.log(d.data);
 		}
 	});
-	$scope.getTaskInfo = function(id) {
-        location.href="/mob/taskInfo.do?taskId="+id;
+	$scope.getTaskInfo = function(id,cid) {
+        location.href="/mob/taskInfo.do?taskId="+id+"&cid="+cid;
 	};
 	$scope.goIndex = function() {
 		location.href="/mob/index.do";

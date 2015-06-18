@@ -267,7 +267,7 @@ getAppvCommunInfo.factory('getAppvCommunInfo',['$resource',function($resource) {
 
 var jsConfig = angular.module('jsConfigService',['ngResource']);
 jsConfig.factory('jsConfig',['$resource',function($resource){
-		return $resource('/api/getJsConfig.do',{},{
+		return $resource('/js/getJsConfig.do',{},{
 			query:{method:'GET',params:{},isArray:false}
 		});
     }]);
@@ -326,4 +326,66 @@ getShareUrl.factory('getShareUrl',['$resource',function($resource){
         return $resource('/api/getShareUrl.do',{},{
             query:{method:'GET',params:{},isArray:false}
         });
+    }]);
+
+var wxshare = angular.module('wxshareService',['ngResource']);
+wxshare.factory('wxshare',['$resource',function($resource){
+        return $resource('/wxshare/share.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var getQRCode = angular.module('getQRCodeService',['ngResource']);
+getQRCode.factory('getQRCode',['$resource',function($resource){
+        return $resource('/api/getQRCode.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var memberRank = angular.module('memberRankService',['ngResource']);
+memberRank.factory('memberRank',['$resource',function($resource){
+        return $resource('/api/memberRank.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+memberRank.factory('sendEmail',['$resource',function($resource){
+        return $resource('/api/memberRankMail.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var phoneCode = angular.module('phoneCodeService',['ngResource']);
+phoneCode.factory('authPhoneCode',['$resource',function($resource){
+        return $resource('/api/authPhoneCode.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+phoneCode.factory('getPhoneAuthCode',['$resource',function($resource){
+        return $resource('/api/getPhoneAuthCode.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+phoneCode.factory('getPhoneAuthStatus',['$resource',function($resource){
+        return $resource('/api/getPhoneAuthStatus.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var dailyStar = angular.module('dailyStarService',['ngResource']);
+dailyStar.factory('selectWinnerStatus',['$resource',function($resource){
+        return $resource('/api/selectWinnerStatus.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var communComment = angular.module('communCommentService',['ngResource']);
+communComment.factory('addCommunityComment',['$resource',function($resource){
+        return $resource('/api/addCommunityComment.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        }); 
+    }]);
+communComment.factory('getCommentList',['$resource',function($resource){
+        return $resource('/api/getCommentList.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        }); 
     }]);

@@ -1,0 +1,37 @@
+include ./lib/header.jade
+title 每日之星
+link(href="/static/public/css/dailyStar.css",rel="stylesheet",type="text/css")
+script(src="/static/public/js/dailyStar.min.js",language="javascript")
+body(ng-app="baidu",ng-controller="dailyStarCtrl",ng-cloak)
+    section.header=""
+    section.body
+        section.rank-first
+            div.icon-rank-first=""
+            div.rank.clearfix
+                div.rank-item.clearfix(ng-if="no_reward == true",ng-repeat="i in luckDay.todayWinList")
+                    div.nickname 恭喜{{ i.userNickname }}
+                    div.realname （{{ i.userRealName }},{{ i.userPhone }}）
+                    div.aword-text 获得：
+                    div.aword(ng-if="luckDay.isBigDay == 0",style="background-image:url('/static/public/image/card10.png')")=""
+                    div.aword(ng-if="luckDay.isBigDay == 1",style="background-image:url('/static/public/image/card100.png')")=""
+                div.rank-item.no-aword.clearfix(ng-if="no_reward == false") 今日尚未开奖
+            div.fish-flower=""
+        section.rank-second=""
+            div.icon-rank-second=""
+            div.history-area.clearfix
+                div.history.clearfix(ng-repeat="i in luckDay.tenDayData")
+                    div.red-bag=""
+                    div.desc {{ i.batchDate | date:"yyyy年MM月dd日"  }}的幸运之星是{{ i.userNickname }}
+        section.rank-third
+            div.big-ancle=""
+            div.fish=""
+        section.rank-forth.clearfix
+            div.rank-item.clearfix(ng-repeat="i in luckDay.todayMissList")
+                div.red-bag=""
+                div.desc {{ i.userNickname }}因为{{ i.missCause }}而错过了大奖。
+        section.note
+            div.title
+            div.note-inner(ng-bind-html="trustHtml()")
+            div.desc 本抽奖活动最终解释权归百度社团赞助平台所有。
+    section.footer
+        

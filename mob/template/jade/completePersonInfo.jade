@@ -14,22 +14,21 @@ body(ng-app="baidu",ng-controller="CompletePersonInfoCtrl",ng-cloak)
             div.input.bottom-border.clearfix
                 span *
                 div.left-text 姓名
-                div.middle-text(ng-show="isName") !
-                div.right-text
+                div.right-text.clearfix
                     input(type="text" placeholder="请填写你的真实姓名" ng-model="person.realname" ng-blur="validateName()")
             div.input.bottom-border.clearfix(ng-click="chooseSchool()")
                 span *
                 div.left-text 学校
-                div.middle-text(ng-show="isSchool") !
-                div.right-text
+                div.right-text.clearfix
                     input(type="text" placeholder="请选择你的学校" ng-model="person.school" readonly="readonly" ng-blur="validateSchool()")
                     div.school-arrow
-            div.input.clearfix
+            div.input.clearfix(ng-click="jumpToModifyTel()")
                 span *
                 div.left-text 手机号
-                div.middle-text(ng-show="isPhone") !
-                div.right-text
-                    input(type="tel" placeholder="请填写你的手机号" ng-model="person.phonenum" maxlength="11" ng-blur="validatePhone()")
+                div.right-text.clearfix
+                    div.school-arrow
+                    div {{ person.phonenum }}
+
     section#alter-fill.clearfix
         div.fill-tip 选填项
     section#alterbody.clearfix

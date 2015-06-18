@@ -72,9 +72,10 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 	};
 	var update_task = function() {
 		$scope.task = TaskInfo.query({"taskId":id},function(data){
+
 			Like.query({taskId:id,type:2},function(d){
 				$scope.likeNum = d.data.likeNum;
-			});
+            });
             
 			$scope.communs = Communs.query(function(cd){
 				$scope.communs = cd;
@@ -153,6 +154,9 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 					}
 					$scope.taskType = "team";
 					$scope.taskMessage = "任务信息";
+                    if (data.state == '4') {
+                        alertTask('当前任务已经过期，继续执行将不记录积分'); 
+                    }
 					$scope.trustHtml = function() {
 						return $sce.trustAsHtml(data.description);
 					};
@@ -207,6 +211,9 @@ var TaskInfoCtrl = angular.module('baidu',['userService','taskService','receiveT
 					localStorage['tasktype'] = 5;
 					$scope.taskMessage = "任务信息";
 					$scope.taskState = '未领取';
+                    if (data.state == '4') {
+                        alertTask('当前任务已经过期，继续执行将不记录积分'); 
+                    }
 					if(data.taskStatusData.length>0) {
 						$scope.entityId = data.taskStatusData[0].entityId;
 						if(data.taskStatusData[0].taskState == 0) {
@@ -387,6 +394,7 @@ $scope.form_submit = function() {
 			alertTask("至少传些神马图片吧");
 		}
 		else {
+			already_submit = true;
 			var formdata = new FormData($('#form')[0]);
 			$.ajax({
 				type:"POST",
@@ -398,11 +406,9 @@ $scope.form_submit = function() {
 					alertTask("任务提交成功");
 					localStorage[id] = 1;
 					$scope.submitText = "继续提交";
-					already_submit = true;
 					$scope.submitView = false;
 				},
 				error:function(data) {
-					already_submit = true;
 					alertTask("任务提交失败");
 				}
 			});

@@ -32372,173 +32372,6 @@ window.$ === undefined && (window.$ = Zepto)
 ;
 
 },{}],8:[function(require,module,exports){
-//     Zepto.js
-//     (c) 2010-2014 Thomas Fuchs
-//     Zepto.js may be freely distributed under the MIT license.
-
-;(function($){
-  var touch = {},
-    touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
-    longTapDelay = 750,
-    gesture
-
-  function swipeDirection(x1, x2, y1, y2) {
-    return Math.abs(x1 - x2) >=
-      Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
-  }
-
-  function longTap() {
-    longTapTimeout = null
-    if (touch.last) {
-      touch.el.trigger('longTap')
-      touch = {}
-    }
-  }
-
-  function cancelLongTap() {
-    if (longTapTimeout) clearTimeout(longTapTimeout)
-    longTapTimeout = null
-  }
-
-  function cancelAll() {
-    if (touchTimeout) clearTimeout(touchTimeout)
-    if (tapTimeout) clearTimeout(tapTimeout)
-    if (swipeTimeout) clearTimeout(swipeTimeout)
-    if (longTapTimeout) clearTimeout(longTapTimeout)
-    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
-    touch = {}
-  }
-
-  function isPrimaryTouch(event){
-    return (event.pointerType == 'touch' ||
-      event.pointerType == event.MSPOINTER_TYPE_TOUCH)
-      && event.isPrimary
-  }
-
-  function isPointerEventType(e, type){
-    return (e.type == 'pointer'+type ||
-      e.type.toLowerCase() == 'mspointer'+type)
-  }
-
-  $(document).ready(function(){
-    var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
-
-    if ('MSGesture' in window) {
-      gesture = new MSGesture()
-      gesture.target = document.body
-    }
-
-    $(document)
-      .bind('MSGestureEnd', function(e){
-        var swipeDirectionFromVelocity =
-          e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
-        if (swipeDirectionFromVelocity) {
-          touch.el.trigger('swipe')
-          touch.el.trigger('swipe'+ swipeDirectionFromVelocity)
-        }
-      })
-      .on('touchstart MSPointerDown pointerdown', function(e){
-        if((_isPointerType = isPointerEventType(e, 'down')) &&
-          !isPrimaryTouch(e)) return
-        firstTouch = _isPointerType ? e : e.touches[0]
-        if (e.touches && e.touches.length === 1 && touch.x2) {
-          // Clear out touch movement data if we have it sticking around
-          // This can occur if touchcancel doesn't fire due to preventDefault, etc.
-          touch.x2 = undefined
-          touch.y2 = undefined
-        }
-        now = Date.now()
-        delta = now - (touch.last || now)
-        touch.el = $('tagName' in firstTouch.target ?
-          firstTouch.target : firstTouch.target.parentNode)
-        touchTimeout && clearTimeout(touchTimeout)
-        touch.x1 = firstTouch.pageX
-        touch.y1 = firstTouch.pageY
-        if (delta > 0 && delta <= 250) touch.isDoubleTap = true
-        touch.last = now
-        longTapTimeout = setTimeout(longTap, longTapDelay)
-        // adds the current touch contact for IE gesture recognition
-        if (gesture && _isPointerType) gesture.addPointer(e.pointerId);
-      })
-      .on('touchmove MSPointerMove pointermove', function(e){
-        if((_isPointerType = isPointerEventType(e, 'move')) &&
-          !isPrimaryTouch(e)) return
-        firstTouch = _isPointerType ? e : e.touches[0]
-        cancelLongTap()
-        touch.x2 = firstTouch.pageX
-        touch.y2 = firstTouch.pageY
-
-        deltaX += Math.abs(touch.x1 - touch.x2)
-        deltaY += Math.abs(touch.y1 - touch.y2)
-      })
-      .on('touchend MSPointerUp pointerup', function(e){
-        if((_isPointerType = isPointerEventType(e, 'up')) &&
-          !isPrimaryTouch(e)) return
-        cancelLongTap()
-
-        // swipe
-        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
-            (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
-
-          swipeTimeout = setTimeout(function() {
-            touch.el.trigger('swipe')
-            touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
-            touch = {}
-          }, 0)
-
-        // normal tap
-        else if ('last' in touch)
-          // don't fire tap when delta position changed by more than 30 pixels,
-          // for instance when moving to a point and back to origin
-          if (deltaX < 30 && deltaY < 30) {
-            // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
-            // ('tap' fires before 'scroll')
-            tapTimeout = setTimeout(function() {
-
-              // trigger universal 'tap' with the option to cancelTouch()
-              // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-              var event = $.Event('tap')
-              event.cancelTouch = cancelAll
-              touch.el.trigger(event)
-
-              // trigger double tap immediately
-              if (touch.isDoubleTap) {
-                if (touch.el) touch.el.trigger('doubleTap')
-                touch = {}
-              }
-
-              // trigger single tap after 250ms of inactivity
-              else {
-                touchTimeout = setTimeout(function(){
-                  touchTimeout = null
-                  if (touch.el) touch.el.trigger('singleTap')
-                  touch = {}
-                }, 250)
-              }
-            }, 0)
-          } else {
-            touch = {}
-          }
-          deltaX = deltaY = 0
-
-      })
-      // when the browser window loses focus,
-      // for example when a modal dialog is shown,
-      // cancel all ongoing events
-      .on('touchcancel MSPointerCancel pointercancel', cancelAll)
-
-    // scrolling the window indicates intention of the user
-    // to scroll, not tap or swipe, so cancel all ongoing events
-    $(window).on('scroll', cancelAll)
-  })
-
-  ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
-    'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(eventName){
-    $.fn[eventName] = function(callback){ return this.on(eventName, callback) }
-  })
-})(Zepto)
-
-},{}],9:[function(require,module,exports){
 angular.module('userModule',['userService']);
 angular.module('indexModule',['userModule']);
 angular.module('signModule',[]);
@@ -32568,70 +32401,393 @@ app = angular.module('baidu',['ngRoute']).
 			});
 		}]);
 
-},{}],10:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
+var commun = angular.module('communService',['ngResource']);
+commun.factory('CommunsInfo',['$resource',function($resource){
+	return $resource('/api/getCommunInfo.do',{},{
+		query: {method:'GET',params:{},headers: {'Content-Type':'application/x-www-form-urlencoded'}}
+	});
+}]);
+commun.factory('Communs',['$resource',function($resource){
+	return $resource('/api/getUserCommun.do',{},{
+		query: {method:'GET', params:{}, isArray:false}
+	});
+}]);
 function getQueryParams(name,url) {
 	if (!url) url = location.href
-	name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+		name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
 	var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
+	var regex = new RegExp( regexS );
 	var results = regex.exec( url );
 	return results == null ? null : results[1];
 }
-var PhoneNumberCtrl = angular.module('baidu',['finishJumpService','getLotteryListService','ngTouch']).controller('PhoneNumberCtrl',['finishJump','getLotteryList','$scope','$q',function(finishJump,getLotteryList,$scope,$q){
-	id = getQueryParams("id",location.href);
-	$scope.text = "";
-	$scope.add = function($event,num) {
-		if($scope.text.length < 11) {
-			$scope.text += num;
-		}
-		else {
-			return ;
-		}
+var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchangeService','cancelAppvInfoService','communService','getUserCommunRelTypeService','joinCommunService','getCommunityTaskStatusListService','quitCommunService','getCommunityScoreInfoService','complateCommunityInfoService','complateCommunityInfoService','notifyCommunMemberService','communCommentService','jsConfigService','ngTouch']).controller('CommunCenterCtrl',['$scope','delCommun','scoreExchange','cancelAppvInfo','joinCommun','quitCommun','getUserCommunRelType','Communs','CommunsInfo','getCommunityTaskStatusList','getCommunityScoreInfo','complateCommunityInfo','notifyCommunMember','getCommentList','addCommunityComment','jsConfig','$q',function($scope,delCommun,scoreExchange,cancelAppvInfo,joinCommun,quitCommun,getUserCommunRelType,Communs,CommunsInfo,getCommunityTaskStatusList,getCommunityScoreInfo,complateCommunityInfo,notifyCommunMember,getCommentList,addCommunityComment,jsConfig,$q){
+	$scope.tip = {
+		show: false,
+		message: ''
 	};
-	$scope.submitPhoneNumber = function() {
-		if($scope.text.length < 11) {
-			alert("请输入正确的手机号");
-		}
-		else {
-			finishJump.query({phone_num:$scope.text,id:id},function(d){
-				location.href = d.data;	
-			});
-		};
-	};
-	$scope.read = getLotteryList.query(function(d){
-		$scope.read = d;
-		colors = ['#0bc344','#6618be','#1e1b22','#d64418','#3017ab','#17ab1e','#12d9e5','#b112e5','#f7ef0e','#a29f56'];
-		$scope.read.text = [];
 
-		for(i=0;i<d.root.length;i++) {
-			t = {
-				color:colors[Math.ceil(Math.random()*10)],
-				text:d.root[i].phoneNum.substring(0,2)+"****"+d.root[i].phoneNum.substring(6,10)+" 获得"+d.root[i].prize
-			}
-			$scope.read.text.push(t);
-		}
-		console.log($scope.read.text);
+
+	jsConfig.query({
+		"url":location.href
+	},function(data){
+		wx.config(data.data);
+		wx.error(function(res){
+			console.log(res);
+		});
+		wx.ready(function(){
+			wx.hideOptionMenu();
+		});
 	});
-	$scope.delete = function($event) {
-		$scope.text = $scope.text.substring(0,$scope.text.length-1);
-	};
 
-}])
-.directive('delete',function(){
-	return  {
-		link : function(scope,element,attr) {
-			element.on('longTap',function(){
-				scope.text = "";
-				scope.$apply();
+	flag = 0;
+	$scope.enableConvert = false;
+	$scope.isDelCommun = false;
+	$scope.communs = Communs.query();
+	commun_id = getQueryParams("commun_id",location.href);
+
+    getCommentList.query({
+        cid:commun_id
+    },function(d){
+        $scope.message = d.root;
+    });
+	$scope.clickTipFrame = function() {
+		$scope.tip.show = false;
+		$scope.tip.message = '';
+	};
+	function triggerAlert(isFrameShow, message, isLineShow,inputQQ) {
+		$scope.tip.show = isFrameShow;
+		$scope.tip.message = message;
+		$scope.tip.btnline = isLineShow;
+		if(inputQQ) {
+			$scope.inputQQ = true;
+			
+		}
+	};	
+
+	$scope.communsInfo = CommunsInfo.query({commun_id:commun_id},function(d){
+		if(d.data.hasNewMember) {
+			$scope.hasNewMember = true;
+			$scope.goUserList = function() {
+				if($scope.hasNewMember) {
+					location.href = "/mob/userList.do?commun_id="+commun_id+"&new=1";
+				}
+				else {
+					location.href="/mob/userList.do?commun_id="+commun_id;
+				}
+			};
+		}
+		else {
+			$scope.newMember = false;
+			$scope.goUserList = function() {
+				if($scope.newMember) {
+					location.href = "/mob/userList.do?commun_id="+commun_id+"&new=1";
+				}
+				else {
+					location.href="/mob/userList.do?commun_id="+commun_id;
+				}
+			};
+		}
+	});
+
+	getUserCommunRelType.query({
+		commun_id: commun_id
+	},function(result){
+		if (result.error_no !== '0') {
+			location.href = location.href;
+		}
+		$scope.relType = result.data.reltype;
+		if ($scope.relType == 0) {
+			$scope.identity = '访客';
+		} else if ($scope.relType == 1) {
+			$scope.identity = '负责人';
+			$scope.enableConvert = true;
+		} else  if ($scope.relType == 2) {
+			$scope.identity = '成员';
+		} else if ($scope.relType == 3) {
+			$scope.identity = '管理者';
+		} else  if ($scope.relType == 4) {
+			$scope.identity = '申请者';
+		}
+		$scope.goqrcode = function($event) {
+			$event.preventDefault();
+			location.href="/mob/qrcode.do?commun_id="+commun_id;
+		};		
+		$scope.task = getCommunityTaskStatusList.query({
+			page:1,
+			rows:5,
+			taskState:2,
+			communityId:commun_id,
+		},function(d){
+			if(d.data.length) {
+				if($scope.relType != 0 && $scope.relType != 4) {
+					$scope.show_task = true;
+				}
+			}
+			else {
+				$scope.show_task = false;
+			}
+		});
+		getUserCommunRelType.query({
+			commun_id: commun_id
+		},function(da){
+			$scope.relType = da.data.reltype;
+			console.log($scope.relType);
+		});
+
+	});
+
+	$scope.footerMenu = {
+		isopen : false
+	};
+	$scope.toggleFooterMenuDropDown = function() {
+		$scope.footerMenu.isopen = !$scope.footerMenu.isopen;
+	};
+	$scope.getTaskInfo = function(task_id) {
+		location.href="/mob/taskInfo.do?taskId="+task_id+"&cid="+commun_id;
+	};
+	$scope.goJoin = function() {
+		joinCommun.query({
+			Commun_id: commun_id
+		}, function(result) {
+			if (result.message) {
+				triggerAlert(true, result.message);
+			} else if (result.error_no === '0') {
+				$scope.relType = 4;
+				triggerAlert(true, '已提交申请，请耐心等待团长审批');
+			} else {
+				triggerAlert(true, '未知错误');
+			}
+		});
+	};
+	$scope.cancelApply = function() {
+		cancelAppvInfo.query({
+			commun_id: commun_id
+		}, function(result) {
+			if (result.error_no !== '0') {
+				location.href = location.href;
+			} else {
+				$scope.relType = 0;
+				triggerAlert('true','已取消申请');
+			}
+		});
+	};
+	$scope.goIndex = function() {
+		location.href="/mob/index.do";
+	};
+	$scope.activeTab = 'commun';
+	$scope.quitCommun = function() {
+		flag = 1;
+		triggerAlert(true, '确认退出该社团吗?', true);
+	};
+	$scope.hideConvert = function() {
+		$scope.isConverting = false;
+	};
+	$scope.convertScore = function() {
+		$scope.isConverting = true;
+	};
+	$scope.hide_send = function()	 {
+		$scope.show_send = false;
+	};
+	$scope.send_message_show = function() {
+		$scope.show_send = true;
+		window.scrollTo(0,0);
+		$("#sendMessage").addClass("pull-up");
+	};
+	$scope.sendMessage = function() {
+		if($(".send-text").val().length > 0 &&$(".send-text").val().length <140)  {
+			notifyCommunMember.query({
+				"commun_id":commun_id,
+				"description":$(".send-text").val()
+			},function(d){
+				if(d.error_no == 0) {
+					triggerAlert(true,'消息已经成功发送');
+					$scope.hide_send();
+				}
+				else {
+					triggerAlert(true,d.data.message);
+					$scope.hide_send();
+				}
 			});
 		}
+		else {
+			triggerAlert(true,'消息发送失败，请注意您的消息长度');
+
+		}
+		$scope.hide_send();
+	}
+	$scope.confirmConvert = function() {
+		if($scope.communsInfo.data.score == 0) {
+			$scope.isConverting = false;
+			triggerAlert(true,'社团一个积分都没有，赶快接任务去吧！');
+
+		}
+		else {
+			scoreExchange.query({
+				type: 2,
+				communityId:commun_id,
+				score: $scope.communsInfo.data.score
+			}, function(result) {
+				if (result.data.message) {
+					$scope.isConverting = false;
+					triggerAlert(true, result.data.message);
+					return;
+				} else if (result.error_no !== '0') {
+					location.href = location.href;
+
+				} else if (result.data.status === '10122') {
+					$scope.isConverting = false;
+					triggerAlert(true, result.data.reason);
+					setTimeout(function() {
+						location.href = '/mob/authenticate.do';
+					}, 1000);
+				} else if(result.data.status === '0') {
+					$scope.isConverting = false;
+
+				} else {
+					cover_flag = false;
+					CommunsInfo.query({commun_id:commun_id},function(d){
+						if(d.data.score==0) {
+							cover_flag = true;
+							triggerAlert(true,'社团一个积分都没有，赶快接任务去吧！');
+						}
+						else {
+							cover_flag = true;
+							triggerAlert(true, '小主的积分兑换申请已经提交，耐心等待审批结果吧!');
+						}
+						$scope.isConverting = false;
+					});
+					if(cover_flag) {
+						triggerAlert(true, result.data.reason);
+						$scope.isConverting = false;
+					}
+				}
+			});
+	}
+	};
+	$scope.show_send = false;
+	$scope.hideDeleteCommun = function() {
+		$scope.isDelCommun = false;
+	};
+	$scope.delCommun = function() {
+		flag = 2;
+		triggerAlert(true, '小主真的忍心撇下团团们不管了咩', true);
+	};
+	$scope.confirmDeleteCommun = function() {
+		delCommun.query({
+			commun_id: commun_id
+		}, function(result) {
+			if (result.error_no !== '0') {
+				location.href = location.href;
+			}
+			else {
+				location.href = "/mob/communField.do";
+			}
+		});
+	};
+
+	$scope.modifyQQ = function() {
+		triggerAlert(true, "", true,true);
+
+	};	
+	$scope.tip.sure = function() {
+		if (flag == 1) {
+			quitCommun.query({
+				Commun_id: commun_id
+			}, function(result) {
+				if (result.message) {
+					triggerAlert(true, result.message);  
+				} else if (result.error_no === '0') {
+					$scope.relType = 0;
+					triggerAlert(true, '已成功退出！');
+					settimeOut(function(){
+						location.href = location.href;
+					},3000);
+				}
+			});
+		} else if (flag === 2){
+			$scope.tip.show = false;
+			$scope.isDelCommun = true;
+		} else {
+			var qq_num = $(".qq").val();
+			flc = false;
+			for(i = 0 ;i < qq_num.length ; i++) {
+				if(qq_num[i]<'0'||qq_num[i]>'9') {
+					flc = true;
+				}
+			}
+			if(!flc) {
+				complateCommunityInfo.query({
+					"commun_id":commun_id,
+					"description":$(".qq").val()
+				},function(d){
+					location.href = location.href;
+				});
+				$scope.inputQQ = false;
+				$scope.tip.show=false;
+			}
+			else {
+				triggerAlert(true, "qq号码貌似不是这个样子的吧！", true);
+			}
+		}
+	};
+	$scope.tip.cancel = function() {
+		$scope.tip.show = false;	
+	};
+	$scope.goMy = function() {
+		location.href="/mob/personCenter.do?commun_id="+commun_id;
+	};
+
+	$scope.goCommunDetail = function($event,num) {
+		$event.preventDefault();
+		location.href="/mob/communCenter.do?commun_id="+num;
+		return ;
+	};
+	$scope.goAppeal = function() {
+		location.href = "/mob/communAppeal.do?commun_id="+commun_id;
+	};
+	$scope.goCommunField = function($event) {
+		$event.preventDefault();
+		location.href="/mob/communField.do";
+	};
+	$scope.showScoreHistory = function() {
+		$scope.show_empty_bear = true;
+		getCommunityScoreInfo.query({
+			"commun_id":commun_id
+		},function(d){
+			$scope.scoreInfo = d;
+			if( d.data.His_data.length == 0 ) {
+				$scope.show_empty_bear = true;
+			}
+			else {
+				$scope.show_empty_bear = false;
+			}
+			$scope.scoreHistoryShow = true;
+		});
+
+	};
+	$scope.back_center = function() {
+		$scope.scoreHistoryShow = false;
+	};
+}])
+.filter('noHtmltag',function(){
+	return function(OriginalString) {
+		if (!OriginalString) {
+			return;
+		}
+		OriginalString = OriginalString.replace(/(<([^>]+)>)/ig,"");
+		if(OriginalString.length > 60) {
+			OriginalString = OriginalString.substring(0,60);
+			OriginalString += "...";
+			return OriginalString;
+		}
+		return OriginalString;
 	}
 });
-PhoneNumberCtrl.$inject = ['$scope','PhoneNumberCtrl'];
+CommunCenterCtrl.$inject = ['$scope','CommunCenterCtrl'];
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 require("../../../bower_components/zepto/zepto.js");
-require('../../../bower_components/zeptojs/src/touch.js');
 require("../../../bower_components/angular/angular.js");
 require("../../../bower_components/angular-route/angular-route.js");
 require("../../../bower_components/angular-resource/angular-resource.js");
@@ -32640,9 +32796,9 @@ require("../../../bower_components/angular-animate/angular-animate.js");
 require("../../../bower_components/jqlite/jqlite.1.1.1.min.js");
 require("./app.js");
 require("./service/service.js");
-require("./controller/phoneNumberController.js");
+require("./controller/communCenterController.js");
 
-},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-resource/angular-resource.js":2,"../../../bower_components/angular-route/angular-route.js":3,"../../../bower_components/angular-touch/angular-touch.js":4,"../../../bower_components/angular/angular.js":5,"../../../bower_components/jqlite/jqlite.1.1.1.min.js":6,"../../../bower_components/zepto/zepto.js":7,"../../../bower_components/zeptojs/src/touch.js":8,"./app.js":9,"./controller/phoneNumberController.js":10,"./service/service.js":12}],12:[function(require,module,exports){
+},{"../../../bower_components/angular-animate/angular-animate.js":1,"../../../bower_components/angular-resource/angular-resource.js":2,"../../../bower_components/angular-route/angular-route.js":3,"../../../bower_components/angular-touch/angular-touch.js":4,"../../../bower_components/angular/angular.js":5,"../../../bower_components/jqlite/jqlite.1.1.1.min.js":6,"../../../bower_components/zepto/zepto.js":7,"./app.js":8,"./controller/communCenterController.js":9,"./service/service.js":11}],11:[function(require,module,exports){
 angular.module('userService',['ngResource']).
 	factory('User',['$resource',function($resource){
 		return $resource('/api/getUserInfo.do',{},{
@@ -32912,7 +33068,7 @@ getAppvCommunInfo.factory('getAppvCommunInfo',['$resource',function($resource) {
 
 var jsConfig = angular.module('jsConfigService',['ngResource']);
 jsConfig.factory('jsConfig',['$resource',function($resource){
-		return $resource('/api/getJsConfig.do',{},{
+		return $resource('/js/getJsConfig.do',{},{
 			query:{method:'GET',params:{},isArray:false}
 		});
     }]);
@@ -32973,74 +33129,66 @@ getShareUrl.factory('getShareUrl',['$resource',function($resource){
         });
     }]);
 
-},{}]},{},[11])ommunInfoService',['ngResource']);
-getAppvCommunInfo.factory('getAppvCommunInfo',['$resource',function($resource) {
-        return $resource('/api/getAppvCommunInfo.do',{},{
+var wxshare = angular.module('wxshareService',['ngResource']);
+wxshare.factory('wxshare',['$resource',function($resource){
+        return $resource('/wxshare/share.do',{},{
             query:{method:'GET',params:{},isArray:false}
         });
     }]);
 
-var jsConfig = angular.module('jsConfigService',['ngResource']);
-jsConfig.factory('jsConfig',['$resource',function($resource){
-		return $resource('/api/getJsConfig.do',{},{
-			query:{method:'GET',params:{},isArray:false}
-		});
-    }]);
-
-var rejectAppvInfo = angular.module('rejectAppvInfoService', ['ngResource']);
-rejectAppvInfo.factory('rejectAppvInfo',['$resource',function($resource){
-        return $resource('/api/rejectAppvInfo.do',{},{
-            query:{method:'GET',params:{},isArrary:false}
-        });
-    }]);
-
-var delCommun = angular.module('delCommunService',['ngResource']);
-delCommun.factory('delCommun',['$resource', function($resource){
-        return $resource('/api/delCommun.do',{},{
+var getQRCode = angular.module('getQRCodeService',['ngResource']);
+getQRCode.factory('getQRCode',['$resource',function($resource){
+        return $resource('/api/getQRCode.do',{},{
             query:{method:'GET',params:{},isArray:false}
         });
     }]);
 
-var getSubmitWorks = angular.module('getSubmitWorksService',['ngResource']);
-getSubmitWorks.factory('getSubmitWorks',['$resource',function($resource){
-		return $resource('/api/getSubmitWorks.do',{},{
-			query:{method:'GET',params:{},isArray:false}
-		});
-	}]);
-
-var getCommunityScoreInfo = angular.module('getCommunityScoreInfoService',['ngResource']);
-getCommunityScoreInfo.factory('getCommunityScoreInfo',['$resource',function($resource){
-		return $resource('/api/getCommunityScoreInfo.do',{},{
-			query:{method:'GET',params:{},isArray:false}
-		});
-	}]);
-
-var complateCommunityInfo = angular.module('complateCommunityInfoService',['ngResource']);
-complateCommunityInfo.factory('complateCommunityInfo',['$resource',function($resource){
-		return $resource('/api/completeCommunityInfo.do',{},{
-			query:{method:'GET',params:{},isArray:false}
-		});
-	}]);
-
-var getALLTaskStatusList = angular.module('getALLTaskStatusListService',['ngResource']);
-getALLTaskStatusList.factory('getALLTaskStatusList',['$resource',function($resource){
-		return $resource('/api/getALLTaskStatusList.do',{},{
-			query:{method:'GET',params:{},isArray:false}
-		});
-	}]);
-
-var notifyCommunMember = angular.module('notifyCommunMemberService',['ngResource']);
-notifyCommunMember.factory('notifyCommunMember',['$resource',function($resource){
-		return $resource('/api/notifyCommunMember.do',{},{
-			query:{method:'GET',params:{},isArray:false}
-		});
-	}]);
-
-var getShareUrl = angular.module('getShareUrlService',['ngResource']);
-getShareUrl.factory('getShareUrl',['$resource',function($resource){
-        return $resource('/api/getShareUrl.do',{},{
+var memberRank = angular.module('memberRankService',['ngResource']);
+memberRank.factory('memberRank',['$resource',function($resource){
+        return $resource('/api/memberRank.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+memberRank.factory('sendEmail',['$resource',function($resource){
+        return $resource('/api/memberRankMail.do',{},{
             query:{method:'GET',params:{},isArray:false}
         });
     }]);
 
-},{}]},{},[11])
+var phoneCode = angular.module('phoneCodeService',['ngResource']);
+phoneCode.factory('authPhoneCode',['$resource',function($resource){
+        return $resource('/api/authPhoneCode.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+phoneCode.factory('getPhoneAuthCode',['$resource',function($resource){
+        return $resource('/api/getPhoneAuthCode.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+phoneCode.factory('getPhoneAuthStatus',['$resource',function($resource){
+        return $resource('/api/getPhoneAuthStatus.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var dailyStar = angular.module('dailyStarService',['ngResource']);
+dailyStar.factory('selectWinnerStatus',['$resource',function($resource){
+        return $resource('/api/selectWinnerStatus.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        });
+    }]);
+
+var communComment = angular.module('communCommentService',['ngResource']);
+communComment.factory('addCommunityComment',['$resource',function($resource){
+        return $resource('/api/addCommunityComment.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        }); 
+    }]);
+communComment.factory('getCommentList',['$resource',function($resource){
+        return $resource('/api/getCommentList.do',{},{
+            query:{method:'GET',params:{},isArray:false}
+        }); 
+    }]);
+
+},{}]},{},[10])

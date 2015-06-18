@@ -1,0 +1,475 @@
+@import "../../../bower_components/normalize.css/normalize.css";
+@import "../css/footer.css";
+@import "../css/tip.css";
+* {
+  -webkit-overflow-scroll: touch;
+  -webkit-user-select:none;
+  -khtml-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  -webkit-font-smoothing:antialiased;
+  outline:none;
+}
+.commun-detail-empty,.score-detail-empty,.work-wrap-empty {
+  background:url("/static/public/image/bear-empty.png") no-repeat;
+  background-size:50%;
+  background-position:center;
+  height:70vh;
+  width:100vw;
+}
+@-webkit-keyframes tab-left {
+  0% {
+    -webkit-transform:translateX(-100vw);
+  }
+  100% {
+    -webkit-transform:translateX(0);
+  }
+}
+.baidu-btn:active {
+  box-shadow:1px 0px 32px rgba(0,0,0,0.2) inset;
+}
+.go-left {
+  -webkit-animation-name:tab-left;
+}
+@-webkit-keyframes tab-right {
+  0% {
+    -webkit-transform:translateX(100vw);
+  }
+  100% {
+    -webkit-transform:translateX(0);
+  }
+}
+.go-right {
+  -webkit-animation-name:tab-right;
+}
+#score {
+  width:100%;
+}
+#work {
+  width:100%;
+  background:#fff;
+  margin-bottom:3vw;
+}
+$fontBlack : #333;
+$baiduBtnColor : #06c1ae;
+$fontGrey:#777;
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix   {
+  display:inline-table;
+  height:1%;
+  display:block;
+}
+body {
+  background:#f5f5f5;
+}
+.body-wrap {
+  width:100%;
+  overflow:hidden;
+}
+#sign {
+  width:100%;
+  text-align:center;
+  height:20vh;
+  background:url("/static/public/image/bear.png") no-repeat;
+  background-color:#fff;
+  background-position:20%;
+  background-size:auto 80%;
+  button {
+    margin-left:25vw;
+    width:35vw;
+    height:5vh;
+    margin-top:7.5vh;
+    padding:1vw;
+  }
+  padding-top:2px;
+  padding-bottom:2px;
+}
+#work {
+    .work-title {
+        border-top:1px solid #dcdcdc;
+        width:100%;
+        background:#fff;
+        .green {
+          float:left;
+          margin:3vw 0;
+          height:5.5vw;
+          width:1.5vw;
+          margin-left:5vw;
+          background:green;
+        }
+    }
+        .title {
+          padding:3vw 2vw;
+          float:left;
+          font-size:4.5vw;
+          width:100%;
+          .taskState {
+            padding-top:1vw;
+            float:right;
+            font-size:4.3vw;
+            padding-left:2vw;
+            color:$baiduBtnColor;
+          }
+          .taskStage {
+            padding-top:1vw;
+            float:right;
+            font-size:4.3vw;
+            padding-left:2vw;
+            color:rgb(235,192,160);
+          }
+        }
+    .work {
+      .work-wrap {
+        min-height:40vw;
+        border-top:1px solid #dcdcdc;
+        border-bottom:1px solid #dcdcdc;
+        margin-bottom:3vw;
+        .work-image {
+          width:100%;
+          height:38.9vw;
+          background-size:cover!important;
+          background:url('http://placehold.it/375x146');
+        }
+      }
+      .bar {
+        padding:3vw;
+        .title {
+          line-height:5.3vw;
+          .task_name {
+            float:left;
+            color:$fontBlack;
+            font-size:4.8vw;
+            width:100%;
+          }
+          .total_score {
+            float:right;
+            font-size:5.3vw;
+            font-weight:100;
+            color:$baiduBtnColor;
+          }
+        }
+      .desc {
+        margin-top:1vh;
+        color:$fontGrey;
+        font-size:3.9vw;
+      }
+
+    }
+    .line-end {
+      padding:3vw;
+      .type {
+        padding:1vw;
+        font-size:3.7vw;
+        border:1px solid #dcdcdc;
+        color:$fontGrey;
+        border-radius:1px;
+        float:left;
+      }
+      .icon-hot {
+        float:right;
+        color:$fontBlack;
+        width:4.9vw;
+        height:4.9vw;
+        text-align:right;
+        background:url('/static/public/image/hot-icon.png') no-repeat;
+        background-size:auto 100%;
+      }
+      .finish-text {
+        float:right;
+        font-size:4.9vw;
+        color:$fontGrey;
+        line-height:6.6vw;
+        margin-left:2vw;
+      }
+      .icon-finish {
+        float:right;
+        color:$fontBlack;
+        width:4.9vw;
+        height:4.9vw;
+        background:url('/static/public/image/finish-icon.png') no-repeat;
+        background-size:auto 100%;
+      }
+      .hot-text {
+        margin-left:2vw;
+        float:right;
+        margin-right:3vw;
+        color:$fontGrey;
+        font-size:4.9vw;
+        line-height:6.6vw;
+      }
+    }
+  }
+}
+$fontBlack:#333;
+$fontGrey:#777;
+$baiduBtnColor: #06c1ae;
+.baidu-btn {
+  background:$baiduBtnColor;
+  color:#fff;
+  padding:1vw 4vw;
+  border:0;
+  font-weight:100;
+  border-radius:1px;
+}
+.baidu-btn:active {
+  box-shadow:1px 0px 32px rgba(0,0,0,0.2) inset;
+}
+#header {
+  background:#fff;
+  border-bottom:1px solid #dcdcdc;
+  .avatar {
+    width:25vw;
+    float:left;
+    padding:2vw 5vw;
+    height:100%;
+    .avatar-img {
+      margin:0 auto;
+      border-radius:50%;
+      height:25vw;
+      width:25vw;
+    }
+  }
+  .message-info {
+    width:35vw;
+    float:left;
+    height:100%;
+    .message-name-line {
+      margin-top:2vh;
+      margin-right:1vw;
+      .name {
+        font-size:5.3vw;
+        font-weight:300;
+        color:$fontBlack;
+      }
+      .edit-icon {
+        width:5vw;
+        height:5vw;
+        margin-top: 1vw;
+        margin-right: 1vw;
+        background:url("/static/public/image/edit-icon.png") no-repeat;
+        background-size:100% auto;
+        background-position:center;
+        float: left;
+      }
+      .sex {
+        float:left;
+      }
+    }
+    .message-login-line {
+      margin-top:1vh;
+      .message {
+        font-size:4.3vw;
+        color:$fontGrey;
+      }
+    }
+    .message-percent-line {
+      font-size:4.3vw;
+      color:$fontGrey;
+    }
+  }
+  .message-btn {
+    width:30vw;
+    float:left;
+    height:100%;
+    button {
+      margin-top:11vw;
+    }
+  }
+}
+#task-info {
+  background:#fff;
+  border-bottom:1px solid #dcdcdc;
+  .part-task {
+    float:left;
+    width:33.3vw;
+    font-size:5.5vw;
+    text-align:center; 
+    .text-info-message {
+      div {
+        width:50%;
+        margin:0 auto;
+        padding:2vw;
+      }
+      div.active {
+        border-bottom:3px solid $baiduBtnColor;
+      }
+    }
+  }
+  .part-percent {
+    float:left;
+    width:33.3vw;
+    font-size:5.5vw;
+    text-align:center;
+    .text-info-message {
+      div {
+        width:50%;
+        margin:0 auto;
+        padding:2vw;
+      }
+      div.active {
+        border-bottom:3px solid $baiduBtnColor;
+      }
+    }
+  }
+  .part-commun {
+    float:left;
+    width:33.3vw;
+    font-size:5.5vw;
+    text-align:center; 
+    .text-info-message {
+      div {
+        width:50%;
+        margin:0 auto;
+        padding:2vw;
+      }
+      div.active {
+        border-bottom:3px solid $baiduBtnColor;
+      }
+    }
+  }
+}
+#score {
+  background:#fff;
+  padding:0.1vw;
+  .score-detail:last-child {
+    border:none;
+  }
+  .score-detail {
+    margin:3vw 5vw;
+    border-bottom:1px solid #dcdcdc;
+    .reason {
+      float:left;
+      font-size:4.5vw; 
+      color:#333;
+    }
+    .score {
+      float:right;
+      font-size:4.5vw;
+      color:#333;
+    }
+    .data {
+      font-size:4.5vw;
+      color:#777;
+      padding-bottom:3vw;
+    }
+  }
+}
+#commun {
+  background:#fff;
+  padding:0.1vw;
+  .commun-detail:last-child {
+    border:0;
+  }
+  .commun-detail {
+    margin:3vw 5vw;
+    border-bottom:1px solid #dcdcdc;
+    .name {
+      float:left;
+      font-size:4.5vw;
+      color:#333;
+      width:45vw;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      overflow:hidden;
+    }
+    .master-mark {
+      border-radius:2px;
+      background:$baiduBtnColor;
+      color:#fff;
+      float:left;
+      font-size:4.1vw;
+      font-weight:600;
+      padding:0.5vw;
+    }
+    .new-member {
+      color:#fff;
+      background:red;
+      padding:0.5vw;
+      font-size:4.1vw;
+      margin-left:1vw;
+      font-weight:600;
+      float:left;
+      border-radius:2px;
+    }
+    .score {
+      float:right;
+      font-size:4.5vw;
+      color:#333;
+    }
+    .school {
+      font-size:4.5vw;
+        color:#777;
+        padding-bottom:3vw;
+        max-width: 60vw; 
+    }
+  }
+}
+
+.convert-frame {
+  width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    .convert-menu {
+      width:80%;
+        position: absolute;
+        margin-top: 35vh;
+        margin-left: 10%;
+        background:rgba(255,255,255,0.99);
+        border:1px solid #dcdcdc;
+        text-align:center;
+        border-radius:3px;
+        box-shadow:1px 1px 4px #ccc;
+        .message {
+          font-size: 4.7vw;
+            padding:3vw;
+            .convert-text-left {
+              color:$fontGrey;
+                float:left;
+            }
+            .convert-text-center {
+              color:$fontBlack;
+                float:left;
+                text-align: center;
+                width: 100%;
+            }
+            .convert-text-right {
+              color:$fontGrey;
+                float:left;
+            }
+              text-align:center;
+        }
+        .warn {
+          font-size: 3.7vw;
+            font-weight: 400;
+            color: #777;
+            padding-bottom:3vw;
+        }
+        .btn-line {
+          font-size:4.5vw;
+            text-align:center;
+            border-top:1px solid #dcdcdc;
+            .left-btn {
+              border-right:1px solid #dcdcdc;
+                float:left;
+                padding-top:2vw;
+                padding-bottom: 2vw;
+                width:50%;
+                color:$baiduBtnColor;
+            }
+            .right-btn {
+              padding-top:2vw;
+                padding-bottom: 2vw;
+                color:$fontGrey;
+            }
+        }
+    }
+}

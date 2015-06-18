@@ -4,8 +4,8 @@ script(src="/static/public/js/communAppeal.min.js", language="javascript")
 body(ng-app="baidu",ng-controller="CommunAppealCtrl",ng-cloak)
     include ./lib/tip.jade
     section
-        div.appeal-reason.pad 申诉理由
-        textarea.appeal-content.pad(placeholder="请填写申诉理由，例如盗用社团名、社团过期、非校园社团等理由" ng-model="reason")
+        div.appeal-reason.pad 申诉理由及联系方式
+        textarea.appeal-content.pad(placeholder="请填写申诉理由，例如盗用社团名、社团过期、非校园社团等理由，以及您的联系方式。" ng-model="reason")
     div.appeal-submit(ng-click="submitAppeal()") 提交
     div.success-alert.clearfix(ng-show="isSuccess" ng-click="hideSuccess()")
         div.combine

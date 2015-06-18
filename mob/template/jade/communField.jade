@@ -13,7 +13,7 @@ body(ng-app,ng-controller="CommunFieldCtrl",ng-cloak,ng-init="showInstruction=fa
 		div#rank-list
 			div.title
 				div.green=""
-				div.left-main 社团排行榜
+				div.left-main 社团本月积分排行榜
 			div.rank(ng-repeat="i in monthRanking.data.ranking_list")
 				div.rank-detail.clearfix(ng-click="goCommun({{ i.id }})")
 					div.place.clearfix(ng-if="i.rank == 1",style="background:url('/static/public/image/rank-first.png');") {{ i.rank }}

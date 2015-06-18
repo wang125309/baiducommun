@@ -38,7 +38,9 @@ var CompletePersonInfoCtrl = app.controller('CompletePersonInfoCtrl',['$scope','
 			wx.hideOptionMenu();
 		});
 	});
-
+    $scope.jumpToModifyTel = function() {
+        location.href = "/mob/phoneCode.do";
+    };
     $scope.user = User.query(function(result){
 		if(result.error_no !== '0') {
 			location.href = location.href;
@@ -50,14 +52,6 @@ var CompletePersonInfoCtrl = app.controller('CompletePersonInfoCtrl',['$scope','
             $scope.person.school = result.data.school_name;
             $scope.person.phonenum = result.data.phoneNum;
             $scope.person.address = result.data.address;
-			if(result.data.gender == '1') {
-                $("input[name='genderChoose']")[0].checked = true;
-			}
-			else if (result.data.gender == '2') {
-                $("input[name='genderChoose']")[1].checked = true;
-			} else {
-
-            }
         }
 	});
     
@@ -88,15 +82,13 @@ var CompletePersonInfoCtrl = app.controller('CompletePersonInfoCtrl',['$scope','
         if ($scope.hasSubmited) {
             return triggerAlert(true, '您已经提交过了!');
         }
-        if ($scope.validatePhone() & $scope.validateSchool() & $scope.validateName() & $scope.validateEmail()) {
+        if ($scope.validateSchool() & $scope.validateName() & $scope.validateEmail()) {
             $scope.isSubmitting = false;
             completeinfo = CompleteUserInfo.query({
                 realname: $scope.person.realname,
                 schoolid: $scope.person.schoolid,
-                phonenum: $scope.person.phonenum,
                 email: $scope.person.email,
                 address: $scope.person.address,
-                gender: $("input[name='genderChoose']:checked").length ? $("input[name='genderChoose']:checked").val() : ""
             }, function(data){
                 if (data.error_no !== '0') {
                     location.href = location.href;
@@ -132,26 +124,6 @@ var CompletePersonInfoCtrl = app.controller('CompletePersonInfoCtrl',['$scope','
             $scope.isSchool = true;
             if ($scope.isSubmitting) {
                 triggerAlert(true, '学校不能为空!');
-            }
-            return false;
-        }
-    };
-    
-    $scope.validatePhone = function() {
-        if ($scope.person.phonenum) {
-            if (/1[3|4|5|7|8][0-9]{9}$/.test($scope.person.phonenum)) {
-                return true;
-            } else {
-                $scope.isPhone = true;
-                if ($scope.isSubmitting) {
-                    triggerAlert(true, '手机号格式不正确!');
-                }
-                return false;
-            }
-        } else {
-            $scope.isPhone = true;
-            if ($scope.isSubmitting) {
-                triggerAlert(true, '手机号不能为空!');
             }
             return false;
         }

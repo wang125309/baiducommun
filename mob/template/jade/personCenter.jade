@@ -34,27 +34,30 @@ body(ng-app="baidu",ng-controller="PersonCenterCtrl",ng-cloak)
             section#work-background(ng-show="toggleCommun==true || togglePerson==true")=""        
             div.work(infinite-scroll="loadMore()",scroll-threshold="200",time-threshold="600")
                 div.work-wrap-empty(ng-if="task_length == 0")=""
-                div.work-wrap(ng-repeat = "t in task.data",ng-click="getTaskInfo(t.taskId)",ng-if="t.taskStage!=3&&t.taskStage!=4")
+                div.work-wrap(ng-repeat = "t in task.data",ng-click="getTaskInfo(t.taskId,t.entityId)",ng-if="t.taskStage!=3&&t.taskStage!=4")
                     div.work-image(style="background:url('{{ t.taskResourceUrl }}')")
                     div.bar
                         div.title.clearfix
                             div.task_name {{ t.taskName }}
-                            span.taskState(ng-if="t.taskState==2") 已领取
-                            span.taskState(ng-if="t.taskState==3") 已通过
-                            span.taskState(ng-if="t.taskState==4") 已评奖
-                            span.taskStage(ng-if="t.taskStage==1") 未发布
-                            span.taskStage(ng-if="t.taskStage==2") 已发布
-                            span.taskStage(ng-if="t.taskStage==3") 强制终止
-                            span.taskStage(ng-if="t.taskStage==4") 已过期
-                        div.desc {{ t.taskDescription | noHtmltag }}
-                    div.line-end.clearfix(ng-if="t.type==1")
-                        div.type 个人线上
-                    div.line-end.clearfix(ng-if="t.type==2")
-                        div.type 个人线下
-                    div.line-end.clearfix(ng-if="t.type==3")
-                        div.type 团队线下
-                    div.line-end.clearfix(ng-if="t.type==4")
-                        div.type 团队线下
+                        //div.desc {{ t.taskDescription | noHtmltag }}
+                        div.line-end.clearfix(ng-if="t.type==1")
+                            div.type 个人线上
+                        div.line-end.clearfix(ng-if="t.type==2")
+                            div.type 个人线下
+                        div.line-end.clearfix(ng-if="t.type==3")
+                            div.type 团队线上
+                        div.line-end.clearfix(ng-if="t.type==4")
+                            div.type 团队线下
+                        span.taskState(ng-if="t.taskState==2") 已领取
+                        span.taskState(ng-if="t.taskState==3") 已通过
+                        span.taskState(ng-if="t.taskState==4") 已评奖
+                        span.taskStage(ng-if="t.taskStage==1") 未发布
+                        span.taskStage(ng-if="t.taskStage==2") 进行中
+                        span.taskStage(ng-if="t.taskStage==3") 强制终止
+                        span.taskStage(ng-if="t.taskStage==4") 已过期
+                    div.score-block
+                        div.read 阅读
+                        div {{ t.tsUserReadCount }}
         section#score.base(ng-show="condition=='score'")
             div.score-detail-empty(ng-if="scoreInfo_length == 0")=""
             div.score-detail(ng-repeat = "s in scoreInfo.data.His_data | orderBy : '-xdate' | limitTo:50 ")

@@ -48,7 +48,7 @@ var userListCtrl = angular.module('baidu',['ngTouch','userService','communServic
 					commun_id:commun_id
 				},function(d){
 					$scope.applyList = getAppvUserInfos.query({commun_id:commun_id},function(app){});
-					$scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(comm){});
+					$scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(comm){$scope.communMembers = comm});
 					$scope.applyments = 0;
 				});
 				this.show = false;
@@ -80,7 +80,7 @@ var userListCtrl = angular.module('baidu',['ngTouch','userService','communServic
 
 	appReceiveDone = [];
 
-	$scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(d){});
+	$scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(d){$scope.communMembers = d});
 
 	$scope.activeTab = 'commun';
 
@@ -93,41 +93,40 @@ var userListCtrl = angular.module('baidu',['ngTouch','userService','communServic
 			if(d.error_no==0) {
 				if ($scope.applyments > 0) {
 					$scope.applyments--;
-					}
-					$scope.alert = {
-						show : false,
-						alerttextLeft : "成员申请已接受",
-						alerttextCenter : "",
-						alerttextRight : "",
-						sure : function() {
-						this.show = false;
-						$scope.alert.alertClass = '';
-					},
-					cancel : function() {
-						this.show = false;
-						$scope.alert.alertClass = '';
-					}
-				};
-			}
-			$scope.applyList = getAppvUserInfos.query({commun_id:commun_id},function(d){});
-			$scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(d){});
-			$scope.newMembers.push(id);
+			    }
+				$scope.alert = {
+					show : false,
+					alerttextLeft : "成员申请已接受",
+					alerttextCenter : "",
+					alerttextRight : "",
+					sure : function() {
+					    this.show = false;
+					    $scope.alert.alertClass = '';
+				    },
+				    cancel : function() {
+					    this.show = false;
+					    $scope.alert.alertClass = '';
+				    }
+			    };
+		    }
+		    $scope.applyList = getAppvUserInfos.query({commun_id:commun_id},function(d){});
+		    $scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(d){$scope.communMembers = d});
+		    $scope.newMembers.push(id);
+	    });
+    };
 
-		});
-	};
-
-	$scope.refuseApply = function(id) {
-		rejectAppvInfo.query({
-			commun_id: commun_id,
-			user_id: id
-		}, function(result) {
-			if (result.error_no !== '0') {
-				location.href = location.href;
-			}
-			$scope.applyments > 0 ? $scope.applyments-- : null;
-			$scope.applyList = getAppvUserInfos.query({commun_id:commun_id},function(d){});
-		});
-	};
+    $scope.refuseApply = function(id) {
+	    rejectAppvInfo.query({
+		    commun_id: commun_id,
+		    user_id: id
+	    }, function(result) {
+		    if (result.error_no !== '0') {
+			    location.href = location.href;
+		    }
+		    $scope.applyments > 0 ? $scope.applyments-- : null;
+		    $scope.applyList = getAppvUserInfos.query({commun_id:commun_id},function(d){});
+	    });
+    };
 
 	$scope.isNewMember = function(id) {
 		for (var i = 0 ; i < $scope.newMembers.length; i++) {
@@ -144,8 +143,6 @@ var userListCtrl = angular.module('baidu',['ngTouch','userService','communServic
 			$scope.new = "grey-word";
 		}
 	});
-
-
 
 	$scope.tabMember = function() {
 		$("#part .text-area-wrap .text-pos").addClass("active");
@@ -189,7 +186,7 @@ var userListCtrl = angular.module('baidu',['ngTouch','userService','communServic
 				this.show = false;
 				$scope.alert.alertClass = '';
 				kickMember.query({commun_id:commun_id,kick_user_id:$scope.user_id},function(){
-					$scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(d){});
+					$scope.communMembers = getCommunMemberInfo.query({commun_id:commun_id},function(d){$scope.communMembers = d});
 				});
 			},
 			cancel :function() {
@@ -219,9 +216,6 @@ var userListCtrl = angular.module('baidu',['ngTouch','userService','communServic
 			$scope.tabNew();
 			$("#person .text-area-wrap .text-pos").addClass("active");
 		});
-
-
-
 	}
 
 

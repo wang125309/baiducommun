@@ -4,8 +4,7 @@ script(src="/static/public/js/index.min.js",language="javascript")
 title 任务中心
 body(ng-controller="MainCtrl",ng-cloak,ng-init="showMenu=false;")
 	include ./lib/tip.jade
-	div#sign(ng-show="signed==0",ng-if="issign.data.signinstat==0",ng-cloak)
-		button.baidu-btn(ng-click="sign()") 签到(+5积分)
+
 	section#header.clearfix
 		div#head.clearfix
 			div#part(class="head-tab")

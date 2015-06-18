@@ -2,27 +2,74 @@ include ./lib/header.jade
 title 分享阅读 
 link(href="/static/public/css/sharePage.css",rel="stylesheet",type="text/css")
 script(src="/static/public/js/sharePage.min.js",language="javascript")
-body(ng-app='baidu',ng-controller='sharePageCtrl',ng-cloak,style="position:absolute;height:100%;width:100%;margin:0;border:0;")
-    section.ranking-board#read-board
-        div.rank(ng-repeat="i in readBoard")
+body(ng-app='baidu',ng-controller='sharePageCtrl',ng-cloak,style="position:absolute;height:100%;width:100%;overflow-y:scroll;margin:0;border:0;")
+    div.new-message(ng-show="countShow==true")
+    div.rankingBoardShow(ng-show="rankingShow==true")
+        div.title-rank 成员阅读排行
+        div.close-rank(ng-click="closeRank()")=""
+        div.rank(ng-repeat="i in rank track by $index")
             div.rank-detail.clearfix
                 div.place.clearfix(ng-if="i.rank == 1",style="background:url('/static/public/image/rank-first.png');") {{ i.rank }}
                 div.place.clearfix(ng-if="i.rank == 2",style="background:url('/static/public/image/rank-second.png');") {{ i.rank }}
                 div.place.clearfix(ng-if="i.rank == 3",style="background:url('/static/public/image/rank-third.png');") {{ i.rank }}
                 div.place.clearfix(ng-if="i.rank >= 4",style="background:url('/static/public/image/rank-base.png');") {{ i.rank }}
                 div.name-line.clearfix
-                    div.name {{ i.name }}
-                    div.school {{ i.school_name }}
-                div.points.clearfix {{ i.score }} 积分
-    section.ranking-board#forward-board
-        div.rank(ng-repeat="i in forwardBoard")
-            div.rank-detail.clearfix
-                div.place.clearfix(ng-if="i.rank == 1",style="background:url('/static/public/image/rank-first.png');") {{ i.rank }}
-                div.place.clearfix(ng-if="i.rank == 2",style="background:url('/static/public/image/rank-second.png');") {{ i.rank }}
-                div.place.clearfix(ng-if="i.rank == 3",style="background:url('/static/public/image/rank-third.png');") {{ i.rank }}
-                div.place.clearfix(ng-if="i.rank >= 4",style="background:url('/static/public/image/rank-base.png');") {{ i.rank }}
-                div.name-line.clearfix
-                    div.name {{ i.name }}
-                    div.school {{ i.school_name }}
-                div.points.clearfix {{ i.score }} 积分
-    iframe.content(style="position:absolute;height:100%;width:100%;margin:0;border:0;",ng-src="{{ forwardUrl }}")
+                    div.name {{ i.nickname }}
+                div.points.clearfix {{ i.count }}阅读
+    div.tip
+        div.title="" 
+        div.tip1 
+            span 方法一： 
+            span 点击右上角，分享至
+            span.friend 好友
+            span 或
+            span.friend 朋友圈
+        div.tip2 
+            span 方法二： 
+            span 点击【
+            span.qrcode-text(ng-click="getQrcode()") 这里
+            span 】获取本任务
+            span.friend 个人专属二维码
+            span ，让别人扫描二维码，也可完成任务。(二维码可保存，打印等任意扩散)
+
+    div.share 以下是您为【{{ currentCommunityName }}】转发的任务
+    div.rank-icon(ng-click="showRankingBoard()")=""
+    iframe(src="{{ forwardUrl }}")
+    div.qrcode-background(ng-show="showQrcode==true",ng-click="getQrcode()")
+        div.qrcode
+            div.text 二维码生成中
+            img.qrcode(src="{{ qrcode }}")
+        div.qrcode-text 长按可保存
+    div.rank-board-background(ng-show="showRanking==true")
+        section.rank-board
+            div.board
+                section.ranking-board#read-board
+                    div(style="color:red;padding:2vw;") Note：此处阅读量为排重后的真实阅读，实际积分奖励将按此发放。
+                    div.title-rank 社团排行
+                    div.rank(ng-repeat="i in taskReadData track by $index")
+                        div.rank-detail.clearfix(ng-if="taskReadData.length == 0") 暂无数据
+                        div.rank-detail.clearfix(ng-if="taskReadData.length > 0")
+                            div.place.clearfix(ng-if="i.rank == 1",style="background:url('/static/public/image/rank-first.png');") {{ i.rank }}
+                            div.place.clearfix(ng-if="i.rank == 2",style="background:url('/static/public/image/rank-second.png');") {{ i.rank }}
+                            div.place.clearfix(ng-if="i.rank == 3",style="background:url('/static/public/image/rank-third.png');") {{ i.rank }}
+                            div.place.clearfix(ng-if="i.rank >= 4",style="background:url('/static/public/image/rank-base.png');") {{ i.rank }}
+                            div.name-line.clearfix(ng-if="i.isSelf == 1")
+                                div.name(style="color:red") {{ i.community }}
+                            div.name-line.clearfix(ng-if="i.isSelf != 1")
+                                div.name {{ i.community }}
+                            div.points.clearfix {{ i.count }}阅读
+                section.ranking-board.myCommunityTaskShareData
+                    div.title-rank 
+                        span 成员排行:
+                        div.show-more-member(ng-click="showMore()") 查看全部
+                        div.show-more-member(ng-click="sendEmail()") 发到邮箱
+                    div
+                        div.rank(ng-repeat="i in myCommunityUserReadData track by $index")
+                            div.rank-detail.clearfix
+                                div.place.clearfix(ng-if="i.rank == 1",style="background:url('/static/public/image/rank-first.png');") {{ i.rank }}
+                                div.place.clearfix(ng-if="i.rank == 2",style="background:url('/static/public/image/rank-second.png');") {{ i.rank }}
+                                div.place.clearfix(ng-if="i.rank == 3",style="background:url('/static/public/image/rank-third.png');") {{ i.rank }}
+                                v.place.clearfix(ng-if="i.rank >= 4",style="background:url('/static/public/image/rank-base.png');") {{ i.rank }}
+                                div.name-line.clearfix
+                                    div.name {{ i.nickname }}
+                                div.points.clearfix {{ i.count }}阅读

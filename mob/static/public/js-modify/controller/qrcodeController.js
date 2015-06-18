@@ -45,6 +45,7 @@ var qrcodeCtrl = angular.module('baidu',['communService','taskService','jsConfig
 				"url":location.href
 			},function(data){
 				wx.config(data.data);
+                wx.showOptionMenu();
 				wx.error(function(res){
 					console.log(res);
 				});

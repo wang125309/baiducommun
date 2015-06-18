@@ -47,8 +47,8 @@ body(ng-controller="TaskInfoCtrl",ng-cloak)
             div.type.clearfix(ng-if="task.data.type==1") 个人
             div.type.clearfix(ng-if="task.data.type==2") 个人
 
-        div.banner
-            img(ng-src="{{ task.data.resourceUrl }}",onerror="this.src='http://placehold.it/375x170'")
+        //div.banner
+            //img(ng-src="{{ task.data.resourceUrl }}",onerror="this.src='http://placehold.it/375x170'")
         div.desc(ng-bind-html="trustHtml()")
         section.price-bar
             div.right-text.clearfix(ng-click="add_fans()")

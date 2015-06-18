@@ -12,7 +12,22 @@ body(ng-app,ng-controller="CommunCenterCtrl",ng-cloak)
                 button.baidu-btn.already-join="已加入"
             div.add-btn(ng-if="relType == 4")
                 button.baidu-btn.apply="申请中"
+    div.discuss-area
+        div.message
+            div.message-area
+                div.message-line(ng-repeat="i in message")
+                    div.avatar(style="background-image:url('{{ i.commentUserPhoto }}');")=""
+                    div.message-inner.clearfix
+                        div.nickname {{ i.commentUserName }}
+                        div.msg {{ i.comments }}
+                        div.dateline.clearfix {{ i.commentDate | date:"yyyy年MM月dd日" }}
+            div.input-message
+                div.input
+                    input(placeholder="说点什么吧……")
+                div.send
+                    button.baidu-btn(type="button") 发送
     section#body
+
         div.message-info
             div.message-line.clearfix 
                 div.left-text 社团名称
@@ -28,9 +43,9 @@ body(ng-app,ng-controller="CommunCenterCtrl",ng-cloak)
                 div.right-text {{ communsInfo.data.qq }}
             div.message-line.clearfix(ng-click="goUserList()")
                 div.left-text(ng-if="relType==1||relType==3")
-                    div.word 成员管理
+                    div.word 成员管理（共{{ communsInfo.data.memberCount }}人）
                     div.red-point(ng-if="hasNewMember==true")=""
-                div.left-text(ng-if="relType!=1&&relType!=3") 社团成员
+                div.left-text(ng-if="relType!=1&&relType!=3") 社团成员（共{{ communsInfo.data.memberCount }}人）
                 div.right-text
                     div.right-icon=""
             div.message-line.clearfix(ng-click="goqrcode($event)")
@@ -70,11 +85,12 @@ body(ng-app,ng-controller="CommunCenterCtrl",ng-cloak)
                                 span.taskStage(ng-if="t.taskStage==2") 已发布
                                 span.taskStage(ng-if="t.taskStage==3") 强制终止
                                 span.taskStage(ng-if="t.taskStage==4") 已过期
-                    div.desc {{ t.taskDescription | noHtmltag }}
-                div.line-end.clearfix(ng-if="t.type==3")
-                    div.type 线上任务
-                div.line-end.clearfix(ng-if="t.type==4")
-                    div.type 线下任务
+                            div.line-end.clearfix(ng-if="t.type==3")
+                                div.type 线上任务
+                            div.line-end.clearfix(ng-if="t.type==4")
+                                div.type 线下任务
+                    //div.desc {{ t.taskDescription | noHtmltag }}
+
     section#bottom-btn
         div.baidu-btn(ng-if="relType == 0",ng-click="goJoin()") +加入社团
         div.baidu-btn(ng-show="relType > 1 && relType < 3", ng-click="quitCommun()") 退出社团
@@ -111,24 +127,26 @@ body(ng-app,ng-controller="CommunCenterCtrl",ng-cloak)
                     div.reason.clearfix(ng-if="s.type==4") 补偿
                     div.reason.clearfix(ng-if="s.type==5") 其他
                     div.reason.clearfix(ng-if="s.type==6") 任务评奖得分
+                    div.reason.clearfix(ng-if="s.type==7") 微信阅读
                     div.score.clearfix {{ s.score }} 积分
                 div.data {{ s.xdate | date : 'yyyy-MM-dd' }}
             div.return-btn.baidu-btn(ng-click="back_center()") 返回
         div#score(ng-show="show_empty_bear==true")
             div.bear-empty=""
             div.return-btn.baidu-btn(ng-click="back_center()") 返回
-section#sendMessage.base(ng-show="show_send==true",ng-if="relType==1||relType==3")
-    div.send-title 
-        span.pull-left 发消息给团员
-        span.pull-right.back
-            a(href="javascript:;",ng-click="hide_send()") 返回 
-    div.send
-        textarea.send-text(placeholder="在这里给团员发消息哦") {{message}}
-        div.instruction
-            p 1、单条消息限70字以内
-            p 2、每个社团，团长发送消息数量：30条/天
-            p 3、严禁发送平台任务之外的任何不良、敏感信息，违者追讼
-            p 4、48小时之内与平台互动的社团成员，皆可收到团长发送的消息
+    section#sendMessage.base(ng-show="show_send==true",ng-if="relType==1||relType==3")
+        div.send-title 
+            span.pull-left 发消息给团员
+            span.pull-right.back
+                a(href="javascript:;",ng-click="hide_send()") 返回 
+        div.send
+            textarea.send-text(placeholder="在这里给团员发消息哦") {{message}}
+            div.instruction
+                p 1、单条消息限70字以内
+                p 2、每个社团，团长发送消息数量：30条/天
+                p 3、严禁发送平台任务之外的任何不良、敏感信息，违者追讼
+                p 4、48小时之内与平台互动的社团成员，皆可收到团长发送的消息
         div.btn-line
-            botton.baidu-btn(ng-click="sendMessage()") 发送
+            button.baidu-btn(ng-click="sendMessage()") 发送
+
 include ./lib/footer.jade

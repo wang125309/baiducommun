@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<title>
+
+GitLab
+</title>
+<link href="/assets/favicon-baaa14bade1248aa6165e9d34e7d83c0.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+<link href="/assets/application-41562a22f11f335188eb15ca66b21e63.css" media="all" rel="stylesheet" />
+<link href="/assets/print-1df3ea9b8ff148a6745321899e0cb213.css" media="print" rel="stylesheet" />
+<script src="/assets/application-8e6362c1642f84425f0aa32816406bb8.js"></script>
+<meta content="authenticity_token" name="csrf-param" />
+<meta content="ohMLz8C1o/TSXH2pfj/q11X+i8G8UtntRVOU2LZzWxM=" name="csrf-token" />
+<script type="text/javascript">
+//<![CDATA[
+window.gon={};gon.default_issues_tracker="gitlab";gon.api_version="v3";gon.relative_url_root="";gon.default_avatar_url="http://gitlab.baidu.com/assets/no_avatar-adffbfe10d45b20495cd2a9b88974150.png";
+//]]>
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<script>
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://piwik.baidu.com/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+
+</head>
+
+<body class='ui_basic login-page'>
+<div class='flash-container'>
+<div class='flash-alert'>
+You need to sign in before continuing.
+</div>
+</div>
+
+<div class='container'>
+<div class='content'>
+<center>
+<h1>GitLab</h1>
+<p class='light'>
+GitLab is open source software to collaborate on code.
+<br>
+Sign in or browse for <a href="/public/projects">public projects</a>.
+</p>
+</center>
+</div>
+</div>
+<hr>
+<div class='container'>
+<div class='content'>
+<div class='login-box'>
+<h3 class='page-title'>Sign in</h3>
+<script>
+  if (window.location.hash != '#web') { window.location = "/users/auth/cas"; }
+</script>
+<form accept-charset="UTF-8" action="/users/sign_in" class="new_user" id="new_user" method="post"><div style="display:none"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="ohMLz8C1o/TSXH2pfj/q11X+i8G8UtntRVOU2LZzWxM=" /></div><input autofocus="autofocus" class="form-control top" id="user_login" name="user[login]" placeholder="Username or Email" type="text" />
+<input class="form-control bottom" id="user_password" name="user[password]" placeholder="Password" type="password" />
+<div class='clearfix append-bottom-10'>
+<label class='checkbox remember_me' for='user_remember_me'>
+<input name="user[remember_me]" type="hidden" value="0" /><input id="user_remember_me" name="user[remember_me]" type="checkbox" value="1" />
+<span>Remember me</span>
+</label>
+</div>
+<div>
+<input class="btn-create btn" name="commit" type="submit" value="Sign in" />
+<div class='pull-right'>
+<a class="btn" href="/users/password/new">Forgot your password?</a>
+</div>
+</div>
+</form>
+
+
+
+<hr>
+<p>
+<span class='light'>Did not receive confirmation email?</span>
+<a href="/users/confirmation/new">Send again</a>
+</p>
+</div>
+
+</div>
+</div>
+</body>
+</html>

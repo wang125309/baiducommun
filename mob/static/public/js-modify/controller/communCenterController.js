@@ -17,16 +17,12 @@ function getQueryParams(name,url) {
 	var results = regex.exec( url );
 	return results == null ? null : results[1];
 }
-var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchangeService','cancelAppvInfoService','communService','getUserCommunRelTypeService','joinCommunService','getCommunityTaskStatusListService','quitCommunService','getCommunityScoreInfoService','complateCommunityInfoService','complateCommunityInfoService','notifyCommunMemberService','jsConfigService','ngTouch']).controller('CommunCenterCtrl',['$scope','delCommun','scoreExchange','cancelAppvInfo','joinCommun','quitCommun','getUserCommunRelType','Communs','CommunsInfo','getCommunityTaskStatusList','getCommunityScoreInfo','complateCommunityInfo','notifyCommunMember','jsConfig','$q',function($scope,delCommun,scoreExchange,cancelAppvInfo,joinCommun,quitCommun,getUserCommunRelType,Communs,CommunsInfo,getCommunityTaskStatusList,getCommunityScoreInfo,complateCommunityInfo,notifyCommunMember,jsConfig,$q){
+var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchangeService','cancelAppvInfoService','communService','getUserCommunRelTypeService','joinCommunService','getCommunityTaskStatusListService','quitCommunService','getCommunityScoreInfoService','complateCommunityInfoService','complateCommunityInfoService','notifyCommunMemberService','communCommentService','jsConfigService','ngTouch']).controller('CommunCenterCtrl',['$scope','delCommun','scoreExchange','cancelAppvInfo','joinCommun','quitCommun','getUserCommunRelType','Communs','CommunsInfo','getCommunityTaskStatusList','getCommunityScoreInfo','complateCommunityInfo','notifyCommunMember','getCommentList','addCommunityComment','jsConfig','$q',function($scope,delCommun,scoreExchange,cancelAppvInfo,joinCommun,quitCommun,getUserCommunRelType,Communs,CommunsInfo,getCommunityTaskStatusList,getCommunityScoreInfo,complateCommunityInfo,notifyCommunMember,getCommentList,addCommunityComment,jsConfig,$q){
 	$scope.tip = {
 		show: false,
 		message: ''
 	};
 
-	$scope.clickTipFrame = function() {
-		$scope.tip.show = false;
-		$scope.tip.message = '';
-	};
 
 	jsConfig.query({
 		"url":location.href
@@ -46,6 +42,15 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 	$scope.communs = Communs.query();
 	commun_id = getQueryParams("commun_id",location.href);
 
+    getCommentList.query({
+        cid:commun_id
+    },function(d){
+        $scope.message = d.root;
+    });
+	$scope.clickTipFrame = function() {
+		$scope.tip.show = false;
+		$scope.tip.message = '';
+	};
 	function triggerAlert(isFrameShow, message, isLineShow,inputQQ) {
 		$scope.tip.show = isFrameShow;
 		$scope.tip.message = message;
@@ -135,7 +140,7 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 		$scope.footerMenu.isopen = !$scope.footerMenu.isopen;
 	};
 	$scope.getTaskInfo = function(task_id) {
-		location.href="/mob/taskInfo.do?taskId="+task_id;
+		location.href="/mob/taskInfo.do?taskId="+task_id+"&cid="+commun_id;
 	};
 	$scope.goJoin = function() {
 		joinCommun.query({
@@ -196,7 +201,7 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 					$scope.hide_send();
 				}
 				else {
-					triggerAlert(true,d.data.reason);
+					triggerAlert(true,d.data.message);
 					$scope.hide_send();
 				}
 			});
@@ -244,7 +249,7 @@ var CommunCenterCtrl = angular.module('baidu',['delCommunService','scoreExchange
 						}
 						else {
 							cover_flag = true;
-							triggerAlert(true, '小主的积分兑换申请已经提交，耐心等待审批结果吧!（我们将于24小时之内审批您的申请）');
+							triggerAlert(true, '小主的积分兑换申请已经提交，耐心等待审批结果吧!');
 						}
 						$scope.isConverting = false;
 					});
